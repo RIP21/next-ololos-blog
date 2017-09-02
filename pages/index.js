@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import styled from "styled-components";
 import Link from "next/link";
 
-const Index = () =>
+const Index = () => (
   <Layout topPadding="0em">
     <Masthead>
       <Logo>
@@ -19,7 +19,8 @@ const Index = () =>
     <Link href="/post?id=first" as="/post/first">
       <a>My first blog post</a>
     </Link>
-  </Layout>;
+  </Layout>
+);
 
 export const Masthead = styled.section`
   width: 100vw;

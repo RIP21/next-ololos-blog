@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Footer = ({ ...rest }) =>
+const Footer = ({ ...rest }) => (
   <footer {...rest}>
     <div>
       <a href="https://github.com/RIP21/ololos-blog-react-redux-universal">
@@ -40,7 +40,8 @@ const Footer = ({ ...rest }) =>
         CC 3.0 BY
       </a>
     </div>
-  </footer>;
+  </footer>
+);
 
 export default styled(Footer)`
   min-height: 20px;

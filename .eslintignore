@@ -5,3 +5,4 @@ src/resources/**
 /lib/
 /styleguide/
 /.next/
+/node_modules

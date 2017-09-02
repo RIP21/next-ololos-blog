@@ -58,6 +58,4 @@ const Heading = styled.div`
   }
 `;
 
-const MenuStyles = styled(Menu)`
-  justify-content: center;
-`;
+const MenuStyles = styled(Menu)`justify-content: center;`;

@@ -13,36 +13,37 @@
     "stylecheck": "run-p stylelint eslint"
   },
   "dependencies": {
-    "express": "^4.15.3",
-    "next": "beta",
+    "express": "^4.15.4",
+    "next": "^3.2.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "semantic-ui-react": "^0.70.0",
-    "styled-components": "2.0.0"
+    "semantic-ui-react": "^0.72.0",
+    "styled-components": "2.1.2"
   },
   "devDependencies": {
     "babel-plugin-module-resolver": "^2.7.1",
-    "babel-plugin-styled-components": "^1.1.6",
-    "cross-env": "^5.0.1",
+    "babel-plugin-styled-components": "^1.2.0",
+    "cross-env": "^5.0.5",
     "enzyme": "^2.9.1",
-    "eslint": "^4.1.1",
-    "eslint-config-prettier": "^2.3.0",
-    "eslint-plugin-prettier": "^2.1.2",
+    "eslint": "^4.6.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react-app": "^1.0.2",
-    "husky": "^0.14.1",
+    "husky": "^0.14.3",
     "jest": "^20.0.4",
-    "jest-enzyme": "^3.4.0",
-    "jest-styled-components": "^3.1.5",
-    "lint-staged": "^4.0.0",
+    "jest-enzyme": "^3.8.1",
+    "jest-styled-components": "^4.4.1",
+    "lint-staged": "^4.0.4",
     "npm-run-all": "^4.0.2",
-    "prettier": "^1.5.2",
+    "prettier": "^1.6.1",
     "prop-types": "^15.5.10",
     "react-addons-test-utils": "^15.6.0",
     "react-test-renderer": "^15.6.1",
     "rimraf": "^2.6.1",
-    "stylelint": "^7.12.0",
-    "stylelint-config-standard": "^16.0.0",
-    "stylelint-processor-styled-components": "^0.1.2"
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^0.4.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./setupTests.js",
@@ -56,7 +57,10 @@
     "processors": [
       "stylelint-processor-styled-components"
     ],
-    "extends": "stylelint-config-standard",
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-styled-components"
+    ],
     "syntax": "scss",
     "rules": {
       "block-opening-brace-space-after": "never-single-line",

@@ -7,9 +7,7 @@ const Post = ({ id }) => {
     <Layout as="article" title="О нас">
       <header>
         <h2>Милан</h2>
-        <h3>
-          {id}
-        </h3>
+        <h3>{id}</h3>
         <p>
           <small>
             <time dateTime="2017-06-20 19:00">2017-06-20 19:00</time> Андрей

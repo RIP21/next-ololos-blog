@@ -15,12 +15,10 @@ const Layout = ({
   text = true,
   topPadding = "1em",
   as = "div"
-}) =>
+}) => (
   <div>
     <Head>
-      <title>
-        {title}
-      </title>
+      <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link
@@ -35,7 +33,8 @@ const Layout = ({
       {children}
     </ContentContainer>
     <Footer />
-  </div>;
+  </div>
+);
 
 const ContentContainer = styled(Container)`
   padding-top: ${p => p.topPadding};
