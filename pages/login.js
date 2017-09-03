@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PT from "prop-types";
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import { Form, Icon } from "semantic-ui-react";
 //import { connect } from "react-redux";
 
@@ -10,9 +10,10 @@ export default class Login extends Component {
     password: ""
   };
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = ({ target: { name, value } }) =>
+    this.setState({ [name]: value });
 
-  handleSubmit = e => {
+  handleSubmit = () => {
     const { username, password } = this.state;
     this.props.login(username, password);
   };

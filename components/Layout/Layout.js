@@ -22,6 +22,10 @@ const Layout = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link
+        href="https://cdn.quilljs.com/1.3.1/quill.snow.css"
+        rel="stylesheet"
+      />
+      <link
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
       />

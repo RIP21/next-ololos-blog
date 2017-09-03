@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import styled from "styled-components";
 
 const Post = ({ id }) => {
@@ -417,7 +417,7 @@ Post.getInitialProps = ({ query: { id } }) => {
   return { id };
 };
 
-const PostContainer = styled.div`
+const PostContainer = styled("div")`
   & img {
     border-radius: 6px;
     display: block;
