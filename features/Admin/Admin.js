@@ -1,7 +1,7 @@
-import React from "react";
-import Layout from "components/Layout";
-import { Table, Button } from "semantic-ui-react";
-import Row from "./Row";
+import React from 'react'
+import Layout from 'components/Layout'
+import { Table, Button } from 'semantic-ui-react'
+import Row from './Row'
 
 class Admin extends React.PureComponent {
   render() {
@@ -25,8 +25,8 @@ class Admin extends React.PureComponent {
         </Table>
         <Button> Создать </Button>
       </Layout>
-    );
+    )
   }
 }
 
-export default Admin;
+export default Admin

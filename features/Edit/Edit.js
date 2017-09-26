@@ -1,8 +1,8 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import Layout from "components/Layout";
-import { Form, Header } from "semantic-ui-react";
-const ClientQuill = dynamic(import("react-quill"), { ssr: false });
+import React from 'react'
+import dynamic from 'next/dynamic'
+import Layout from 'components/Layout'
+import { Form, Header } from 'semantic-ui-react'
+const ClientQuill = dynamic(import('react-quill'), { ssr: false })
 
 class Edit extends React.Component {
   render() {
@@ -29,8 +29,8 @@ class Edit extends React.Component {
           <Form.Button>Сохранить</Form.Button>
         </Form>
       </Layout>
-    );
+    )
   }
 }
 
-export default Edit;
+export default Edit

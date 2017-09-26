@@ -1,2 +1,2 @@
-import Edit from "./Edit";
-export default Edit;
+import Edit from './Edit'
+export default Edit

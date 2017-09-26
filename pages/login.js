@@ -1,25 +1,26 @@
-import React, { Component } from "react";
-import PT from "prop-types";
-import Layout from "components/Layout";
-import { Form, Icon } from "semantic-ui-react";
-//import { connect } from "react-redux";
+import React, { Component } from 'react'
+import PT from 'prop-types'
+import Layout from 'components/Layout'
+import { Form, Icon } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import initStore from 'redux/store'
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
-    username: "",
-    password: ""
-  };
+    username: '',
+    password: '',
+  }
 
   handleChange = ({ target: { name, value } }) =>
-    this.setState({ [name]: value });
+    this.setState({ [name]: value })
 
   handleSubmit = () => {
-    const { username, password } = this.state;
-    this.props.login(username, password);
-  };
+    const { username, password } = this.state
+    this.props.login(username, password)
+  }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password } = this.state
 
     return (
       <Layout title="Авторизация">
@@ -46,7 +47,7 @@ export default class Login extends Component {
           </Form.Group>
         </Form>
       </Layout>
-    );
+    )
   }
 }
 
@@ -55,5 +56,7 @@ Login.propTypes = {
   login: PT.func,
   logout: PT.func,
   push: PT.func,
-  redirectBackLink: PT.string
-};
+  redirectBackLink: PT.string,
+}
+
+export default withRedux(initStore, null, {})(Login)

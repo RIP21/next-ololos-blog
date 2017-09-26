@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react";
-import { Menu, Container } from "semantic-ui-react";
-import styled from "styled-components";
-import Link from "next/link";
+import React, { PureComponent } from 'react'
+import { Menu, Container } from 'semantic-ui-react'
+import styled from 'styled-components'
+import Link from 'next/link'
 
 export default class Navigation extends PureComponent {
   render() {
@@ -37,7 +37,7 @@ export default class Navigation extends PureComponent {
           </Container>
         </MenuStyles>
       </nav>
-    );
+    )
   }
 }
 
@@ -56,6 +56,6 @@ const Heading = styled.div`
   img {
     width: 2.5em;
   }
-`;
+`
 
-const MenuStyles = styled(Menu)`justify-content: center;`;
+const MenuStyles = styled(Menu)`justify-content: center;`

@@ -1,8 +1,10 @@
-import React from "react";
-import Edit from "features/Edit";
+import React from 'react'
+import Edit from 'features/Edit'
+import withRedux from 'next-redux-wrapper'
+import initStore from 'redux/store'
 
 const EditPage = () => {
-  return <Edit />;
-};
+  return <Edit />
+}
 
-export default EditPage;
+export default withRedux(initStore, null, {})(EditPage)

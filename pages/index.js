@@ -1,7 +1,9 @@
-import React from "react";
-import Layout from "components/Layout";
-import styled from "styled-components";
-import Link from "next/link";
+import React from 'react'
+import Layout from 'components/Layout'
+import styled from 'styled-components'
+import Link from 'next/link'
+import withRedux from 'next-redux-wrapper'
+import initStore from 'redux/store'
 
 const Index = () => (
   <Layout topPadding="0em">
@@ -20,7 +22,7 @@ const Index = () => (
       <a>My first blog post</a>
     </Link>
   </Layout>
-);
+)
 
 export const Masthead = styled.section`
   width: 100vw;
@@ -46,7 +48,7 @@ export const Masthead = styled.section`
   p {
     margin: 10px;
   }
-`;
+`
 
 export const Logo = styled.div`
   margin: auto;
@@ -63,6 +65,6 @@ export const Logo = styled.div`
     width: 75%;
     margin: auto;
   }
-`;
+`
 
-export default Index;
+export default withRedux(initStore, null, {})(Index)

@@ -1,20 +1,20 @@
-import React from "react";
-import PT from "prop-types";
-import Head from "next/head";
-import Navigation from "./Navigation";
-import Footer from "./Footer";
-import { Container } from "semantic-ui-react";
-import styled, { injectGlobal } from "styled-components";
+import React from 'react'
+import PT from 'prop-types'
+import Head from 'next/head'
+import Navigation from './Navigation'
+import Footer from './Footer'
+import { Container } from 'semantic-ui-react'
+import styled, { injectGlobal } from 'styled-components'
 
 // eslint-disable-next-line no-unused-expressions
-injectGlobal`body {overflow-y: scroll;}`;
+injectGlobal`body {overflow-y: scroll;}`
 
 const Layout = ({
   children,
-  title = "Ололось блог",
+  title = 'Ололось блог',
   text = true,
-  topPadding = "1em",
-  as = "div"
+  topPadding = '1em',
+  as = 'div',
 }) => (
   <div>
     <Head>
@@ -38,18 +38,18 @@ const Layout = ({
     </ContentContainer>
     <Footer />
   </div>
-);
+)
 
 const ContentContainer = styled(Container)`
   padding-top: ${p => p.topPadding};
   padding-bottom: 1em;
-`;
+`
 
 Layout.propTypes = {
   text: PT.bool,
   title: PT.string,
   topPadding: PT.string,
-  as: PT.string
-};
+  as: PT.string,
+}
 
-export default Layout;
+export default Layout

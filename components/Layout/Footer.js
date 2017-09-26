@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const Footer = ({ ...rest }) => (
   <footer {...rest}>
@@ -8,29 +8,29 @@ const Footer = ({ ...rest }) => (
         Source code
       </a>
     </div>
-    Made by Andrii Los aka <a href="https://twitter.com/RIP212">@RIP212</a>{" "}
-    using nice{" "}
+    Made by Andrii Los aka <a href="https://twitter.com/RIP212">@RIP212</a>{' '}
+    using nice{' '}
     <a
       href="https://github.com/erikras/react-redux-universal-hot-example/"
       target="_blank"
       rel="noopener noreferrer"
     >
       react-redux-universal-hot-example
-    </a>{" "}
+    </a>{' '}
     for a base for server-side rendering.
     <div>
-      Icons made by{" "}
+      Icons made by{' '}
       <a
         href="http://www.flaticon.com/authors/pixel-buddha"
         title="Pixel Buddha"
       >
-        Pixel Buddha{" "}
+        Pixel Buddha{' '}
       </a>
-      from{" "}
+      from{' '}
       <a href="http://www.flaticon.com" title="Flaticon">
         www.flaticon.com
-      </a>{" "}
-      is licensed by{" "}
+      </a>{' '}
+      is licensed by{' '}
       <a
         href="http://creativecommons.org/licenses/by/3.0/"
         title="Creative Commons BY 3.0"
@@ -41,7 +41,7 @@ const Footer = ({ ...rest }) => (
       </a>
     </div>
   </footer>
-);
+)
 
 export default styled(Footer)`
   min-height: 20px;
@@ -52,4 +52,4 @@ export default styled(Footer)`
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   text-align: center;
-`;
+`

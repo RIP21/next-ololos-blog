@@ -1,6 +1,8 @@
-import React from "react";
-import Layout from "../components/Layout/Layout";
-import { Image } from "semantic-ui-react";
+import React from 'react'
+import Layout from '../components/Layout/Layout'
+import { Image } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import initStore from 'redux/store'
 
 const About = () => {
   return (
@@ -35,12 +37,12 @@ const About = () => {
       <h4>Андрей - блого-созидатель:</h4>
       <ul>
         <li>
-          Работает программистом в рабочее и{" "}
+          Работает программистом в рабочее и{' '}
           <a href="https://github.com/RIP21">свободное от работы время</a>
         </li>
         <li>
           Написал этот блог. Если верстка хромает, или вы хотите новую фичу
-          (напрмер{" "}
+          (напрмер{' '}
           <a href="http://button.dekel.ru/">
             кнопку, которая сделает все хорошо
           </a>
@@ -53,7 +55,7 @@ const About = () => {
         </li>
         <li>Моет посуду в посудомойке</li>
         <li>
-          Поёт (партию Онегина и{" "}
+          Поёт (партию Онегина и{' '}
           <a href="https://www.youtube.com/watch?v=A1jXICD1wWk">The Queen</a>,
           например)
         </li>
@@ -70,13 +72,13 @@ const About = () => {
         </li>
         <li>
           Пишет статьи, в которых странно шутит. Если вы хотите хороших умных
-          шуток - скачайте{" "}
+          шуток - скачайте{' '}
           <a href="http://xkcd.ru/1174/">
             полную версию нашего приложения, без рекламы, с единорожками
-          </a>{" "}
+          </a>{' '}
         </li>
         <li>
-          Частично делает и обрабатывает{" "}
+          Частично делает и обрабатывает{' '}
           <a href="https://www.instagram.com/li_oliin/">фотографии</a>
         </li>
         <li>Раскладывает все вещи по местам и клеит на них стикеры</li>
@@ -97,7 +99,7 @@ const About = () => {
         наш красочный отфотошопленный мир =)
       </p>
     </Layout>
-  );
-};
+  )
+}
 
-export default About;
+export default withRedux(initStore, null, {})(About)

@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
-import { Table } from "semantic-ui-react";
+import React, { PureComponent } from 'react'
+import { Table } from 'semantic-ui-react'
 
 class Row extends PureComponent {
   render() {
@@ -19,8 +19,8 @@ class Row extends PureComponent {
           <a href="/delete">Удалить</a>
         </Table.Cell>
       </Table.Row>
-    );
+    )
   }
 }
 
-export default Row;
+export default Row
