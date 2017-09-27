@@ -8,6 +8,20 @@ import { Label, Divider } from 'semantic-ui-react'
 const DisqusThread = dynamic(import('react-disqus-comments'), { ssr: false })
 
 export default class Post extends React.PureComponent {
+  renderMarkdownAndReplaceLinks = () => {
+    const source = new Remarkable({
+      html: true,
+      linkify: true,
+      typographer: true,
+    }).render(this.props.post.body)
+    const re = new RegExp('<a>', 'g')
+    const re2 = new RegExp('<a ', 'g')
+    const result = source
+      .replace(re2, '<a target="_blank"')
+      .replace(re, '<a target="_blank"')
+    return result
+  }
+
   render() {
     const { post } = this.props
     const date = moment(post.postdate).format('YYYY-MM-DD HH:mm')
@@ -27,11 +41,7 @@ export default class Post extends React.PureComponent {
         <Divider />
         <PostContainer
           dangerouslySetInnerHTML={{
-            __html: new Remarkable({
-              html: true,
-              linkify: true,
-              typographer: true,
-            }).render(post.body),
+            __html: this.renderMarkdownAndReplaceLinks(),
           }}
         />
 

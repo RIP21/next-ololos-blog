@@ -16,8 +16,6 @@ export const getCurrentAuthor = createSelector(
   getAuthors,
   getUser,
   (authors, user) => {
-    console.log(user, authors)
-    console.log(find(authors, author => author.id === user.userName))
     return find(authors, author => author.id === user.userName) || null
   },
 )
