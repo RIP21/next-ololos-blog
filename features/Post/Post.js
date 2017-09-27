@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import Remarkable from 'remarkable'
 import moment from 'moment'
 import { Label, Divider } from 'semantic-ui-react'
-import Link from 'next/link'
 
 const DisqusThread = dynamic(import('react-disqus-comments'), { ssr: false })
 

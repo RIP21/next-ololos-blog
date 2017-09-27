@@ -24,8 +24,9 @@ class Row extends PureComponent {
         </Table.Cell>
         <Table.Cell>{post.author.authorName}</Table.Cell>
         <Table.Cell>{moment(post.postdate).format('llll')}</Table.Cell>
-        <Table.Cell positive={published} negative={!published}>{published ? 'Опубликован' :
-          "Не опубликован"}</Table.Cell>
+        <Table.Cell positive={published} negative={!published}>
+          {published ? 'Опубликован' : 'Не опубликован'}
+        </Table.Cell>
         <Table.Cell>
           <Link href={`/edit?id=${post.id}`} as={`/admin/edit/post/${post.id}`}>
             <a>Редактировать</a>

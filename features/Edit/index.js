@@ -7,7 +7,7 @@ import { getCurrentAuthor } from 'redux/selector/authors'
 const selector = (state, ownProps) => {
   return {
     post: getPostById(ownProps.postId)(state),
-    author: getCurrentAuthor(state)
+    author: getCurrentAuthor(state),
   }
 }
 

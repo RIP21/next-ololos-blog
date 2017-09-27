@@ -13,7 +13,7 @@ const LOGOUT_FAIL = 'auth/LOGOUT_FAIL'
 const initialState = {
   loaded: false,
   loading: false,
-  user: null
+  user: null,
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -108,4 +108,3 @@ export function logout() {
     promise: client => client.del('/session'),
   }
 }
-

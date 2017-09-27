@@ -97,7 +97,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-
 export function loadPosts() {
   return {
     types: [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAIL],
