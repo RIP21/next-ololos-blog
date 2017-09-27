@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const next = require('next')
 const compression = require('compression')
@@ -17,7 +18,8 @@ app
       target: targetUrl,
       changeOrigin: true,
     })
-
+    const content = path.resolve('content')
+    server.use(express.static(content))
     server.use(compression())
     server.use('/api', (req, res) => {
       proxy.web(req, res, { target: targetUrl })
