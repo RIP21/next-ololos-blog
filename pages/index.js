@@ -3,24 +3,28 @@ import Layout from 'components/Layout'
 import styled from 'styled-components'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
-import { loadPosts } from 'redux/posts'
-import { loadAuthors } from 'redux/authors'
 import withAuth from '../helpers/withAuth'
-import Post from '../features/Post/Post'
+import Preview from '../features/Post/Preview'
 import map from 'lodash/map'
-import { getSortedByDatePosts } from '../redux/selector/posts'
+import { getSortedAndPublishedPosts } from 'redux/selector/posts'
+import { withData } from 'helpers/withData'
 
 class Index extends React.Component {
   static async getInitialProps({ store }) {
-    await Promise.all([
-      store.dispatch(loadPosts()),
-      store.dispatch(loadAuthors()),
-    ])
+    await withData(store)
+  }
+
+  getMeta = () => {
+    return {
+      title: 'Ололось блог',
+      description:
+        'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
+    }
   }
 
   render() {
     return (
-      <Layout topPadding="0em">
+      <Layout topPadding="0em" meta={this.getMeta()}>
         <Masthead>
           <Logo>
             <p>
@@ -33,9 +37,9 @@ class Index extends React.Component {
             Олейник
           </h2>
         </Masthead>
-        {map(this.props.posts, post => (
-          <Post key={post.id} post={post} isIndex />
-        ))}
+        <Thread>
+          {map(this.props.posts, post => <Preview key={post.id} post={post} />)}
+        </Thread>
       </Layout>
     )
   }
@@ -84,8 +88,13 @@ export const Logo = styled.div`
   }
 `
 
+export const Thread = styled.div`
+  margin-top: 2em;
+  margin-bottom: 2em;
+`
+
 const selector = (state, ownProps) => ({
-  posts: getSortedByDatePosts(state),
+  posts: getSortedAndPublishedPosts(state),
 })
 
 export default withRedux(initStore, selector, {})(withAuth(Index))

@@ -1,4 +1,3 @@
-//const path = require('path')
 const express = require('express')
 const next = require('next')
 const compression = require('compression')
@@ -28,6 +27,11 @@ app
       const actualPage = '/post'
       const queryParams = { id: req.params.id }
       app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get('/admin/posts', (req, res) => {
+      const actualPage = '/admin'
+      app.render(req, res, actualPage)
     })
 
     server.get('/admin/create/post', (req, res) => {

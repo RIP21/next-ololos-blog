@@ -20,7 +20,13 @@ class Login extends React.Component {
 
   handleSubmit = () => {
     const { username, password } = this.state
-    this.props.login(username, password).then(Router.push('/index'))
+    this.props.login(username, password).then(this.redirectIfSuccess)
+  }
+
+  redirectIfSuccess = () => {
+    if (this.props.isAuthenticated) {
+      Router.push('/index')
+    }
   }
 
   render() {

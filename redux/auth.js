@@ -9,24 +9,15 @@ const LOGIN_FAIL = 'auth/LOGIN_FAIL'
 const LOGOUT = 'auth/LOGOUT'
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS'
 const LOGOUT_FAIL = 'auth/LOGOUT_FAIL'
-const SAVE_ROUTE_TO_REDIRECT_BACK = 'auth/SAVE_ROUTE_TO_REDIRECT_BACK'
 
 const initialState = {
   loaded: false,
   loading: false,
-  user: null,
-  loggingIn: false,
-  loggingOut: false,
-  redirectBackLink: '/',
+  user: null
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case SAVE_ROUTE_TO_REDIRECT_BACK:
-      return {
-        ...state,
-        redirectBackLink: action.redirectLocation,
-      }
     case LOAD:
       return {
         ...state,
@@ -51,21 +42,18 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loaded: false,
         loading: true,
-        loggingIn: true,
       }
     case LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        loggingIn: false,
         user: action.result,
       }
     case LOGIN_FAIL:
       return {
         ...state,
         loaded: false,
-        loggingIn: false,
         user: null,
         error: action.error,
       }
@@ -74,14 +62,12 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: true,
         loaded: false,
-        loggingOut: true,
       }
     case LOGOUT_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        loggingOut: false,
         user: null,
       }
     case LOGOUT_FAIL:
@@ -89,16 +75,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
-        loggingOut: false,
         error: action.error,
       }
     default:
       return state
   }
-}
-
-export function isLoaded(globalState) {
-  return globalState.auth && globalState.auth.loaded
 }
 
 export function load() {
@@ -128,14 +109,3 @@ export function logout() {
   }
 }
 
-export function redirectToLogin() {
-  return dispatch => window.location.push('/login')
-}
-
-export function saveRouteToBackRedirect(redirectLocation) {
-  return dispatch =>
-    dispatch({
-      type: SAVE_ROUTE_TO_REDIRECT_BACK,
-      redirectLocation,
-    })
-}

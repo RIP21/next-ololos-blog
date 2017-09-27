@@ -38,10 +38,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.authors && globalState.authors.loaded
-}
-
 export function loadAuthors() {
   return {
     types: [LOAD_AUTHORS, LOAD_AUTHORS_SUCCESS, LOAD_AUTHORS_FAIL],

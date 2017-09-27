@@ -8,7 +8,7 @@ moment.locale('ru')
 class Row extends PureComponent {
   onDelete = e => {
     e.preventDefault()
-    this.props.onDelete(this.props.post)
+    this.props.onDelete(this.props.post.id)
   }
 
   render() {

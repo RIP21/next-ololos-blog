@@ -1,4 +1,4 @@
-const CLOSE_ERROR_MODAL = 'CLOSE_ERROR_MODAL'
+const CLOSE_ERROR_MODAL = 'error/CLOSE_ERROR_MODAL'
 
 const actionTypeEndsWithFail = type =>
   type.substring(type.length - 5) === '_FAIL'

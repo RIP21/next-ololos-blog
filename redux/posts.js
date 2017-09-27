@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle*/
-
 export const LOAD_POST = 'post/LOAD'
 export const LOAD_POST_FAIL = 'post/LOAD_FAIL'
 export const LOAD_POST_SUCCESS = 'post/LOAD_SUCCESS'
@@ -22,7 +20,7 @@ export const DELETE_POST_SUCCESS = 'posts/DELETE_SUCCESS'
 
 const initialState = {
   posts: [],
-  loaded: false, // TODO: Design some sort of the initialLoad flag to support first load only, then paginating in affect
+  loaded: false,
   loading: false,
   error: {},
 }
@@ -99,13 +97,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.posts && globalState.posts.loaded
-}
-
-export function isLoading(globalState) {
-  return globalState.posts && globalState.posts.loading
-}
 
 export function loadPosts() {
   return {

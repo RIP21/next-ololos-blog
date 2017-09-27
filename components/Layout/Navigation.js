@@ -31,7 +31,7 @@ export default class Navigation extends PureComponent {
             </Menu.Item>
             {this.props.isAuthenticated && (
               <Menu.Item>
-                <Link href="/admin">
+                <Link href="/admin" as="/admin/posts">
                   <a>Администрация Постов</a>
                 </Link>
               </Menu.Item>

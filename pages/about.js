@@ -3,7 +3,7 @@ import Layout from '../components/Layout/Layout'
 import { Image } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
-import withAuth from "../helpers/withAuth";
+import withAuth from '../helpers/withAuth'
 
 const About = () => {
   return (

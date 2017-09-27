@@ -1,8 +1,9 @@
 import React from 'react'
-//import dynamic from 'next/dynamic'
 import Layout from 'components/Layout'
 import { Form, Header, Checkbox } from 'semantic-ui-react'
-//const ClientQuill = dynamic(import('react-quill'), { ssr: false })
+import SimpleMDE from 'react-simplemde-editor'
+import Router from 'next/router'
+import cloneDeep from 'lodash/cloneDeep'
 
 export const EMPTY_AUTHOR = { id: '', authorName: '' }
 export const EMPTY_POST = {
@@ -38,9 +39,33 @@ class Edit extends React.Component {
   onChange = (e, { value }) => {
     this.setState({ [e.target.name]: value })
   }
+  onEditorChange = field => value => {
+    this.setState({ [field]: value })
+  }
+
+  onDescriptionChange = this.onEditorChange('description')
+  onBodyChange = this.onEditorChange('body')
 
   onCheckboxToggle = () => {
     this.setState(prevState => ({ published: !prevState.published }))
+  }
+
+  updateOrCreate = post => {
+    const { onPostCreate, onPostUpdate } = this.props
+    if (post.id) {
+      return onPostUpdate(post)
+    }
+    post.author = this.props.author
+    return onPostCreate(post)
+  }
+
+  onPostSave = () => {
+    // eslint-disable-next-line no-unused-vars
+    const { messages, ...post } = this.state
+    const clonedPost = cloneDeep(post)
+    this.updateOrCreate(clonedPost).then(() => {
+      Router.push('/admin', '/admin/posts')
+    })
   }
 
   render() {
@@ -70,21 +95,59 @@ class Edit extends React.Component {
             onChange={this.onCheckboxToggle}
           />
           <Header as="h5">Короткое описание</Header>
-          <textarea
-            name="description"
+          <SimpleMDE
+            className="description"
+            id={`description`}
             value={this.state.description}
-            //theme="snow"
-            onChange={this.onChange}
+            name="description"
+            onChange={this.onDescriptionChange}
+            options={{
+              placeholder:
+                'Введите короткое описание {Markdown синтаксис поддерживается}',
+              spellChecker: false,
+              toolbar: ['bold'],
+              hideIcons: ['bold'],
+              status: false,
+            }}
           />
-          <br />
-          <textarea
-            name="body"
+          <Header as="h4">Пост</Header>
+          <SimpleMDE
+            id={`body`}
+            onChange={this.onBodyChange}
             value={this.state.body}
-            //theme="snow"
-            onChange={this.onChange}
+            name="body"
+            options={{
+              spellChecker: false,
+              toolbar: [
+                'bold',
+                'italic',
+                'strikethrough',
+                '|',
+                'heading-1',
+                'heading-2',
+                'heading-3',
+                '|',
+                'heading-smaller',
+                'heading-bigger',
+                '|',
+                'code',
+                'quote',
+                'unordered-list',
+                'ordered-list',
+                'link',
+                'image',
+                '|',
+                'table',
+                'horizontal-rule',
+                '|',
+                'preview',
+                '|',
+                'guide',
+              ],
+            }}
           />
-          <br />
-          <Form.Button>{messages.button}</Form.Button>
+
+          <Form.Button onClick={this.onPostSave}>{messages.button}</Form.Button>
         </Form>
       </Layout>
     )
