@@ -3,6 +3,7 @@ import Layout from '../components/Layout/Layout'
 import { Image } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
+import withAuth from "../helpers/withAuth";
 
 const About = () => {
   return (
@@ -102,4 +103,4 @@ const About = () => {
   )
 }
 
-export default withRedux(initStore, null, {})(About)
+export default withRedux(initStore, null, {})(withAuth(About))

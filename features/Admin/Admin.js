@@ -2,8 +2,14 @@ import React from 'react'
 import Layout from 'components/Layout'
 import { Table, Button } from 'semantic-ui-react'
 import Row from './Row'
+import Router from 'next/router'
+import map from 'lodash/map'
 
 class Admin extends React.PureComponent {
+  onCreateClick = () => {
+    Router.push('/edit', '/admin/create/post')
+  }
+
   render() {
     return (
       <Layout title="Администрация постов" text={false}>
@@ -20,10 +26,12 @@ class Admin extends React.PureComponent {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            <Row />
+            {map(this.props.posts, post => (
+              <Row key={post.id} post={post} onDelete={this.props.onDelete} />
+            ))}
           </Table.Body>
         </Table>
-        <Button> Создать </Button>
+        <Button onClick={this.onCreateClick}> Создать </Button>
       </Layout>
     )
   }

@@ -1,16 +1,17 @@
 import superagent from 'superagent'
+import { IS_SERVER } from '../constants/common'
 
 const methods = ['get', 'post', 'put', 'patch', 'del']
 
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? `/${path}` : path
   //Means it's server
-  if (typeof window !== 'object') {
+  if (IS_SERVER) {
     // Prepend host and port of the API server to the path.
-    return `http://ololos.space/api${adjustedPath}`
+    return `http://localhost:8080/${adjustedPath}`
   }
   // Prepend `/api` to relative URL, to proxy to API server.
-  return `http://ololos.space/api${adjustedPath}`
+  return `/api${adjustedPath}`
 }
 
 export default class ApiClient {
@@ -27,7 +28,7 @@ export default class ApiClient {
               request.query(params)
             }
             //Means it's server stuff
-            if (typeof window !== 'object' && req.get('cookie')) {
+            if (IS_SERVER && req.get('cookie')) {
               request.set('cookie', req.get('cookie'))
             }
             if (data) {

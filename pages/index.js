@@ -1,28 +1,45 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import styled from 'styled-components'
-import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
+import { loadPosts } from 'redux/posts'
+import { loadAuthors } from 'redux/authors'
+import withAuth from '../helpers/withAuth'
+import Post from '../features/Post/Post'
+import map from 'lodash/map'
+import { getSortedByDatePosts } from '../redux/selector/posts'
 
-const Index = () => (
-  <Layout topPadding="0em">
-    <Masthead>
-      <Logo>
-        <p>
-          <img alt="logo" src="/static/logo.png" />
-        </p>
-      </Logo>
-      <h1>Ололось блог</h1>
-      <h2>
-        Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник
-      </h2>
-    </Masthead>
-    <Link href="/post?id=first" as="/post/first">
-      <a>My first blog post</a>
-    </Link>
-  </Layout>
-)
+class Index extends React.Component {
+  static async getInitialProps({ store }) {
+    await Promise.all([
+      store.dispatch(loadPosts()),
+      store.dispatch(loadAuthors()),
+    ])
+  }
+
+  render() {
+    return (
+      <Layout topPadding="0em">
+        <Masthead>
+          <Logo>
+            <p>
+              <img alt="logo" src="/static/logo.png" />
+            </p>
+          </Logo>
+          <h1>Ололось блог</h1>
+          <h2>
+            Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины
+            Олейник
+          </h2>
+        </Masthead>
+        {map(this.props.posts, post => (
+          <Post key={post.id} post={post} isIndex />
+        ))}
+      </Layout>
+    )
+  }
+}
 
 export const Masthead = styled.section`
   width: 100vw;
@@ -67,4 +84,8 @@ export const Logo = styled.div`
   }
 `
 
-export default withRedux(initStore, null, {})(Index)
+const selector = (state, ownProps) => ({
+  posts: getSortedByDatePosts(state),
+})
+
+export default withRedux(initStore, selector, {})(withAuth(Index))

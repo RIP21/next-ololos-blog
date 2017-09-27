@@ -1,9 +1,14 @@
 import React, { PureComponent } from 'react'
-import { Menu, Container } from 'semantic-ui-react'
+import { Menu, Container, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Router from 'next/router'
 
 export default class Navigation extends PureComponent {
+  onLogout = () => {
+    this.props.onLogout().then(Router.push('/index'))
+  }
+
   render() {
     return (
       <nav>
@@ -24,16 +29,27 @@ export default class Navigation extends PureComponent {
                 <a>О нас</a>
               </Link>
             </Menu.Item>
-            <Menu.Item>
-              <Link href="/admin">
-                <a>Администрация Постов</a>
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link href="/login">
-                <a>Логин</a>
-              </Link>
-            </Menu.Item>
+            {this.props.isAuthenticated && (
+              <Menu.Item>
+                <Link href="/admin">
+                  <a>Администрация Постов</a>
+                </Link>
+              </Menu.Item>
+            )}
+
+            {this.props.isAuthenticated ? (
+              <Menu.Item>
+                <Button basic color="red" onClick={this.onLogout}>
+                  Выход
+                </Button>
+              </Menu.Item>
+            ) : (
+              <Menu.Item>
+                <Link href="/login">
+                  <a>Логин</a>
+                </Link>
+              </Menu.Item>
+            )}
           </Container>
         </MenuStyles>
       </nav>

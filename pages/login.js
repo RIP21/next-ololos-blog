@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import Layout from 'components/Layout'
 import { Form, Icon } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
+import { login } from '../redux/auth'
+import Router from 'next/router'
+import { isAuthenticated } from '../redux/selector/auth'
+import { createStructuredSelector } from 'reselect'
 
-class Login extends Component {
+class Login extends React.Component {
   state = {
     username: '',
     password: '',
@@ -16,11 +20,16 @@ class Login extends Component {
 
   handleSubmit = () => {
     const { username, password } = this.state
-    this.props.login(username, password)
+    this.props.login(username, password).then(Router.push('/index'))
   }
 
   render() {
     const { username, password } = this.state
+
+    if (this.props.isAuthenticated) {
+      Router.push('/index')
+      return null
+    }
 
     return (
       <Layout title="Авторизация">
@@ -59,4 +68,6 @@ Login.propTypes = {
   redirectBackLink: PT.string,
 }
 
-export default withRedux(initStore, null, {})(Login)
+const selector = createStructuredSelector({ isAuthenticated })
+
+export default withRedux(initStore, selector, { login })(Login)

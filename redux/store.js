@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import rootReducer from 'redux/reducer'
 import clientMiddleware from 'helpers/promiseMiddleware'
 import ApiClient from 'helpers/ApiClient'
+import { IS_SERVER } from '../constants/common'
 
 /**
  * Return store
@@ -12,10 +13,9 @@ import ApiClient from 'helpers/ApiClient'
  * @return {object} Returns store with state
  */
 
-const client = new ApiClient()
-
-export default function(initialState = {}) {
+export default function(initialState = {}, { req }) {
   let finalCreateStore
+  const client = IS_SERVER ? new ApiClient(req) : new ApiClient()
   if (process.env.NODE_ENV === 'development') {
     finalCreateStore = compose(
       applyMiddleware(clientMiddleware(client)),
