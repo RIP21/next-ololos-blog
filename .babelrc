@@ -1,22 +1,33 @@
 {
+  "presets": [
+    "next/babel"
+  ],
   "plugins": [
-    ["babel-plugin-styled-components", {
-      "displayName": true,
-      "ssr": true
-    }],
-    ["module-resolver", {
-      "root": ["./"]}]
+    [
+      "babel-plugin-styled-components",
+      {
+        "displayName": true,
+        "ssr": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./"
+        ]
+      }
+    ]
   ],
   "env": {
-    "development": {
-      "presets": "next/babel"
-    },
-    "production": {
-      "presets": "next/babel"
-    },
     "test": {
       "presets": [
-        ["env", { "modules": "commonjs" }],
+        [
+          "env",
+          {
+            "modules": "commonjs"
+          }
+        ],
         "next/babel"
       ]
     }

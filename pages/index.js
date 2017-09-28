@@ -49,24 +49,12 @@ export const Masthead = styled.section`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 40px 20px;
+  background-image: url('static/cover1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
   text-align: center;
   position: relative;
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url('static/cover1.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    opacity: 1;
-    z-index: -1;
-  }
 
   h1 {
     font-size: 3em;
