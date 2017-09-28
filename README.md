@@ -1,6 +1,7 @@
-# next-ololos-blog
+# next-ololos-blog 
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/RIP21/next-ololos-blog.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/RIP21/next-ololos-blog.svg)](https://greenkeeper.io/)  
+
 Ololos-blog is a travel blog I wrote for learning purposes, now it's mine sort of playground for learning and trying new tech.
 
 If you have any questions about the code and tech, please ask in issues section :) 
