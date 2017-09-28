@@ -15,7 +15,10 @@ import { getError, isOpen } from 'redux/selector/error'
 import get from 'lodash/get'
 
 // eslint-disable-next-line no-unused-expressions
-injectGlobal`body {overflow-y: scroll;}`
+injectGlobal`
+  body {
+    overflow-y: scroll;
+  }`
 
 const logo =
   process.env.NODE_ENV === 'development'
