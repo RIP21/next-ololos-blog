@@ -17,9 +17,9 @@ export default class Navigation extends PureComponent {
             <Menu.Item>
               <Link href="/">
                 <Heading>
-                  <img src="/static/logo.png" alt="logo" />
+                  <NavLogo src="/static/logo.png" alt="logo" />
                   <a>
-                    <h3>Ололось блог</h3>
+                    <SiteTitle>Ололось блог</SiteTitle>
                   </a>
                 </Heading>
               </Link>
@@ -66,17 +66,19 @@ const Heading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
 
-  h3,
-  img {
-    margin: 0;
-    display: inline-block;
-    cursor: pointer;
-  }
+const SiteTitle = styled.h3`
+  margin: 0;
+  display: inline-block;
+  cursor: pointer;
+`
 
-  img {
-    width: 2.5em;
-  }
+const NavLogo = styled.img`
+  display: inline-block;
+  cursor: pointer;
+  width: 2.5em;
+  margin: 0 0.5em 0 0;
 `
 
 const MenuStyles = styled(Menu)`justify-content: center;`

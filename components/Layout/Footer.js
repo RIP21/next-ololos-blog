@@ -4,37 +4,37 @@ import styled from 'styled-components'
 const Footer = ({ ...rest }) => (
   <footer {...rest}>
     <div>
-      <a href="https://github.com/RIP21/ololos-blog-react-redux-universal">
-        Source code
-      </a>
+      <a target='_blank' href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend">
+        Backend Code
+      </a> | <a target='_blank' href="https://github.com/RIP21/next-ololos-blog">Frontend Code</a>
     </div>
-    Made by Andrii Los aka <a href="https://twitter.com/RIP212">@RIP212</a>{' '}
-    using nice{' '}
+    Made by Andrii Los aka <a target='_blank' href="https://twitter.com/RIP212">@RIP212</a>{' '}
+    using amazing{' '}
     <a
-      href="https://github.com/erikras/react-redux-universal-hot-example/"
+      href="https://github.com/zeit/next.js"
       target="_blank"
-      rel="noopener noreferrer"
     >
-      react-redux-universal-hot-example
-    </a>{' '}
-    for a base for server-side rendering.
+      next.js
+    </a>
     <div>
       Icons made by{' '}
       <a
         href="http://www.flaticon.com/authors/pixel-buddha"
         title="Pixel Buddha"
+        rel="noopener"
+        target='_blank'
       >
         Pixel Buddha{' '}
       </a>
       from{' '}
-      <a href="http://www.flaticon.com" title="Flaticon">
+      <a target='_blank' href="http://www.flaticon.com" rel="noopener" title="Flaticon">
         www.flaticon.com
       </a>{' '}
       is licensed by{' '}
       <a
         href="http://creativecommons.org/licenses/by/3.0/"
         title="Creative Commons BY 3.0"
-        rel="noopener noreferrer"
+        rel="noopener"
         target="_blank"
       >
         CC 3.0 BY

@@ -70,11 +70,13 @@ export const Masthead = styled.section`
 
   h1 {
     font-size: 3em;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 
   h2 {
     font-size: 1.5em;
     margin: 20px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 
   a {

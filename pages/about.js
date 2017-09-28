@@ -87,7 +87,6 @@ const About = () => {
           <a href="https://www.strava.com/athletes/6249492">Бегает</a>. Чуть
           быстрее, чем коала.
         </li>
-        <li>Играет в Что?Где?Когда?</li>
       </ul>
 
       <p>

@@ -30,7 +30,7 @@ export default class Post extends React.PureComponent {
         <header>
           <h1>{post.title}</h1>
 
-          <Label as="label" color="teal" image>
+          <Label size="mini" as="label" color="gray" image>
             {post.author.authorName}
             <Label.Detail dateTime={date} as="time">
               {date}

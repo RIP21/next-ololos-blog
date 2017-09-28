@@ -17,7 +17,7 @@ export default class Preview extends React.PureComponent {
               <a>{post.title}</a>
             </Link>
           </H1>
-          <Label as="label" color="teal" image>
+          <Label size="mini" as="label" color="gray" image>
             {post.author.authorName}
             <Label.Detail dateTime={date} as="time">
               {date}
@@ -37,7 +37,7 @@ export default class Preview extends React.PureComponent {
         <Flex>
           <Link href={`/post?id=${post.id}`} as={`post/${post.id}`}>
             <a>
-              <Button basic compact size="mini" color="teal">
+              <Button basic size="medium" color="grey">
                 Читать далее
               </Button>
             </a>
