@@ -134,7 +134,8 @@ class Layout extends React.PureComponent {
   }
 }
 
-const ContentContainer = styled(Container)`
+// prettier-ignore
+const ContentContainer = styled(Container)`/* stylelint-disable */
   padding-top: ${p => p.topPadding};
   padding-bottom: 1em;
 `

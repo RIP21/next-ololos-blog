@@ -4,16 +4,23 @@ import styled from 'styled-components'
 const Footer = ({ ...rest }) => (
   <footer {...rest}>
     <div>
-      <a target='_blank' href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend">
+      <a
+        target="_blank"
+        href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend"
+      >
         Backend Code
-      </a> | <a target='_blank' href="https://github.com/RIP21/next-ololos-blog">Frontend Code</a>
+      </a>{' '}
+      |{' '}
+      <a target="_blank" href="https://github.com/RIP21/next-ololos-blog">
+        Frontend Code
+      </a>
     </div>
-    Made by Andrii Los aka <a target='_blank' href="https://twitter.com/RIP212">@RIP212</a>{' '}
+    Made by Andrii Los aka{' '}
+    <a target="_blank" href="https://twitter.com/RIP212">
+      @RIP212
+    </a>{' '}
     using amazing{' '}
-    <a
-      href="https://github.com/zeit/next.js"
-      target="_blank"
-    >
+    <a href="https://github.com/zeit/next.js" target="_blank">
       next.js
     </a>
     <div>
@@ -22,12 +29,17 @@ const Footer = ({ ...rest }) => (
         href="http://www.flaticon.com/authors/pixel-buddha"
         title="Pixel Buddha"
         rel="noopener"
-        target='_blank'
+        target="_blank"
       >
         Pixel Buddha{' '}
       </a>
       from{' '}
-      <a target='_blank' href="http://www.flaticon.com" rel="noopener" title="Flaticon">
+      <a
+        target="_blank"
+        href="http://www.flaticon.com"
+        rel="noopener"
+        title="Flaticon"
+      >
         www.flaticon.com
       </a>{' '}
       is licensed by{' '}

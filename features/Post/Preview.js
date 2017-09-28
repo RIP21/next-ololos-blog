@@ -53,6 +53,7 @@ const H1 = styled.h1`
   color: #4183c4;
   text-decoration: none;
   cursor: pointer;
+
   &:hover {
     color: #1e70bf;
   }

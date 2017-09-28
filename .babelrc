@@ -1,6 +1,9 @@
 {
   "plugins": [
-    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false } ],
+    ["babel-plugin-styled-components", {
+      "displayName": true,
+      "ssr": true
+    }],
     ["module-resolver", {
       "root": ["./"]}]
   ],
