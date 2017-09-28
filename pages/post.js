@@ -1,17 +1,15 @@
 import React from 'react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'redux/store'
-import withAuth from '../helpers/withAuth'
 import { getPostById } from '../redux/selector/posts'
 import Post from '../features/Post/Post'
 import Layout from '../components/Layout'
 import { ABSOLUTE_HOST_PATH } from 'constants/common'
-import { withData } from 'helpers/withData'
+import get from 'lodash/get'
+import { withData, withRedux, withAuth } from 'helpers'
 
 class PostPage extends React.Component {
-  static async getInitialProps({ query: { id }, store }) {
-    await withData(store)
-    return { id }
+  static async getInitialProps(context) {
+    await Promise.all([withData(context), withAuth(context)])
+    return { id: get(context.query, 'id') }
   }
 
   getMeta = () => {
@@ -39,4 +37,4 @@ const selector = (state, ownProps) => ({
   post: getPostById(ownProps.id)(state),
 })
 
-export default withRedux(initStore, selector, {})(withAuth(PostPage))
+export default withRedux(selector)(PostPage)

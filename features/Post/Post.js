@@ -29,8 +29,7 @@ export default class Post extends React.PureComponent {
       <article>
         <header>
           <h1>{post.title}</h1>
-
-          <Label size="mini" as="label" color="gray" image>
+          <Label size="mini" as="label" image>
             {post.author.authorName}
             <Label.Detail dateTime={date} as="time">
               {date}
@@ -44,7 +43,6 @@ export default class Post extends React.PureComponent {
             __html: this.renderMarkdownAndReplaceLinks(),
           }}
         />
-
         <DisqusThread
           shortname="ololos"
           identifier={post.id}

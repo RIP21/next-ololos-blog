@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from 'redux/reducer'
-import clientMiddleware from 'helpers/promiseMiddleware'
-import ApiClient from 'helpers/ApiClient'
+import rootReducer from './ducks/reducer'
+import clientMiddleware from 'redux/middlewares/promiseMiddleware'
+import ApiClient from 'services/ApiClient'
 import { IS_SERVER } from '../constants/common'
 
 /**

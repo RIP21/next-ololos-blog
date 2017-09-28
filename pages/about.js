@@ -1,9 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout/Layout'
 import { Image } from 'semantic-ui-react'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'redux/store'
-import withAuth from '../helpers/withAuth'
+import { withAuth, withRedux } from 'helpers'
 
 const About = () => {
   return (
@@ -39,12 +37,14 @@ const About = () => {
       <ul>
         <li>
           Работает программистом в рабочее и{' '}
-          <a href="https://github.com/RIP21">свободное от работы время</a>
+          <a href="https://github.com/RIP21" target="_blank">
+            свободное от работы время
+          </a>
         </li>
         <li>
           Написал этот блог. Если верстка хромает, или вы хотите новую фичу
           (напрмер{' '}
-          <a href="http://button.dekel.ru/">
+          <a href="http://button.dekel.ru/" target="_blank">
             кнопку, которая сделает все хорошо
           </a>
           ) - пишите ему
@@ -57,8 +57,9 @@ const About = () => {
         <li>Моет посуду в посудомойке</li>
         <li>
           Поёт (партию Онегина и{' '}
-          <a href="https://www.youtube.com/watch?v=A1jXICD1wWk">The Queen</a>,
-          например)
+          <a href="https://www.youtube.com/watch?v=A1jXICD1wWk" target="_blank">
+            The Queen
+          </a>, например)
         </li>
         <li>Болеет за команду Ферарри в Формуле 1</li>
       </ul>
@@ -74,18 +75,21 @@ const About = () => {
         <li>
           Пишет статьи, в которых странно шутит. Если вы хотите хороших умных
           шуток - скачайте{' '}
-          <a href="http://xkcd.ru/1174/">
+          <a href="http://xkcd.ru/1174/" target="_blank">
             полную версию нашего приложения, без рекламы, с единорожками
           </a>{' '}
         </li>
         <li>
           Частично делает и обрабатывает{' '}
-          <a href="https://www.instagram.com/li_oliin/">фотографии</a>
+          <a href="https://www.instagram.com/li_oliin/" target="_blank">
+            фотографии
+          </a>
         </li>
         <li>Раскладывает все вещи по местам и клеит на них стикеры</li>
         <li>
-          <a href="https://www.strava.com/athletes/6249492">Бегает</a>. Чуть
-          быстрее, чем коала.
+          <a href="https://www.strava.com/athletes/6249492" target="_blank">
+            Бегает
+          </a>. Чуть быстрее, чем коала.
         </li>
       </ul>
 
@@ -102,4 +106,8 @@ const About = () => {
   )
 }
 
-export default withRedux(initStore, null, {})(withAuth(About))
+About.getInitialProps = async function(context) {
+  await withAuth(context)
+}
+
+export default withRedux()(About)

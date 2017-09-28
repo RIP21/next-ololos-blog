@@ -17,7 +17,7 @@ export default class Preview extends React.PureComponent {
               <a>{post.title}</a>
             </Link>
           </H1>
-          <Label size="mini" as="label" color="gray" image>
+          <Label size="mini" as="label" image>
             {post.author.authorName}
             <Label.Detail dateTime={date} as="time">
               {date}

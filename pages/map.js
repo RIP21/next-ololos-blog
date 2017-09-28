@@ -1,8 +1,7 @@
 import React from 'react'
 import Layout from 'components/Layout'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'redux/store'
 import { Embed } from 'semantic-ui-react'
+import { withAuth, withRedux } from '../helpers'
 
 const Map = () => (
   <Layout title="Карта" text={false}>
@@ -13,4 +12,8 @@ const Map = () => (
   </Layout>
 )
 
-export default withRedux(initStore, null)(Map)
+Map.getInitialProps = async function(context) {
+  await withAuth(context)
+}
+
+export default withRedux()(Map)

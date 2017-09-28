@@ -1,17 +1,14 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import styled from 'styled-components'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'redux/store'
-import withAuth from '../helpers/withAuth'
+import { withAuth, withData, withRedux } from '../helpers'
 import Preview from '../features/Post/Preview'
 import map from 'lodash/map'
 import { getSortedAndPublishedPosts } from 'redux/selector/posts'
-import { withData } from 'helpers/withData'
 
 class Index extends React.Component {
-  static async getInitialProps({ store }) {
-    await withData(store)
+  static async getInitialProps(context) {
+    await Promise.all([withData(context), withAuth(context)])
   }
 
   getMeta = () => {
@@ -93,7 +90,7 @@ export const Logo = styled.div`
   }
 `
 
-export const Thread = styled.div`
+export const Thread = styled.main`
   margin-top: 2em;
   margin-bottom: 2em;
 `
@@ -102,4 +99,4 @@ const selector = (state, ownProps) => ({
   posts: getSortedAndPublishedPosts(state),
 })
 
-export default withRedux(initStore, selector, {})(withAuth(Index))
+export default withRedux(selector)(Index)

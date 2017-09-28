@@ -1,20 +1,31 @@
 import React from 'react'
 import Edit from 'features/Edit'
-import withRedux from 'next-redux-wrapper'
-import initStore from 'redux/store'
-import withAuth from '../helpers/withAuth'
 import get from 'lodash/get'
-import { withData } from 'helpers/withData'
+import { withAuth, withData, withRedux } from 'helpers'
+import { createPost, updatePost } from 'redux/ducks/posts'
+import { getPostById } from 'redux/selector/posts'
+import { getCurrentAuthor } from 'redux/selector/authors'
 
 class EditPage extends React.Component {
-  static async getInitialProps({ query, store }) {
-    await withData(store)
-    return { id: get(query, 'id') }
+  static async getInitialProps(context) {
+    await Promise.all([withData(context), withAuth(context, true)])
+    return { id: get(context.query, 'id') }
   }
 
   render() {
-    return <Edit postId={this.props.id} />
+    const { id: postId, ...props } = this.props
+    return <Edit postId={postId} {...props} />
   }
 }
 
-export default withRedux(initStore, null, {})(withAuth(EditPage, true))
+const selector = (state, ownProps) => {
+  return {
+    post: getPostById(ownProps.id)(state),
+    author: getCurrentAuthor(state),
+  }
+}
+
+export default withRedux(selector, {
+  onPostCreate: createPost,
+  onPostUpdate: updatePost,
+})(EditPage)

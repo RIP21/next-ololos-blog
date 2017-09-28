@@ -7,10 +7,10 @@ import { Container, Modal, Header, Button, Icon } from 'semantic-ui-react'
 import styled, { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { isAuthenticated } from 'redux/selector/auth'
-import { logout } from 'redux/auth'
+import { logout } from 'redux/ducks/auth'
 import { createStructuredSelector } from 'reselect'
-import { initGA, logPageView } from '../../utils/analitycs'
-import { closeModal } from 'redux/error'
+import { initGA, logPageView } from '../../services/analitycs'
+import { closeModal } from 'redux/ducks/error'
 import { getError, isOpen } from 'redux/selector/error'
 import get from 'lodash/get'
 
@@ -81,7 +81,7 @@ class Layout extends React.PureComponent {
       title = 'Ололось блог',
       text = true,
       topPadding = '1em',
-      as = 'div',
+      as = 'main',
       onLogout,
       isAuthenticated,
     } = this.props

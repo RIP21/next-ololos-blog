@@ -4,12 +4,17 @@ import Layout from 'components/Layout'
 import { Form, Icon } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
-import { login } from '../redux/auth'
+import { login } from '../redux/ducks/auth'
 import Router from 'next/router'
 import { isAuthenticated } from '../redux/selector/auth'
 import { createStructuredSelector } from 'reselect'
+import withAuth from 'helpers/withAuth'
 
 class Login extends React.Component {
+  static async getInitialProps(context) {
+    await withAuth(context)
+  }
+
   state = {
     username: '',
     password: '',
