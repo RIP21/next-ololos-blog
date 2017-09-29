@@ -52,16 +52,33 @@ export const Masthead = styled.section`
   color: white;
   text-align: center;
   position: relative;
+  
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 35px;
+    left: 0;
+    background-color: #1182BA;
+    opacity: 0.3;
+    width: 100%;
+    height: 40%;
+    z-index: 1;
+  }
 
   h1 {
     font-size: 3em;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
   }
 
   h2 {
     font-size: 1.5em;
     margin: 20px;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
   }
 
   a {

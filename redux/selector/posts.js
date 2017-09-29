@@ -2,6 +2,7 @@ import { createSelector } from 'reselect'
 import find from 'lodash/find'
 import filter from 'lodash/filter'
 import intersectionBy from 'lodash/intersectionBy'
+import sortBy from 'lodash/sortBy'
 
 export const getState = state => state.posts
 
@@ -11,9 +12,8 @@ export const getPostById = id =>
   createSelector(getPosts, posts => find(posts, post => post.id === id) || null)
 
 export const getSortedByDatePosts = createSelector(getPosts, posts =>
-  [...posts].sort(
-    (prev, next) => new Date(next.postdate) - new Date(prev.postdate),
-  ),
+  sortBy(posts, post => new Date(post.postdate),
+  ).reverse(),
 )
 
 export const getPublishedPosts = createSelector(getPosts, posts =>
