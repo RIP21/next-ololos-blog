@@ -28,7 +28,7 @@
     "react-redux": "^5.0.6",
     "react-simplemde-editor": "^3.6.11",
     "react-helmet": "^5.2.0",
-    "recompose": "^0.25.1",
+    "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "remarkable": "^1.7.1",
