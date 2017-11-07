@@ -33,7 +33,7 @@
     "redux-thunk": "^2.2.0",
     "remarkable": "^1.7.1",
     "reselect": "^3.0.1",
-    "semantic-ui-react": "^0.75.0",
+    "semantic-ui-react": "^0.76.0",
     "styled-components": "2.2.3",
     "superagent": "^3.6.1"
   },
