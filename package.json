@@ -34,7 +34,7 @@
     "remarkable": "^1.7.1",
     "reselect": "^3.0.1",
     "semantic-ui-react": "^0.77.0",
-    "styled-components": "2.2.4",
+    "styled-components": "2.3.0",
     "superagent": "^3.6.1"
   },
   "devDependencies": {
