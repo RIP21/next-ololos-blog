@@ -5,7 +5,7 @@ const methods = ['get', 'post', 'put', 'patch', 'del']
 
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? `/${path}` : path
-  //Means it's server
+  // Means it's server
   if (IS_SERVER) {
     // Prepend host and port of the API server to the path.
     return `http://localhost:8080/${adjustedPath}`
@@ -17,6 +17,7 @@ function formatUrl(path) {
 export default class ApiClient {
   constructor(req) {
     methods.forEach(
+      // eslint-disable-next-line no-return-assign
       (
         method //eslint-disable-line
       ) =>
@@ -27,7 +28,7 @@ export default class ApiClient {
             if (params) {
               request.query(params)
             }
-            //Means it's server stuff
+            // Means it's server stuff
             if (IS_SERVER && req.get('cookie')) {
               request.set('cookie', req.get('cookie'))
             }

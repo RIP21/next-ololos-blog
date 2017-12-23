@@ -1,18 +1,9 @@
 {
   "extends": [
-    "react-app",
-    "prettier",
-    "prettier/react"
-  ],
-  "plugins": [
-    "prettier"
+    "revolut-react"
   ],
   "rules": {
-    "react/no-string-refs": 2,
-    "react/jsx-boolean-value": 1,
-    "react/prefer-es6-class": 2,
-    "react/jsx-no-bind": 2,
-    "prettier/prettier": [1 , {"singleQuote": true, "trailingComma": "all", "semi": false}],
-    "prefer-const": 2
+    "jsx-a11y/anchor-is-valid": 0,
+    "react/prop-types": 0
   }
 }

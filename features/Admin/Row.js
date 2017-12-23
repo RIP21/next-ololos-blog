@@ -13,7 +13,7 @@ class Row extends PureComponent {
 
   render() {
     const { post } = this.props
-    const published = post.published
+    const { published } = post
     return (
       <Table.Row>
         <Table.Cell>{post.id}</Table.Cell>
@@ -33,9 +33,7 @@ class Row extends PureComponent {
           </Link>
         </Table.Cell>
         <Table.Cell>
-          <a href="#" onClick={this.onDelete}>
-            Удалить
-          </a>
+          <button onClick={this.onDelete}>Удалить</button>
         </Table.Cell>
       </Table.Row>
     )

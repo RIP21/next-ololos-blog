@@ -7,20 +7,25 @@ const Footer = ({ ...rest }) => (
       <a
         target="_blank"
         href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend"
+        rel="noopener noreferrer"
       >
         Backend Code
       </a>{' '}
       |{' '}
-      <a target="_blank" href="https://github.com/RIP21/next-ololos-blog">
+      <a
+        target="_blank"
+        href="https://github.com/RIP21/next-ololos-blog"
+        rel="noopener noreferrer"
+      >
         Frontend Code
       </a>
     </div>
     Made by Andrii Los aka{' '}
-    <a target="_blank" href="https://twitter.com/RIP212">
+    <a target="_blank" href="https://twitter.com/RIP212" rel="noopener noreferrer">
       @RIP212
     </a>{' '}
     using amazing{' '}
-    <a href="https://github.com/zeit/next.js" target="_blank">
+    <a href="https://github.com/zeit/next.js" target="_blank" rel="noopener noreferrer">
       next.js
     </a>
     <div>
@@ -28,7 +33,7 @@ const Footer = ({ ...rest }) => (
       <a
         href="http://www.flaticon.com/authors/pixel-buddha"
         title="Pixel Buddha"
-        rel="noopener"
+        rel="noopener noreferrer"
         target="_blank"
       >
         Pixel Buddha{' '}
@@ -37,7 +42,7 @@ const Footer = ({ ...rest }) => (
       <a
         target="_blank"
         href="http://www.flaticon.com"
-        rel="noopener"
+        rel="noopener noreferrer"
         title="Flaticon"
       >
         www.flaticon.com
@@ -46,7 +51,7 @@ const Footer = ({ ...rest }) => (
       <a
         href="http://creativecommons.org/licenses/by/3.0/"
         title="Creative Commons BY 3.0"
-        rel="noopener"
+        rel="noopener noreferrer"
         target="_blank"
       >
         CC 3.0 BY

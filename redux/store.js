@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from './ducks/reducer'
 import clientMiddleware from 'redux/middlewares/promiseMiddleware'
 import ApiClient from 'services/ApiClient'
+import rootReducer from './ducks/reducer'
 import { IS_SERVER } from '../constants/common'
 
 /**
@@ -20,8 +20,7 @@ export default function(initialState = {}, { req }) {
     finalCreateStore = compose(
       applyMiddleware(clientMiddleware(client)),
       applyMiddleware(thunk),
-      typeof window === 'object' &&
-      typeof window.devToolsExtension !== 'undefined'
+      typeof window === 'object' && typeof window.devToolsExtension !== 'undefined'
         ? window.devToolsExtension()
         : f => f,
     )(createStore)

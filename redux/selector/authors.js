@@ -7,17 +7,12 @@ export const getState = state => state.authors
 export const getAuthors = createSelector(getState, state => state.authors)
 
 export const getAuthorsById = id =>
-  createSelector(
-    getAuthors,
-    authors => find(authors, author => author.id === id) || null,
-  )
+  createSelector(getAuthors, authors => find(authors, author => author.id === id) || null)
 
 export const getCurrentAuthor = createSelector(
   getAuthors,
   getUser,
-  (authors, user) => {
-    return find(authors, author => author.id === user.userName) || null
-  },
+  (authors, user) => find(authors, author => author.id === user.userName) || null,
 )
 
 export const getIsLoaded = createSelector(getState, state => state.loaded)

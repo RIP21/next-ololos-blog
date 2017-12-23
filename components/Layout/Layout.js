@@ -1,18 +1,18 @@
 import React from 'react'
 import PT from 'prop-types'
 import Head from 'next/head'
-import Navigation from './Navigation'
-import Footer from './Footer'
 import { Container, Modal, Header, Button, Icon } from 'semantic-ui-react'
 import styled, { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { isAuthenticated } from 'redux/selector/auth'
 import { logout } from 'redux/ducks/auth'
 import { createStructuredSelector } from 'reselect'
-import { initGA, logPageView } from '../../services/analitycs'
 import { closeModal } from 'redux/ducks/error'
 import { getError, isOpen } from 'redux/selector/error'
 import get from 'lodash/get'
+import Navigation from './Navigation'
+import Footer from './Footer'
+import { initGA, logPageView } from '../../services/analitycs'
 
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
@@ -39,7 +39,7 @@ class Layout extends React.PureComponent {
   }
 
   getHead = () => {
-    const meta = this.props.meta
+    const { meta } = this.props
     const url = get(meta, 'url')
     const description = get(meta, 'description')
     const author = get(meta, 'author')
@@ -83,6 +83,7 @@ class Layout extends React.PureComponent {
       topPadding = '1em',
       as = 'main',
       onLogout,
+      // eslint-disable-next-line no-shadow
       isAuthenticated,
     } = this.props
     return (
@@ -90,17 +91,10 @@ class Layout extends React.PureComponent {
         <Head>
           <title>{title}</title>
           <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           {this.getHead()}
           <meta name="referrer" content="always" />
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="static/favicon.ico"
-          />
+          <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
           <link
             rel="stylesheet"
             href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
@@ -111,11 +105,7 @@ class Layout extends React.PureComponent {
           />
         </Head>
         <header>
-          <Navigation
-            text={text}
-            isAuthenticated={isAuthenticated}
-            onLogout={onLogout}
-          />
+          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={onLogout} />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}

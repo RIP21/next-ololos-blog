@@ -12,7 +12,7 @@ const Map = () => (
   </Layout>
 )
 
-Map.getInitialProps = async function(context) {
+Map.getInitialProps = async function getInitialProps(context) {
   await withAuth(context)
 }
 

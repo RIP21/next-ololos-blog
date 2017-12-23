@@ -17,8 +17,8 @@ export default class Post extends React.PureComponent {
     const re = new RegExp('<a>', 'g')
     const re2 = new RegExp('<a ', 'g')
     const result = source
-      .replace(re2, '<a target="_blank"')
-      .replace(re, '<a target="_blank"')
+      .replace(re2, '<a target="_blank" rel="noopener noreferrer"')
+      .replace(re, '<a target="_blank" rel="noopener noreferrer"')
     return result
   }
 
@@ -43,11 +43,7 @@ export default class Post extends React.PureComponent {
             __html: this.renderMarkdownAndReplaceLinks(),
           }}
         />
-        <DisqusThread
-          shortname="ololos"
-          identifier={post.id}
-          title={post.title}
-        />
+        <DisqusThread shortname="ololos" identifier={post.id} title={post.title} />
       </article>
     )
   }

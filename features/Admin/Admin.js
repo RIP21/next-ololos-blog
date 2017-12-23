@@ -1,9 +1,9 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import { Table, Button } from 'semantic-ui-react'
-import Row from './Row'
 import Router from 'next/router'
 import map from 'lodash/map'
+import Row from './Row'
 
 class Admin extends React.PureComponent {
   onCreateClick = () => {

@@ -83,4 +83,6 @@ const Container = styled(SContainer)`
   padding-left: 0;
 `
 
-const MenuStyles = styled(Menu)`justify-content: center;`
+const MenuStyles = styled(Menu)`
+  justify-content: center;
+`

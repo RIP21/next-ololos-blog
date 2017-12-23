@@ -12,8 +12,7 @@ export const getPostById = id =>
   createSelector(getPosts, posts => find(posts, post => post.id === id) || null)
 
 export const getSortedByDatePosts = createSelector(getPosts, posts =>
-  sortBy(posts, post => new Date(post.postdate),
-  ).reverse(),
+  sortBy(posts, post => new Date(post.postdate)).reverse(),
 )
 
 export const getPublishedPosts = createSelector(getPosts, posts =>

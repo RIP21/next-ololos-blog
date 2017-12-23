@@ -50,15 +50,6 @@ class Edit extends React.Component {
     this.setState(prevState => ({ published: !prevState.published }))
   }
 
-  updateOrCreate = post => {
-    const { onPostCreate, onPostUpdate } = this.props
-    if (post.id) {
-      return onPostUpdate(post)
-    }
-    post.author = this.props.author
-    return onPostCreate(post)
-  }
-
   onPostSave = () => {
     // eslint-disable-next-line no-unused-vars
     const { messages, ...post } = this.state
@@ -66,6 +57,14 @@ class Edit extends React.Component {
     this.updateOrCreate(clonedPost).then(() => {
       Router.push('/admin', '/admin/posts')
     })
+  }
+
+  updateOrCreate = post => {
+    const { onPostCreate, onPostUpdate } = this.props
+    if (post.id) {
+      return onPostUpdate(post)
+    }
+    return onPostCreate({ ...post, author: this.props.author })
   }
 
   render() {
@@ -97,7 +96,7 @@ class Edit extends React.Component {
           <Header as="h5">Короткое описание</Header>
           <SimpleMDE
             className="description"
-            id={`description`}
+            id="description"
             value={this.state.description}
             name="description"
             onChange={this.onDescriptionChange}
@@ -112,7 +111,7 @@ class Edit extends React.Component {
           />
           <Header as="h4">Пост</Header>
           <SimpleMDE
-            id={`body`}
+            id="body"
             onChange={this.onBodyChange}
             value={this.state.body}
             name="body"

@@ -47,13 +47,11 @@ app
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get('*', (req, res) => {
-      return handle(req, res)
-    })
+    server.get('*', (req, res) => handle(req, res))
 
     server.listen(3000, err => {
       if (err) throw err
-      console.log('> Ready on http://localhost:3000')
+      console.info('> Ready on http://localhost:3000')
     })
   })
   .catch(ex => {

@@ -1,23 +1,20 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import styled from 'styled-components'
-import { withAuth, withData, withRedux } from '../helpers'
-import Preview from '../features/Post/Preview'
 import map from 'lodash/map'
 import { getSortedAndPublishedPosts } from 'redux/selector/posts'
+import Preview from '../features/Post/Preview'
+import { withAuth, withData, withRedux } from '../helpers'
 
 class Index extends React.Component {
   static async getInitialProps(context) {
     await Promise.all([withData(context), withAuth(context)])
   }
 
-  getMeta = () => {
-    return {
-      title: 'Ололось блог',
-      description:
-        'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
-    }
-  }
+  getMeta = () => ({
+    title: 'Ололось блог',
+    description: 'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
+  })
 
   render() {
     return (
@@ -29,10 +26,7 @@ class Index extends React.Component {
             </p>
           </Logo>
           <h1>Ололось блог</h1>
-          <h2>
-            Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины
-            Олейник
-          </h2>
+          <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
         </Masthead>
         <Thread>
           {map(this.props.posts, post => <Preview key={post.id} post={post} />)}
@@ -52,14 +46,14 @@ export const Masthead = styled.section`
   color: white;
   text-align: center;
   position: relative;
-  
+
   &::after {
     content: '';
     display: block;
     position: absolute;
     bottom: 35px;
     left: 0;
-    background-color: #1182BA;
+    background-color: #1182ba;
     opacity: 0.3;
     width: 100%;
     height: 40%;

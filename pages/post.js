@@ -1,10 +1,10 @@
 import React from 'react'
-import { getPostById } from '../redux/selector/posts'
-import Post from '../features/Post/Post'
-import Layout from '../components/Layout'
 import { ABSOLUTE_HOST_PATH } from 'constants/common'
 import get from 'lodash/get'
 import { withData, withRedux, withAuth } from 'helpers'
+import { getPostById } from '../redux/selector/posts'
+import Post from '../features/Post/Post'
+import Layout from '../components/Layout'
 
 class PostPage extends React.Component {
   static async getInitialProps(context) {

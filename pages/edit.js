@@ -18,12 +18,10 @@ class EditPage extends React.Component {
   }
 }
 
-const selector = (state, ownProps) => {
-  return {
-    post: getPostById(ownProps.id)(state),
-    author: getCurrentAuthor(state),
-  }
-}
+const selector = (state, ownProps) => ({
+  post: getPostById(ownProps.id)(state),
+  author: getCurrentAuthor(state),
+})
 
 export default withRedux(selector, {
   onPostCreate: createPost,

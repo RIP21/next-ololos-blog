@@ -1,8 +1,8 @@
 import React from 'react'
 import Admin from 'features/Admin'
-import { getSortedByDatePosts } from '../redux/selector/posts'
 import { withData, withRedux, withAuth } from 'helpers'
 import { deletePost } from 'redux/ducks/posts'
+import { getSortedByDatePosts } from '../redux/selector/posts'
 
 class AdminPage extends React.Component {
   static async getInitialProps(context) {

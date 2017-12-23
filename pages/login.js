@@ -4,11 +4,11 @@ import Layout from 'components/Layout'
 import { Form, Icon } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import initStore from 'redux/store'
-import { login } from '../redux/ducks/auth'
 import Router from 'next/router'
-import { isAuthenticated } from '../redux/selector/auth'
 import { createStructuredSelector } from 'reselect'
 import withAuth from 'helpers/withAuth'
+import { login } from '../redux/ducks/auth'
+import { isAuthenticated } from '../redux/selector/auth'
 
 class Login extends React.Component {
   static async getInitialProps(context) {
@@ -20,8 +20,7 @@ class Login extends React.Component {
     password: '',
   }
 
-  handleChange = ({ target: { name, value } }) =>
-    this.setState({ [name]: value })
+  handleChange = ({ target: { name, value } }) => this.setState({ [name]: value })
 
   handleSubmit = () => {
     const { username, password } = this.state
@@ -72,11 +71,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  user: PT.object,
   login: PT.func,
-  logout: PT.func,
-  push: PT.func,
-  redirectBackLink: PT.string,
 }
 
 const selector = createStructuredSelector({ isAuthenticated })

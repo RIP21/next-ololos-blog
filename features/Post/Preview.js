@@ -26,6 +26,7 @@ export default class Preview extends React.PureComponent {
         </header>
         <Img src={post.previewPic} />
         <div
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: new Remarkable({
               html: true,
