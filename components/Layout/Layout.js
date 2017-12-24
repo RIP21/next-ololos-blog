@@ -94,7 +94,7 @@ class Layout extends React.PureComponent {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           {this.getHead()}
           <meta name="referrer" content="always" />
-          <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
+          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
             href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
