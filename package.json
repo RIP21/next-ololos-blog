@@ -24,7 +24,7 @@
     "react-disqus-comments": "1.1.1",
     "enzyme-adapter-react-16": "^1.1.1",
     "react-dom": "16.2.0",
-    "react-ga": "2.3.5",
+    "react-ga": "2.4.0",
     "react-helmet": "5.2.0",
     "react-redux": "5.0.6",
     "react-simplemde-editor": "3.6.11",
