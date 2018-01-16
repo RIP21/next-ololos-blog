@@ -45,7 +45,7 @@
     "eslint": "4.15.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-revolut-react": "^0.0.2",
-    "eslint-plugin-prettier": "2.4.0",
+    "eslint-plugin-prettier": "2.5.0",
     "eslint-plugin-react-app": "1.0.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-react-app": "^2.0.1",
