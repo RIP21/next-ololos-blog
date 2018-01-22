@@ -50,7 +50,6 @@ npm-debug.log.*
 /selenium-debug.log
 /grocerycop-website-3.1-ui.iml
 /.vscode/
-/lib/
 /.env.local
 /styleguide/
 /.next/
