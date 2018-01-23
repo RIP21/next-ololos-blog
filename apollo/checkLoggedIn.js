@@ -7,6 +7,10 @@ const checkLoggedIn = async (context, apolloClient) => {
         query getUser {
           user {
             id
+            author {
+              id
+              name
+            }
           }
         }
       `,

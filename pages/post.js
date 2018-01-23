@@ -1,6 +1,6 @@
 import React from 'react'
-// import { ABSOLUTE_HOST_PATH } from 'constants/common'
 import get from 'lodash/get'
+import { ABSOLUTE_HOST_PATH } from 'constants/common'
 import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Post from '../features/Post/Post'
@@ -12,24 +12,24 @@ class PostPage extends React.Component {
     return { postVerboseId: get(context.query, 'id') }
   }
 
-  // getMeta = () => {
-  //   const { postVerboseId, title, description, previewPic, author } = this.props.data.Post
-  //   return {
-  //     title,
-  //     description,
-  //     image: `${ABSOLUTE_HOST_PATH}${previewPic}`,
-  //     url: `${ABSOLUTE_HOST_PATH}/post/${postVerboseId}`,
-  //     author: author.name,
-  //   }
-  // }
+  getMeta = () => {
+    const { postVerboseId, title, description, previewPic, author } = this.props.data.Post
+    return {
+      title,
+      description,
+      image: `${ABSOLUTE_HOST_PATH}${previewPic}`,
+      url: `${ABSOLUTE_HOST_PATH}/post/${postVerboseId}`,
+      author: author.name,
+    }
+  }
 
   render() {
-    const { Post: post = {} } = this.props.data
-    return (
-      <Layout as="article" title={post.title || 'Loading...'}>
-        {!get(this, 'props.data.loading') && <Post post={post} />}
+    const { data: { Post: post = {} } = {} } = this.props
+    return get(this.props, 'data.Post') ? (
+      <Layout as="article" title={post.title || 'Loading...'} meta={this.getMeta()}>
+        <Post post={post} />
       </Layout>
-    )
+    ) : null
   }
 }
 

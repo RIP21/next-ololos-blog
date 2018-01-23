@@ -11,16 +11,16 @@ class EditPage extends React.Component {
   static async getInitialProps(context, apolloClient) {
     const user = await checkLoggedIn(context, apolloClient)
 
-    if (!user.id) {
+    if (!user) {
       redirect(context, '/')
     }
 
-    return { postVerboseId: get(context.query, 'id') }
+    return { postVerboseId: get(context.query, 'id'), author: get(user, 'author') }
   }
 
   render() {
-    const { data: { Post: post }, ...props } = this.props
-    return <Edit postId={post.postVerboseId} post={post} {...props} />
+    const { post, ...props } = this.props
+    return <Edit post={post} {...props} />
   }
 }
 
@@ -30,19 +30,30 @@ export default compose(
     gql`
       query($postVerboseId: String!) {
         Post(postVerboseId: $postVerboseId) {
+          id
           title
           createdDate
           body
           description
+          previewPic
           postVerboseId
+          published
+          url
           tags {
+            id
             name
           }
           author {
+            id
             name
           }
         }
       }
     `,
+    {
+      name: 'getPost',
+      skip: ownProps => !ownProps.postVerboseId,
+      props: ({ getPost: { Post: post } }) => ({ post }),
+    },
   ),
 )(EditPage)

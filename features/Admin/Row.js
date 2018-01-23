@@ -1,14 +1,23 @@
 import React, { PureComponent } from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Button } from 'semantic-ui-react'
+import Router from 'next/router'
 import Link from 'next/link'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 import ru from 'date-fns/locale/ru'
+import get from 'lodash/get'
 
 class Row extends PureComponent {
   onDelete = e => {
     e.preventDefault()
     this.props.onDelete(this.props.post.id)
+  }
+
+  onEdit = () => {
+    Router.push(
+      `/edit?id=${this.props.post.postVerboseId}`,
+      `/admin/edit/post/${this.props.post.postVerboseId}`,
+    )
   }
 
   render() {
@@ -26,19 +35,29 @@ class Row extends PureComponent {
         <Table.Cell>
           {format(parse(post.createdDate), 'DD MMMM YYYY HH:mm:ss', { locale: ru })}
         </Table.Cell>
-        <Table.Cell positive={published} negative={!published}>
-          {published ? 'Опубликован' : 'Не опубликован'}
-        </Table.Cell>
         <Table.Cell>
-          <Link
-            href={`/edit?id=${post.postVerboseId}`}
-            as={`/admin/edit/post/${post.postVerboseId}`}
-          >
-            <a>Редактировать</a>
-          </Link>
+          {get(post, 'tags')
+            .map(tag => tag.name)
+            .join(', ')
+            .concat('.')}
         </Table.Cell>
+        <Table.Cell
+          style={{ fontSize: 25 }}
+          icon={published ? 'check circle' : 'remove circle'}
+          positive={published}
+          negative={!published}
+          vericalAlign="middle"
+          textAlign="center"
+        />
+        <Table.Cell
+          style={{ fontSize: 25, cursor: 'pointer' }}
+          icon="edit"
+          onClick={this.onEdit}
+        />
         <Table.Cell>
-          <button onClick={this.onDelete}>Удалить</button>
+          <Button basic color="red" onClick={this.onDelete}>
+            Удалить
+          </Button>
         </Table.Cell>
       </Table.Row>
     )

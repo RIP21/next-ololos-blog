@@ -14,7 +14,7 @@ class Login extends React.Component {
   static async getInitialProps(context, apolloClient) {
     const user = await checkLoggedIn(context, apolloClient)
 
-    if (user.id) {
+    if (user && user.id) {
       // Already signed in? No need to continue.
       // Throw them back to the main page
       redirect(context, '/')

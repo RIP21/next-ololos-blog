@@ -8,7 +8,7 @@ class AdminPage extends React.Component {
   static async getInitialProps(context, apolloClient) {
     const user = await checkLoggedIn(context, apolloClient)
 
-    if (!user.id) {
+    if (!user) {
       redirect(context, '/')
     }
 
@@ -29,7 +29,6 @@ export default compose(
         title
         createdDate
         postVerboseId
-        previewPic
         published
         tags {
           name

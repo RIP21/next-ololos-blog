@@ -13,14 +13,15 @@ class Admin extends React.PureComponent {
   render() {
     return (
       <Layout title="Администрация постов" text={false}>
-        <Table selectable>
+        <Table selectable compact>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>ID</Table.HeaderCell>
               <Table.HeaderCell>Заголовок</Table.HeaderCell>
               <Table.HeaderCell>Автор</Table.HeaderCell>
               <Table.HeaderCell>Дата публикации</Table.HeaderCell>
-              <Table.HeaderCell>Статус</Table.HeaderCell>
+              <Table.HeaderCell>Теги</Table.HeaderCell>
+              <Table.HeaderCell width={1} textAlign="center">Статус</Table.HeaderCell>
               <Table.HeaderCell>&nbsp;</Table.HeaderCell>
               <Table.HeaderCell>&nbsp;</Table.HeaderCell>
             </Table.Row>

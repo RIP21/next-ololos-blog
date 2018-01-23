@@ -1,4 +1,6 @@
+import redirect from "apollo/redirect";
 import withAuth from 'apollo/withAuth'
+import cookie from 'cookie'
 import React from 'react'
 import PT from 'prop-types'
 import Head from 'next/head'
@@ -6,7 +8,6 @@ import { Container, Modal, Header, Button, Icon } from 'semantic-ui-react'
 import styled, { injectGlobal } from 'styled-components'
 import get from 'lodash/get'
 import { withApollo, compose } from 'react-apollo'
-import withData from 'apollo/withData'
 import Navigation from './Navigation'
 import Footer from './Footer'
 import { initGA, logPageView } from '../../services/analitycs'
@@ -29,6 +30,19 @@ class Layout extends React.PureComponent {
       window.GA_INITIALIZED = true
     }
     logPageView()
+  }
+
+  onLogout = () => {
+    document.cookie = cookie.serialize('token', '', {
+      maxAge: -1, // Expire the cookie immediately
+    })
+
+    // Force a reload of all the current queries now that the user is
+    // logged in, so we don't accidentally leave any state around.
+    this.props.client.resetStore().then(() => {
+      // Redirect to a more useful page when signed out
+      redirect({}, '/')
+    })
   }
 
   onModalClose = () => {
@@ -79,7 +93,6 @@ class Layout extends React.PureComponent {
       text = true,
       topPadding = '1em',
       as = 'main',
-      onLogout = () => ({}),
       isAuthenticated,
     } = this.props
     return (
@@ -101,7 +114,7 @@ class Layout extends React.PureComponent {
           />
         </Head>
         <header>
-          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={onLogout} />
+          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={this.onLogout} />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}
@@ -137,4 +150,4 @@ Layout.propTypes = {
   as: PT.string,
 }
 
-export default withAuth(Layout)
+export default compose(withAuth, withApollo)(Layout)
