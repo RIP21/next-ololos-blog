@@ -1,15 +1,12 @@
+import checkLoggedIn from 'apollo/checkLoggedIn'
 import React from 'react'
 import PT from 'prop-types'
 import Head from 'next/head'
 import { Container, Modal, Header, Button, Icon } from 'semantic-ui-react'
 import styled, { injectGlobal } from 'styled-components'
-import { connect } from 'react-redux'
-import { isAuthenticated } from 'redux/selector/auth'
-import { logout } from 'redux/ducks/auth'
-import { createStructuredSelector } from 'reselect'
-import { closeModal } from 'redux/ducks/error'
-import { getError, isOpen } from 'redux/selector/error'
 import get from 'lodash/get'
+import { withApollo, compose } from 'react-apollo'
+import withData from 'apollo/withData'
 import Navigation from './Navigation'
 import Footer from './Footer'
 import { initGA, logPageView } from '../../services/analitycs'
@@ -26,6 +23,12 @@ const logo =
     : 'http://ololos.space/static/logo.png'
 
 class Layout extends React.PureComponent {
+  static async getInitialProps(context, apolloClient) {
+    const loggedInUser = await checkLoggedIn(context, apolloClient)
+    console.log(loggedInUser)
+    return { loggedInUser }
+  }
+
   componentDidMount() {
     if (!window.GA_INITIALIZED) {
       initGA()
@@ -82,10 +85,10 @@ class Layout extends React.PureComponent {
       text = true,
       topPadding = '1em',
       as = 'main',
-      onLogout,
-      // eslint-disable-next-line no-shadow
-      isAuthenticated,
+      onLogout = () => ({}),
+      loggedInUser,
     } = this.props
+    console.log(loggedInUser)
     return (
       <div>
         <Head>
@@ -105,23 +108,23 @@ class Layout extends React.PureComponent {
           />
         </Head>
         <header>
-          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={onLogout} />
+          <Navigation text={text} isAuthenticated={!!loggedInUser} onLogout={onLogout} />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}
         </ContentContainer>
         <Footer />
-        <Modal basic open={this.props.isOpen} onClose={this.onModalClose}>
-          <Header icon="remove" content="Error" />
-          <Modal.Content>
-            <p>{this.props.error}</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.onModalClose} basic color="red" inverted>
-              <Icon name="remove" /> Okay
-            </Button>
-          </Modal.Actions>
-        </Modal>
+        {/* <Modal basic open={this.props.isOpen} onClose={this.onModalClose}> */}
+        {/* <Header icon="remove" content="Error" /> */}
+        {/* <Modal.Content> */}
+        {/* <p>{this.props.error}</p> */}
+        {/* </Modal.Content> */}
+        {/* <Modal.Actions> */}
+        {/* <Button onClick={this.onModalClose} basic color="red" inverted> */}
+        {/* <Icon name="remove" /> Okay */}
+        {/* </Button> */}
+        {/* </Modal.Actions> */}
+        {/* </Modal> */}
       </div>
     )
   }
@@ -141,13 +144,9 @@ Layout.propTypes = {
   as: PT.string,
 }
 
-const selector = createStructuredSelector({
-  isAuthenticated,
-  error: getError,
-  isOpen,
-})
-
-export default connect(selector, {
-  onLogout: logout,
-  onModalClose: closeModal,
-})(Layout)
+export default compose(
+  // withData gives us server-side graphql queries before rendering
+  withData,
+  // withApollo exposes `this.props.client` used when logging out
+  withApollo,
+)(Layout)

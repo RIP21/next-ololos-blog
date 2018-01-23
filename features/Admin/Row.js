@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { Table } from 'semantic-ui-react'
 import Link from 'next/link'
-import moment from 'moment'
-
-moment.locale('ru')
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
+import ru from 'date-fns/locale/ru'
 
 class Row extends PureComponent {
   onDelete = e => {
@@ -23,7 +23,9 @@ class Row extends PureComponent {
           </Link>
         </Table.Cell>
         <Table.Cell>{post.author.authorName}</Table.Cell>
-        <Table.Cell>{moment(post.postdate).format('llll')}</Table.Cell>
+        <Table.Cell>
+          {format(parse(post.postdate), 'MMM, DD-YYYY HH:mm:ss', { locale: ru })}
+        </Table.Cell>
         <Table.Cell positive={published} negative={!published}>
           {published ? 'Опубликован' : 'Не опубликован'}
         </Table.Cell>

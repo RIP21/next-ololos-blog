@@ -2,15 +2,13 @@ import React from 'react'
 import Layout from 'components/Layout'
 import styled from 'styled-components'
 import map from 'lodash/map'
-import { getSortedAndPublishedPosts } from 'redux/selector/posts'
+import { graphql, withApollo, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 import Preview from '../features/Post/Preview'
-import { withAuth, withData, withRedux } from '../helpers'
+
+import withData from '../apollo/withData'
 
 class Index extends React.Component {
-  static async getInitialProps(context) {
-    await Promise.all([withData(context), withAuth(context)])
-  }
-
   getMeta = () => ({
     title: 'Ололось блог',
     description: 'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
@@ -29,7 +27,9 @@ class Index extends React.Component {
           <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
         </Masthead>
         <Thread>
-          {map(this.props.posts, post => <Preview key={post.id} post={post} />)}
+          {map(this.props.data.allPosts, post => (
+            <Preview key={post.postVerboseId} post={post} />
+          ))}
         </Thread>
       </Layout>
     )
@@ -105,9 +105,25 @@ export const Thread = styled.main`
   margin-top: 2em;
   margin-bottom: 2em;
 `
-
-const selector = (state, ownProps) => ({
-  posts: getSortedAndPublishedPosts(state),
-})
-
-export default withRedux(selector)(Index)
+export default compose(
+  withData,
+  withApollo,
+  graphql(
+    gql`
+      {
+        allPosts(orderBy: createdDate_DESC, first: 5) {
+          title
+          createdDate
+          postVerboseId
+          previewPic
+          tags {
+            name
+          }
+          author {
+            name
+          }
+        }
+      }
+    `,
+  ),
+)(Index)

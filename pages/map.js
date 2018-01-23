@@ -1,7 +1,6 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import { Embed } from 'semantic-ui-react'
-import { withAuth, withRedux } from '../helpers'
 
 const Map = () => (
   <Layout title="Карта" text={false}>
@@ -12,8 +11,4 @@ const Map = () => (
   </Layout>
 )
 
-Map.getInitialProps = async function getInitialProps(context) {
-  await withAuth(context)
-}
-
-export default withRedux()(Map)
+export default Map

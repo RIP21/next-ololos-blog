@@ -1,3 +1,4 @@
+import Layout from 'components/Layout'
 import React from 'react'
 import PT from 'prop-types'
 import { Form, Icon } from 'semantic-ui-react'
@@ -37,28 +38,30 @@ class Login extends React.Component {
   render() {
     const { username, password } = this.state
     return (
-      <Form size="big" onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Input
-            placeholder="Login"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Button color="green" size="big">
-            Login <Icon name="sign in" />
-          </Form.Button>
-        </Form.Group>
-      </Form>
+      <Layout title="login">
+        <Form size="big" onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Input
+              placeholder="Login"
+              name="username"
+              value={username}
+              onChange={this.handleChange}
+              required
+            />
+            <Form.Input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              required
+            />
+            <Form.Button color="green" size="big">
+              Login <Icon name="sign in" />
+            </Form.Button>
+          </Form.Group>
+        </Form>
+      </Layout>
     )
   }
 }

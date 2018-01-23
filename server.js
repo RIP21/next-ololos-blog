@@ -21,9 +21,6 @@ app
     const content = path.resolve('content')
     server.use(express.static(content))
     server.use(compression())
-    server.use('/api', (req, res) => {
-      proxy.web(req, res, { target: targetUrl })
-    })
 
     server.get('/post/:id', (req, res) => {
       const actualPage = '/post'
