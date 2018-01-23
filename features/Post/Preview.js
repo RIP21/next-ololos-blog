@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-// import Remarkable from 'remarkable'
+import Remarkable from 'remarkable'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 import { Label, Divider, Button } from 'semantic-ui-react'
@@ -29,16 +29,16 @@ export default class Preview extends React.PureComponent {
           </Label>
         </header>
         <Img src={post.previewPic} />
-        {/* <div */}
-        {/* // eslint-disable-next-line react/no-danger */}
-        {/* dangerouslySetInnerHTML={{ */}
-        {/* __html: new Remarkable({ */}
-        {/* html: true, */}
-        {/* linkify: true, */}
-        {/* typographer: true, */}
-        {/* }).render(post.description), */}
-        {/* }} */}
-        {/* /> */}
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: new Remarkable({
+              html: true,
+              linkify: true,
+              typographer: true,
+            }).render(post.description),
+          }}
+        />
         <Flex>
           <Link href={`/post?id=${post.postVerboseId}`} as={`post/${post.postVerboseId}`}>
             <a>

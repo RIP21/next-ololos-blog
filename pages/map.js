@@ -1,3 +1,4 @@
+import withData from "apollo/withData";
 import React from 'react'
 import Layout from 'components/Layout'
 import { Embed } from 'semantic-ui-react'
@@ -11,4 +12,4 @@ const Map = () => (
   </Layout>
 )
 
-export default Map
+export default withData(Map)

@@ -16,21 +16,24 @@ class Row extends PureComponent {
     const { published } = post
     return (
       <Table.Row>
-        <Table.Cell>{post.id}</Table.Cell>
+        <Table.Cell>{post.postVerboseId}</Table.Cell>
         <Table.Cell>
-          <Link href={`/post?id=${post.id}`} as={`post/${post.id}`}>
+          <Link href={`/post?id=${post.postVerboseId}`} as={`post/${post.postVerboseId}`}>
             <a>{post.title}</a>
           </Link>
         </Table.Cell>
-        <Table.Cell>{post.author.authorName}</Table.Cell>
+        <Table.Cell>{post.author.name}</Table.Cell>
         <Table.Cell>
-          {format(parse(post.postdate), 'MMM, DD-YYYY HH:mm:ss', { locale: ru })}
+          {format(parse(post.createdDate), 'DD MMMM YYYY HH:mm:ss', { locale: ru })}
         </Table.Cell>
         <Table.Cell positive={published} negative={!published}>
           {published ? 'Опубликован' : 'Не опубликован'}
         </Table.Cell>
         <Table.Cell>
-          <Link href={`/edit?id=${post.id}`} as={`/admin/edit/post/${post.id}`}>
+          <Link
+            href={`/edit?id=${post.postVerboseId}`}
+            as={`/admin/edit/post/${post.postVerboseId}`}
+          >
             <a>Редактировать</a>
           </Link>
         </Table.Cell>

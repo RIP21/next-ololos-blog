@@ -1,5 +1,5 @@
 import React from 'react'
-//import { ABSOLUTE_HOST_PATH } from 'constants/common'
+// import { ABSOLUTE_HOST_PATH } from 'constants/common'
 import get from 'lodash/get'
 import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -42,6 +42,7 @@ export default compose(
           title
           createdDate
           body
+          description
           postVerboseId
           tags {
             name

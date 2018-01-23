@@ -1,5 +1,7 @@
+import withAuth from 'apollo/withAuth'
 import React from 'react'
 import Layout from 'components/Layout'
+import { isAuthenticated } from 'redux/selector/auth'
 import styled from 'styled-components'
 import map from 'lodash/map'
 import { graphql, withApollo, compose } from 'react-apollo'
@@ -16,7 +18,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <Layout topPadding="0em" meta={this.getMeta()}>
+      <Layout
+        topPadding="0em"
+        meta={this.getMeta()}
+      >
         <Masthead>
           <Logo>
             <p>
@@ -107,13 +112,14 @@ export const Thread = styled.main`
 `
 export default compose(
   withData,
-  withApollo,
+  withAuth,
   graphql(
     gql`
       {
         allPosts(orderBy: createdDate_DESC, first: 5) {
           title
           createdDate
+          description
           postVerboseId
           previewPic
           tags {

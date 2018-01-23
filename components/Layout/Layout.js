@@ -1,4 +1,4 @@
-import checkLoggedIn from 'apollo/checkLoggedIn'
+import withAuth from 'apollo/withAuth'
 import React from 'react'
 import PT from 'prop-types'
 import Head from 'next/head'
@@ -23,12 +23,6 @@ const logo =
     : 'http://ololos.space/static/logo.png'
 
 class Layout extends React.PureComponent {
-  static async getInitialProps(context, apolloClient) {
-    const loggedInUser = await checkLoggedIn(context, apolloClient)
-    console.log(loggedInUser)
-    return { loggedInUser }
-  }
-
   componentDidMount() {
     if (!window.GA_INITIALIZED) {
       initGA()
@@ -86,9 +80,8 @@ class Layout extends React.PureComponent {
       topPadding = '1em',
       as = 'main',
       onLogout = () => ({}),
-      loggedInUser,
+      isAuthenticated,
     } = this.props
-    console.log(loggedInUser)
     return (
       <div>
         <Head>
@@ -108,7 +101,7 @@ class Layout extends React.PureComponent {
           />
         </Head>
         <header>
-          <Navigation text={text} isAuthenticated={!!loggedInUser} onLogout={onLogout} />
+          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={onLogout} />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}
@@ -144,9 +137,4 @@ Layout.propTypes = {
   as: PT.string,
 }
 
-export default compose(
-  // withData gives us server-side graphql queries before rendering
-  withData,
-  // withApollo exposes `this.props.client` used when logging out
-  withApollo,
-)(Layout)
+export default withAuth(Layout)

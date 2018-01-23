@@ -23,7 +23,7 @@ class Edit extends React.Component {
     super(props)
     const fields = props.post ? props.post : EMPTY_POST
     this.state = {
-      messages: props.postId
+      messages: props.postVerboseId
         ? {
             title: 'Редактировать',
             button: 'Сохранить',
@@ -39,11 +39,13 @@ class Edit extends React.Component {
   onChange = (e, { value }) => {
     this.setState({ [e.target.name]: value })
   }
+
   onEditorChange = field => value => {
     this.setState({ [field]: value })
   }
 
   onDescriptionChange = this.onEditorChange('description')
+
   onBodyChange = this.onEditorChange('body')
 
   onCheckboxToggle = () => {

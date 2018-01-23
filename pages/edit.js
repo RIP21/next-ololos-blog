@@ -1,29 +1,48 @@
+import checkLoggedIn from 'apollo/checkLoggedIn'
+import redirect from 'apollo/redirect'
 import React from 'react'
 import Edit from 'features/Edit'
 import get from 'lodash/get'
-import { withAuth, withData, withRedux } from 'helpers'
-import { createPost, updatePost } from 'redux/ducks/posts'
-import { getPostById } from 'redux/selector/posts'
-import { getCurrentAuthor } from 'redux/selector/authors'
+import withData from 'apollo/withData'
+import { compose, graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
 class EditPage extends React.Component {
-  static async getInitialProps(context) {
-    await Promise.all([withData(context), withAuth(context, true)])
-    return { id: get(context.query, 'id') }
+  static async getInitialProps(context, apolloClient) {
+    const user = await checkLoggedIn(context, apolloClient)
+
+    if (!user.id) {
+      redirect(context, '/')
+    }
+
+    return { postVerboseId: get(context.query, 'id') }
   }
 
   render() {
-    const { id: postId, ...props } = this.props
-    return <Edit postId={postId} {...props} />
+    const { data: { Post: post }, ...props } = this.props
+    return <Edit postId={post.postVerboseId} post={post} {...props} />
   }
 }
 
-const selector = (state, ownProps) => ({
-  post: getPostById(ownProps.id)(state),
-  author: getCurrentAuthor(state),
-})
-
-export default withRedux(selector, {
-  onPostCreate: createPost,
-  onPostUpdate: updatePost,
-})(EditPage)
+export default compose(
+  withData,
+  graphql(
+    gql`
+      query($postVerboseId: String!) {
+        Post(postVerboseId: $postVerboseId) {
+          title
+          createdDate
+          body
+          description
+          postVerboseId
+          tags {
+            name
+          }
+          author {
+            name
+          }
+        }
+      }
+    `,
+  ),
+)(EditPage)

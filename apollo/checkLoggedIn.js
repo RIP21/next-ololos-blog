@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-export default (context, apolloClient) =>
-  apolloClient
-    .query({
+const checkLoggedIn = async (context, apolloClient) => {
+  try {
+    const { data } = await apolloClient.query({
       query: gql`
         query getUser {
           user {
@@ -11,8 +11,10 @@ export default (context, apolloClient) =>
         }
       `,
     })
-    .then(({ data }) => ({ loggedInUser: data }))
-    .catch(() =>
-      // Fail gracefully
-      ({ loggedInUser: {} }),
-    )
+    return data.user
+  } catch (err) {
+    return {}
+  }
+}
+
+export default checkLoggedIn
