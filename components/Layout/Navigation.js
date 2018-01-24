@@ -34,18 +34,18 @@ export default class Navigation extends PureComponent {
             </Link>
           </Menu.Item>
           {this.props.isAuthenticated ? (
-            [
+            <React.Fragment>
               <Menu.Item as="li">
                 <Link href="/admin" as="/admin/posts">
                   <a>Администрация Постов</a>
                 </Link>
-              </Menu.Item>,
+              </Menu.Item>
               <Menu.Item as="li">
                 <Button basic color="red" onClick={this.onLogout}>
                   Выход
                 </Button>
-              </Menu.Item>,
-            ]
+              </Menu.Item>
+            </React.Fragment>
           ) : (
             <Menu.Item as="li">
               <Link href="/login">

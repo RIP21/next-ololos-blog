@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "ololos-blog": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "ololos-blog": {
+            "url": "https://api.graph.cool/simple/v1/cjckqtb9k4a570187cy41x9at",
+            "subscription": "wss://subscriptions.graph.cool/v1/cjckqtb9k4a570187cy41x9at"
+          }
+        }
+      }
+    }
+  }
+}
