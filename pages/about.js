@@ -1,6 +1,6 @@
 import React from 'react'
+import withData from 'apollo/withData'
 import { Image } from 'semantic-ui-react'
-import { withAuth, withRedux } from 'helpers'
 import Layout from '../components/Layout/Layout'
 
 const About = () => (
@@ -108,8 +108,4 @@ const About = () => (
   </Layout>
 )
 
-About.getInitialProps = async function getInitialProps(context) {
-  await withAuth(context)
-}
-
-export default withRedux()(About)
+export default withData(About)
