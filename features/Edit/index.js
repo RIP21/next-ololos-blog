@@ -7,7 +7,6 @@ import SimpleMDE from 'react-simplemde-editor'
 import Router from 'next/router'
 import cloneDeep from 'lodash/cloneDeep'
 import map from 'lodash/map'
-import merge from 'lodash/merge'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 

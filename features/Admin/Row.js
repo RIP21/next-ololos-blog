@@ -10,7 +10,7 @@ import get from 'lodash/get'
 class Row extends PureComponent {
   onDelete = e => {
     e.preventDefault()
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-alert, no-restricted-globals
     if (confirm('Вы уверены, что хотите удалить пост?')) {
       this.props.onDelete(this.props.post.id)
     }
