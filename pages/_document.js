@@ -31,7 +31,18 @@ export default class MyDocument extends Document {
     return (
       <html lang="ru">
         <Head>
-          <title>My page</title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <meta name="referrer" content="always" />
+          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+          <link
+            rel="stylesheet"
+            href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+          />
           {this.props.styleTags}
         </Head>
         <body>

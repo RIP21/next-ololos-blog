@@ -1,16 +1,14 @@
+import { withAuth, withData } from 'apollo'
 import React from 'react'
 import Layout from 'components/Layout'
+import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import map from 'lodash/map'
-import { getSortedAndPublishedPosts } from 'redux/selector/posts'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 import Preview from '../features/Post/Preview'
-import { withAuth, withData, withRedux } from '../helpers'
 
 class Index extends React.Component {
-  static async getInitialProps(context) {
-    await Promise.all([withData(context), withAuth(context)])
-  }
-
   getMeta = () => ({
     title: 'Ололось блог',
     description: 'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
@@ -29,12 +27,25 @@ class Index extends React.Component {
           <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
         </Masthead>
         <Thread>
-          {map(this.props.posts, post => <Preview key={post.id} post={post} />)}
+          {map(this.props.posts, post => (
+            <Preview key={post.postVerboseId} post={post} />
+          ))}
         </Thread>
+        <Center>
+          <Button onClick={this.props.loadMoreEntries} color="grey">
+            Load more...
+          </Button>
+        </Center>
       </Layout>
     )
   }
 }
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export const Masthead = styled.section`
   width: 100vw;
@@ -106,8 +117,56 @@ export const Thread = styled.main`
   margin-bottom: 2em;
 `
 
-const selector = (state, ownProps) => ({
-  posts: getSortedAndPublishedPosts(state),
-})
+const LandingPostsQuery = gql`
+  query LandingPosts($skip: Int = 0) {
+    allPosts(
+      orderBy: createdDate_DESC
+      first: 5
+      filter: { published: true }
+      skip: $skip
+    ) {
+      title
+      createdDate
+      description
+      postVerboseId
+      previewPic
+      tags {
+        name
+      }
+      author {
+        name
+      }
+    }
+  }
+`
 
-export default withRedux(selector)(Index)
+export default compose(
+  withData,
+  withAuth,
+  graphql(LandingPostsQuery, {
+    props: ({ data: { loading, allPosts, fetchMore } }) => ({
+      loading,
+      posts: allPosts,
+      loadMoreEntries() {
+        return fetchMore({
+          // query: ... (you can specify a different query. FEED_QUERY is used by default)
+          variables: {
+            // We are able to figure out which offset to use because it matches
+            // the feed length, but we could also use state, or the previous
+            // variables to calculate this (see the cursor example below)
+            skip: allPosts.length,
+          },
+          updateQuery: (previousResult, { fetchMoreResult, ...rest }) => {
+            if (!fetchMoreResult) {
+              return previousResult
+            }
+            return Object.assign({}, previousResult, {
+              // Append the new feed results to the old one
+              allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts],
+            })
+          },
+        })
+      },
+    }),
+  }),
+)(Index)

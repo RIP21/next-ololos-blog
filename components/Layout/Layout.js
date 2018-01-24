@@ -1,15 +1,13 @@
+import redirect from 'apollo/redirect'
+import withAuth from 'apollo/withAuth'
+import cookie from 'cookie'
 import React from 'react'
 import PT from 'prop-types'
 import Head from 'next/head'
-import { Container, Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import styled, { injectGlobal } from 'styled-components'
-import { connect } from 'react-redux'
-import { isAuthenticated } from 'redux/selector/auth'
-import { logout } from 'redux/ducks/auth'
-import { createStructuredSelector } from 'reselect'
-import { closeModal } from 'redux/ducks/error'
-import { getError, isOpen } from 'redux/selector/error'
 import get from 'lodash/get'
+import { withApollo, compose } from 'react-apollo'
 import Navigation from './Navigation'
 import Footer from './Footer'
 import { initGA, logPageView } from '../../services/analitycs'
@@ -32,6 +30,19 @@ class Layout extends React.PureComponent {
       window.GA_INITIALIZED = true
     }
     logPageView()
+  }
+
+  onLogout = () => {
+    document.cookie = cookie.serialize('token', '', {
+      maxAge: -1, // Expire the cookie immediately
+    })
+
+    // Force a reload of all the current queries now that the user is
+    // logged in, so we don't accidentally leave any state around.
+    this.props.client.resetStore().then(() => {
+      // Redirect to a more useful page when signed out
+      redirect({}, '/')
+    })
   }
 
   onModalClose = () => {
@@ -82,46 +93,35 @@ class Layout extends React.PureComponent {
       text = true,
       topPadding = '1em',
       as = 'main',
-      onLogout,
-      // eslint-disable-next-line no-shadow
       isAuthenticated,
     } = this.props
     return (
       <div>
         <Head>
           <title>{title}</title>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          {this.getHead()}
-          <meta name="referrer" content="always" />
-          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
-          />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
-          />
         </Head>
         <header>
-          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={onLogout} />
+          <Navigation
+            text={text}
+            isAuthenticated={isAuthenticated}
+            onLogout={this.onLogout}
+          />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}
         </ContentContainer>
         <Footer />
-        <Modal basic open={this.props.isOpen} onClose={this.onModalClose}>
-          <Header icon="remove" content="Error" />
-          <Modal.Content>
-            <p>{this.props.error}</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.onModalClose} basic color="red" inverted>
-              <Icon name="remove" /> Okay
-            </Button>
-          </Modal.Actions>
-        </Modal>
+        {/* <Modal basic open={this.props.isOpen} onClose={this.onModalClose}> */}
+        {/* <Header icon="remove" content="Error" /> */}
+        {/* <Modal.Content> */}
+        {/* <p>{this.props.error}</p> */}
+        {/* </Modal.Content> */}
+        {/* <Modal.Actions> */}
+        {/* <Button onClick={this.onModalClose} basic color="red" inverted> */}
+        {/* <Icon name="remove" /> Okay */}
+        {/* </Button> */}
+        {/* </Modal.Actions> */}
+        {/* </Modal> */}
       </div>
     )
   }
@@ -141,13 +141,4 @@ Layout.propTypes = {
   as: PT.string,
 }
 
-const selector = createStructuredSelector({
-  isAuthenticated,
-  error: getError,
-  isOpen,
-})
-
-export default connect(selector, {
-  onLogout: logout,
-  onModalClose: closeModal,
-})(Layout)
+export default compose(withAuth, withApollo)(Layout)

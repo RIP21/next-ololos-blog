@@ -2,7 +2,6 @@
 nightwatch.config.js
 test-setup.js
 src/resources/**
-/lib/
 /styleguide/
 /.next/
 /node_modules
