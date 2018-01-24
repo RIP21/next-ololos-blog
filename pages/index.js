@@ -32,7 +32,7 @@ class Index extends React.Component {
           ))}
         </Thread>
         <Center>
-          <Button onClick={this.props.loadMoreEntries} color="grey">
+          <Button onClick={this.props.loadMoreEntries}>
             Load more...
           </Button>
         </Center>
@@ -51,7 +51,7 @@ export const Masthead = styled.section`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 40px 20px;
-  background-image: url('static/cover1.jpg');
+  background-image: url('/static/cover1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   color: white;

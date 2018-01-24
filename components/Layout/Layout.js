@@ -56,34 +56,36 @@ class Layout extends React.PureComponent {
     const author = get(meta, 'author')
     const title = get(meta, 'title')
     const image = get(meta, 'image')
-    return [
-      <link rel="canonical" href={url} />,
-      <link rel="author" href="http://ololos.space/" />,
-      <meta name="description" content={description} />,
-      <meta httpEquiv="Content-Language" content="ru" />,
-      <meta charSet="utf-8" />,
-      <meta property="article:author" content={author || 'Ололось блог'} />,
-      <meta
-        property="article:publisher"
-        content="https://www.facebook.com/OlolosBlog/"
-      />,
-      <meta name="twitter:account_id" content="828735737327734788" />,
-      <meta name="twitter:card" content="summary_large_image" />,
-      <meta name="twitter:site" content="@OlolosBlog" />,
-      <meta name="twitter:creator" content="@rip212" />,
-      <meta name="twitter:title" content={title} />,
-      <meta name="twitter:description" content={description} />,
-      <meta name="twitter:image:src" content={image || logo} />,
-      <meta name="twitter:image" content={image || logo} />,
-      <meta property="og:title" content={title} />,
-      <meta property="og:image" content={image || logo} />,
-      <meta property="og:description" content={description} />,
-      <meta property="og:url" content={url || 'http://ololos.space/'} />,
-      <meta property="og:site_name" content="Ололось блог" />,
-      <meta property="og:type" content={get(meta, 'type') || 'website'} />,
-      <meta property="og:locale" content="ru_RU" />,
-      <meta property="fb:app_id" content="966242223397117" />,
-    ]
+    return (
+      <React.Fragment>
+        <link rel="canonical" href={url} />
+        <link rel="author" href="http://ololos.space/" />
+        <meta name="description" content={description} />
+        <meta httpEquiv="Content-Language" content="ru" />
+        <meta charSet="utf-8" />
+        <meta property="article:author" content={author || 'Ололось блог'} />
+        <meta
+          property="article:publisher"
+          content="https://www.facebook.com/OlolosBlog/"
+        />
+        <meta name="twitter:account_id" content="828735737327734788" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@OlolosBlog" />
+        <meta name="twitter:creator" content="@rip212" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image:src" content={image || logo} />
+        <meta name="twitter:image" content={image || logo} />
+        <meta property="og:title" content={title} />
+        <meta property="og:image" content={image || logo} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={url || 'http://ololos.space/'} />
+        <meta property="og:site_name" content="Ололось блог" />
+        <meta property="og:type" content={get(meta, 'type') || 'website'} />
+        <meta property="og:locale" content="ru_RU" />
+        <meta property="fb:app_id" content="966242223397117" />
+      </React.Fragment>
+    )
   }
 
   render() {
@@ -99,6 +101,7 @@ class Layout extends React.PureComponent {
       <div>
         <Head>
           <title>{title}</title>
+          {this.getHead()}
         </Head>
         <header>
           <Navigation

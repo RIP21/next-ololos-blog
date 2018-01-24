@@ -3,15 +3,19 @@ import styled from 'styled-components'
 
 const Footer = ({ ...rest }) => (
   <footer {...rest}>
+    <img
+      src="https://www.graph.cool/static/media/badge.2cbac90a.svg"
+      alt="Powered by Graphcool"
+    />
     <div>
-      <a
-        target="_blank"
-        href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend"
-        rel="noopener noreferrer"
-      >
-        Backend Code
-      </a>{' '}
-      |{' '}
+      {/* <a */}
+      {/* target="_blank" */}
+      {/* href="https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend" */}
+      {/* rel="noopener noreferrer" */}
+      {/* > */}
+      {/* Backend Code */}
+      {/* </a>{' '} */}
+      {/* |{' '} */}
       <a
         target="_blank"
         href="https://github.com/RIP21/next-ololos-blog"
@@ -26,7 +30,14 @@ const Footer = ({ ...rest }) => (
     </a>{' '}
     using amazing{' '}
     <a href="https://github.com/zeit/next.js" target="_blank" rel="noopener noreferrer">
-      next.js
+      next.js{' '}
+    </a>,{' '}
+    <a href="https://www.apollographql.com/" target="_blank" rel="noopener noreferrer">
+      apollo
+    </a>{' '}
+    and{' '}
+    <a href="https://www.graph.cool/" target="_blank" rel="noopener noreferrer">
+      graphcool
     </a>
     <div>
       Icons made by{' '}

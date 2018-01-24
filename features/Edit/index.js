@@ -188,6 +188,7 @@ class Edit extends React.Component {
             placeholder="Введите заголовок"
             value={this.state.title}
             onChange={this.onChange}
+            autoComplete="off"
           />
           <Form.Input
             name="previewPic"
@@ -195,6 +196,7 @@ class Edit extends React.Component {
             placeholder="Ссылка на фотографию. Будет показана на главной странице."
             value={this.state.previewPic}
             onChange={this.onChange}
+            autoComplete="off"
           />
           <Checkbox
             id="published"

@@ -27,7 +27,7 @@ class PostPage extends React.Component {
   render() {
     const { post } = this.props
     return get(this.props, 'post') ? (
-      <Layout as="article" title={post.title || 'Loading...'} meta={this.getMeta()}>
+      <Layout as="article" title={post.title} meta={this.getMeta()}>
         <Post post={post} />
       </Layout>
     ) : null
