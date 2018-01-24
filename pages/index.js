@@ -32,9 +32,7 @@ class Index extends React.Component {
           ))}
         </Thread>
         <Center>
-          <Button onClick={this.props.loadMoreEntries}>
-            Load more...
-          </Button>
+          <Button onClick={this.props.loadMoreEntries}>Load more...</Button>
         </Center>
       </Layout>
     )
