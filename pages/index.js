@@ -1,14 +1,11 @@
-import withAuth from 'apollo/withAuth'
+import { nameToProp, withAuth, withData } from 'apollo'
 import React from 'react'
 import Layout from 'components/Layout'
-import { isAuthenticated } from 'redux/selector/auth'
 import styled from 'styled-components'
 import map from 'lodash/map'
-import { graphql, withApollo, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import Preview from '../features/Post/Preview'
-
-import withData from '../apollo/withData'
 
 class Index extends React.Component {
   getMeta = () => ({
@@ -18,10 +15,7 @@ class Index extends React.Component {
 
   render() {
     return (
-      <Layout
-        topPadding="0em"
-        meta={this.getMeta()}
-      >
+      <Layout topPadding="0em" meta={this.getMeta()}>
         <Masthead>
           <Logo>
             <p>
@@ -32,7 +26,7 @@ class Index extends React.Component {
           <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
         </Masthead>
         <Thread>
-          {map(this.props.data.allPosts, post => (
+          {map(this.props.posts, post => (
             <Preview key={post.postVerboseId} post={post} />
           ))}
         </Thread>
@@ -110,26 +104,27 @@ export const Thread = styled.main`
   margin-top: 2em;
   margin-bottom: 2em;
 `
+
+const LandingPostsQuery = gql`
+  query LandingPosts {
+    allPosts(orderBy: createdDate_DESC) {
+      title
+      createdDate
+      description
+      postVerboseId
+      previewPic
+      tags {
+        name
+      }
+      author {
+        name
+      }
+    }
+  }
+`
+
 export default compose(
   withData,
   withAuth,
-  graphql(
-    gql`
-      {
-        allPosts(orderBy: createdDate_DESC, first: 5) {
-          title
-          createdDate
-          description
-          postVerboseId
-          previewPic
-          tags {
-            name
-          }
-          author {
-            name
-          }
-        }
-      }
-    `,
-  ),
+  graphql(LandingPostsQuery, nameToProp('posts', 'allPosts')),
 )(Index)

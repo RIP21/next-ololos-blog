@@ -2,20 +2,23 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import get from 'lodash/get'
 
-const withAuth = graphql(
-  gql`
-    query getUser {
-      user {
+export const GetCurrentUserQuery = gql`
+  query GetCurrentUserQuery {
+    user {
+      id
+      author {
         id
+        name
       }
     }
-  `,
-  {
-    name: 'getCurrentUser',
-    props: ({ getCurrentUser }) => ({
-      isAuthenticated: !!get(getCurrentUser, 'user.id'),
-    }),
-  },
-)
+  }
+`
+
+const withAuth = graphql(GetCurrentUserQuery, {
+  name: 'getCurrentUser',
+  props: ({ getCurrentUser }) => ({
+    isAuthenticated: !!get(getCurrentUser, 'user.id'),
+  }),
+})
 
 export default withAuth

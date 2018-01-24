@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React from 'react'
 import cookie from 'cookie'
 import PropTypes from 'prop-types'

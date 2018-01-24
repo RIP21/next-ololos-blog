@@ -1,19 +1,9 @@
-import gql from 'graphql-tag'
+import { GetCurrentUserQuery } from 'apollo/withAuth'
 
 const checkLoggedIn = async (context, apolloClient) => {
   try {
     const { data } = await apolloClient.query({
-      query: gql`
-        query getUser {
-          user {
-            id
-            author {
-              id
-              name
-            }
-          }
-        }
-      `,
+      query: GetCurrentUserQuery,
     })
     return data.user
   } catch (err) {

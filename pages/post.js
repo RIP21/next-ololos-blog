@@ -1,3 +1,4 @@
+import { nameToProp } from 'apollo'
 import React from 'react'
 import get from 'lodash/get'
 import { ABSOLUTE_HOST_PATH } from 'constants/common'
@@ -13,7 +14,7 @@ class PostPage extends React.Component {
   }
 
   getMeta = () => {
-    const { postVerboseId, title, description, previewPic, author } = this.props.data.Post
+    const { postVerboseId, title, description, previewPic, author } = this.props.post
     return {
       title,
       description,
@@ -24,8 +25,8 @@ class PostPage extends React.Component {
   }
 
   render() {
-    const { data: { Post: post = {} } = {} } = this.props
-    return get(this.props, 'data.Post') ? (
+    const { post } = this.props
+    return get(this.props, 'post') ? (
       <Layout as="article" title={post.title || 'Loading...'} meta={this.getMeta()}>
         <Post post={post} />
       </Layout>
@@ -33,25 +34,24 @@ class PostPage extends React.Component {
   }
 }
 
-export default compose(
-  withData,
-  graphql(
-    gql`
-      query($postVerboseId: String!) {
-        Post(postVerboseId: $postVerboseId) {
-          title
-          createdDate
-          body
-          description
-          postVerboseId
-          tags {
-            name
-          }
-          author {
-            name
-          }
-        }
+const GetPostToReadQuery = gql`
+  query GetPostToRead($postVerboseId: String!) {
+    Post(postVerboseId: $postVerboseId) {
+      title
+      createdDate
+      body
+      description
+      postVerboseId
+      tags {
+        name
       }
-    `,
-  ),
-)(PostPage)
+      author {
+        name
+      }
+    }
+  }
+`
+
+export default compose(withData, graphql(GetPostToReadQuery, nameToProp('post', 'Post')))(
+  PostPage,
+)

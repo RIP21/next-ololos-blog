@@ -1,3 +1,4 @@
+import { nameToProp } from 'apollo'
 import React from 'react'
 import Layout from 'components/Layout'
 import { Form, Header, Checkbox } from 'semantic-ui-react'
@@ -95,8 +96,8 @@ export const EMPTY_POST = {
 class Edit extends React.Component {
   constructor(props) {
     super(props)
-    const author =
-      props.post && props.post.author ? props.post.author : props.author || EMPTY_AUTHOR
+    // Couldn't be an empty author since there is no possibility to access this page without login
+    const author = props.post && props.post.author ? props.post.author : props.author
     const fields = props.post ? { ...props.post, author } : { ...EMPTY_POST, author }
     this.state = {
       messages: props.postVerboseId
@@ -143,15 +144,20 @@ class Edit extends React.Component {
   }
 
   updateOrCreate = post => {
-    const { onPostCreate, onPostUpdate } = this.props
+    const { onCreateOrUpdatePost } = this.props
     const today = new Date()
+    const authorId = post.author.id
     if (post.id) {
-      return onPostUpdate({ ...post, updatedDate: today, authorId: post.author.id })
+      return onCreateOrUpdatePost({
+        ...post,
+        updatedDate: today,
+        authorId: post.author.id,
+      })
     }
     const postVerboseId = transliterate(post.title)
-    return onPostCreate({
+    return onCreateOrUpdatePost({
       ...post,
-      authorId: this.props.author.id,
+      authorId,
       postVerboseId,
       createdDate: today,
       updatedDate: today,
@@ -244,125 +250,62 @@ class Edit extends React.Component {
   }
 }
 
+const PostEditFieldsFragment = gql`
+  fragment PostEditFields on Post {
+    id
+    body
+    createdDate
+    postVerboseId
+    previewPic
+    title
+    updatedDate
+    published
+    description
+    url
+    tags {
+      id
+      name
+    }
+    author {
+      id
+      name
+    }
+  }
+`
+
+const AllTagsQuery = gql`
+  query AllTagsQuery {
+    allTags {
+      id
+      name
+    }
+  }
+`
+
 export default compose(
+  graphql(AllTagsQuery, nameToProp('tags', 'allTags')),
   graphql(
     gql`
-      mutation(
-        $id: ID!
-        $body: String!
-        $createdDate: DateTime!
-        $postVerboseId: String!
-        $previewPic: String
-        $title: String!
-        $updatedDate: DateTime!
-        $published: Boolean
-        $description: String
-        $url: String!
-        $authorId: ID
-        $tagsIds: [ID!]
-      ) {
-        updatePost(
-          id: $id
-          body: $body
-          createdDate: $createdDate
-          postVerboseId: $postVerboseId
-          previewPic: $previewPic
-          title: $title
-          updatedDate: $updatedDate
-          published: $published
-          description: $description
-          url: $url
-          authorId: $authorId
-          tagsIds: $tagsIds
-        ) {
-          id
-          body
-          createdDate
-          postVerboseId
-          previewPic
-          title
-          updatedDate
-          published
-          description
-          url
-          tags {
-            id
-            name
-          }
-          author {
-            id
-            name
-          }
+      mutation($create: CreatePost!, $update: UpdatePost!) {
+        updateOrCreatePost(create: $create, update: $update) {
+          ...PostEditFields
         }
       }
+      ${PostEditFieldsFragment}
     `,
     {
-      name: 'updatePost',
-      props: ({ updatePost }) => ({
-        onPostUpdate: post => {
-          console.log('update', post)
-          return updatePost({ variables: { ...post } })
-        },
-      }),
-      refetchQueries: ['allPosts', ' Post'],
-    },
-  ),
-  graphql(
-    gql`
-      mutation(
-        $body: String!
-        $createdDate: DateTime!
-        $postVerboseId: String!
-        $previewPic: String
-        $title: String!
-        $updatedDate: DateTime!
-        $published: Boolean
-        $description: String
-        $url: String!
-        $authorId: ID
-        $tagsIds: [ID!]
-      ) {
-        createPost(
-          body: $body
-          createdDate: $createdDate
-          postVerboseId: $postVerboseId
-          previewPic: $previewPic
-          title: $title
-          updatedDate: $updatedDate
-          published: $published
-          description: $description
-          url: $url
-          authorId: $authorId
-          tagsIds: $tagsIds
-        ) {
-          id
-          body
-          createdDate
-          postVerboseId
-          previewPic
-          title
-          updatedDate
-          published
-          description
-          url
-          tags {
-            id
-            name
-          }
-          author {
-            id
-            name
-          }
-        }
-      }
-    `,
-    {
-      name: 'createPost',
-      refetchQueries: ['allPosts'],
-      props: ({ createPost }) => ({
-        onPostCreate: post => {
-          console.log('create', post)
-          return createPost({ variables: { ...post } })
+      name: 'updateOrCreatePost',
+      props: ({ updateOrCreatePost }) => ({
+        onCreateOrUpdatePost: ({ id = '', __typename, ...post }) => {
+          // eslint-disable-next-line no-param-reassign
+          delete post.author.id && delete post.author.__typename // update/create types are crazy and don't like id field on it.
+          const create = { ...post }
+          const update = { id, ...post }
+          console.log(update)
+          return updateOrCreatePost({
+            variables: { create, update },
+            refetchQueries: ['AdminPosts', 'GetPostToRead', 'LandingPosts'],
+          })
         },
       }),
     },

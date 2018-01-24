@@ -1,4 +1,4 @@
-import redirect from "apollo/redirect";
+import redirect from 'apollo/redirect'
 import withAuth from 'apollo/withAuth'
 import cookie from 'cookie'
 import React from 'react'
@@ -99,22 +99,13 @@ class Layout extends React.PureComponent {
       <div>
         <Head>
           <title>{title}</title>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          {this.getHead()}
-          <meta name="referrer" content="always" />
-          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
-          />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
-          />
         </Head>
         <header>
-          <Navigation text={text} isAuthenticated={isAuthenticated} onLogout={this.onLogout} />
+          <Navigation
+            text={text}
+            isAuthenticated={isAuthenticated}
+            onLogout={this.onLogout}
+          />
         </header>
         <ContentContainer as={as} topPadding={topPadding} text={text}>
           {children}
