@@ -1,10 +1,13 @@
 import { nameToProp } from 'apollo'
+import { AdminPostsQuery } from 'pages/admin'
 import React from 'react'
 import Layout from 'components/Layout'
 import { Form, Header, Checkbox } from 'semantic-ui-react'
 import SimpleMDE from 'react-simplemde-editor'
 import Router from 'next/router'
 import cloneDeep from 'lodash/cloneDeep'
+import map from 'lodash/map'
+import merge from 'lodash/merge'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -114,7 +117,11 @@ class Edit extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const fields = nextProps.post ? nextProps.post : EMPTY_POST
+    const author =
+      nextProps.post && nextProps.post.author ? nextProps.post.author : nextProps.author
+    const fields = nextProps.post
+      ? { ...nextProps.post, author }
+      : { ...EMPTY_POST, author }
     this.setState({ ...fields })
   }
 
@@ -144,25 +151,30 @@ class Edit extends React.Component {
   }
 
   updateOrCreate = post => {
-    const { onCreateOrUpdatePost } = this.props
-    const today = new Date()
-    const authorId = post.author.id
-    if (post.id) {
+    if (post.title) {
+      const { onCreateOrUpdatePost } = this.props
+      const today = new Date()
+      const authorId = post.author.id.slice()
+      if (post.id) {
+        return onCreateOrUpdatePost({
+          ...post,
+          updatedDate: today,
+          authorId,
+        })
+      }
+      const postVerboseId = transliterate(post.title)
       return onCreateOrUpdatePost({
         ...post,
+        authorId,
+        postVerboseId,
+        createdDate: today,
         updatedDate: today,
-        authorId: post.author.id,
+        url: `/${postVerboseId}`,
       })
     }
-    const postVerboseId = transliterate(post.title)
-    return onCreateOrUpdatePost({
-      ...post,
-      authorId,
-      postVerboseId,
-      createdDate: today,
-      updatedDate: today,
-      url: `/${postVerboseId}`,
-    })
+    // eslint-disable-next-line no-alert
+    alert('Пожалуйста, заполни заголовок. Спасибо :*')
+    return new Error('Пожалуйста, заполни заголовок. Спасибо :*')
   }
 
   render() {
@@ -297,17 +309,32 @@ export default compose(
       name: 'updateOrCreatePost',
       props: ({ updateOrCreatePost }) => ({
         onCreateOrUpdatePost: ({ id = '', __typename, ...post }) => {
-          // eslint-disable-next-line no-param-reassign
-          delete post.author.id && delete post.author.__typename // update/create types are crazy and don't like id field on it.
+          /* eslint-disable no-param-reassign */
+          post.tagsIds = map(post.tags, tag => tag.id).filter(Boolean)
+          delete post.author && delete post.tags
           const create = { ...post }
           const update = { id, ...post }
-          console.log(update)
+          /* eslint-enable no-param-reassign */
           return updateOrCreatePost({
             variables: { create, update },
-            refetchQueries: ['AdminPosts', 'GetPostToRead', 'LandingPosts'],
           })
         },
       }),
+      options: {
+        refetchQueries: ['GetPostToRead', 'LandingPosts'],
+        update: (proxy, { data: { updateOrCreatePost } }) => {
+          const { allPosts } = proxy.readQuery({ query: AdminPostsQuery })
+          const index = allPosts.findIndex(
+            adminPost => adminPost.postVerboseId === updateOrCreatePost.postVerboseId,
+          )
+          if (index >= 0) {
+            allPosts[index] = updateOrCreatePost
+          } else {
+            allPosts.unshift(updateOrCreatePost)
+          }
+          proxy.writeQuery({ query: AdminPostsQuery, data: { allPosts } })
+        },
+      },
     },
   ),
 )(Edit)

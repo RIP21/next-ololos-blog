@@ -1,6 +1,6 @@
-const nameToProp = (name, queryName) => ({
+const nameToProp = (name, queryName, customLoadingPropName = 'loading') => ({
   name,
-  props: props => ({ [name]: props[name][queryName], loading: props.loading }),
+  props: props => ({ [name]: props[name][queryName], [customLoadingPropName]: props.loading }),
 })
 
 export default nameToProp

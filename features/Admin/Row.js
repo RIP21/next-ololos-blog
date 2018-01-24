@@ -10,7 +10,10 @@ import get from 'lodash/get'
 class Row extends PureComponent {
   onDelete = e => {
     e.preventDefault()
-    this.props.onDelete(this.props.post.id)
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Вы уверены, что хотите удалить пост?')) {
+      this.props.onDelete(this.props.post.id)
+    }
   }
 
   onEdit = () => {
@@ -27,7 +30,10 @@ class Row extends PureComponent {
       <Table.Row>
         <Table.Cell>{post.postVerboseId}</Table.Cell>
         <Table.Cell>
-          <Link href={`/post?id=${post.postVerboseId}`} as={`post/${post.postVerboseId}`}>
+          <Link
+            href={`/post?id=${post.postVerboseId}`}
+            as={`/post/${post.postVerboseId}`}
+          >
             <a>{post.title}</a>
           </Link>
         </Table.Cell>
@@ -38,8 +44,7 @@ class Row extends PureComponent {
         <Table.Cell>
           {get(post, 'tags')
             .map(tag => tag.name)
-            .join(', ')
-            .concat('.')}
+            .join(', ')}
         </Table.Cell>
         <Table.Cell
           style={{ fontSize: 25 }}

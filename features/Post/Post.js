@@ -1,28 +1,15 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
-import Remarkable from 'remarkable'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 import { Label, Divider } from 'semantic-ui-react'
+import { renderPost } from 'features/Post/renderPost'
 
 const DisqusThread = dynamic(import('react-disqus-comments'), { ssr: false })
 
 export default class Post extends React.PureComponent {
-  renderMarkdownAndReplaceLinks = () => {
-    const source = new Remarkable({
-      html: true,
-      linkify: true,
-      typographer: true,
-    }).render(this.props.post.body)
-    const re = new RegExp('<a>', 'g')
-    const re2 = new RegExp('<a ', 'g')
-    const result = source
-      .replace(re2, '<a target="_blank" rel="noopener noreferrer"')
-      .replace(re, '<a target="_blank" rel="noopener noreferrer"')
-    return result
-  }
-
   render() {
     const { post } = this.props
     const date = format(parse(post.createdDate), 'YYYY-MM-DD')
@@ -39,11 +26,7 @@ export default class Post extends React.PureComponent {
           <br />
         </header>
         <Divider />
-        <PostContainer
-          dangerouslySetInnerHTML={{
-            __html: this.renderMarkdownAndReplaceLinks(),
-          }}
-        />
+        <PostContainer>{renderPost(this.props.post.body)}</PostContainer>
         <DisqusThread
           shortname="ololos"
           identifier={post.postVerboseId}

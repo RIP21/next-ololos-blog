@@ -21,7 +21,7 @@ class AdminPage extends React.Component {
   }
 }
 
-const AdminPostsQuery = gql`
+export const AdminPostsQuery = gql`
   query AdminPosts {
     allPosts(orderBy: createdDate_DESC) {
       id
@@ -39,7 +39,7 @@ const AdminPostsQuery = gql`
   }
 `
 
-const DeletePost = gql`
+const DeletePostMutation = gql`
   mutation DeletePost($id: ID!) {
     deletePost(id: $id) {
       id
@@ -49,7 +49,7 @@ const DeletePost = gql`
 
 export default compose(
   withData,
-  graphql(DeletePost, {
+  graphql(DeletePostMutation, {
     name: 'onPostDelete',
     props: ({ onPostDelete }) => ({
       onPostDelete: id => onPostDelete({ variables: { id } }),

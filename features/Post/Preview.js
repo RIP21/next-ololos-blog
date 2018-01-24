@@ -1,10 +1,11 @@
+import { renderPost } from 'features/Post/renderPost'
 import React from 'react'
 import styled from 'styled-components'
-import Remarkable from 'remarkable'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 import { Label, Divider, Button } from 'semantic-ui-react'
 import Link from 'next/link'
+import Lazyload from 'react-lazyload'
 
 export default class Preview extends React.PureComponent {
   render() {
@@ -28,17 +29,10 @@ export default class Preview extends React.PureComponent {
             </Label.Detail>
           </Label>
         </header>
-        <Img src={post.previewPic} />
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: new Remarkable({
-              html: true,
-              linkify: true,
-              typographer: true,
-            }).render(post.description),
-          }}
-        />
+        <Lazyload height={700} offset={100} once>
+          <Img src={post.previewPic} />
+        </Lazyload>
+        <div>{renderPost(post.description)}</div>
         <Flex>
           <Link href={`/post?id=${post.postVerboseId}`} as={`post/${post.postVerboseId}`}>
             <a>
