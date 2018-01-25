@@ -27,11 +27,7 @@ export default class Post extends React.PureComponent {
         </header>
         <Divider />
         <PostContainer>{renderPost(this.props.post.body)}</PostContainer>
-        <DisqusThread
-          shortname="ololos"
-          identifier={post.verboseId}
-          title={post.title}
-        />
+        <DisqusThread shortname="ololos" identifier={post.verboseId} title={post.title} />
       </article>
     )
   }

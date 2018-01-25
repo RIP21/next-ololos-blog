@@ -42,6 +42,7 @@ export const AdminPostsQuery = gql`
 
 export default compose(
   withData,
+  graphql(AdminPostsQuery, nameToProp('posts', 'allPosts')),
   graphql(DeletePostMutation, {
     name: 'onPostDelete',
     props: ({ onPostDelete }) => ({
@@ -57,5 +58,4 @@ export default compose(
       },
     },
   }),
-  graphql(AdminPostsQuery, nameToProp('posts', 'allPosts')),
 )(AdminPage)

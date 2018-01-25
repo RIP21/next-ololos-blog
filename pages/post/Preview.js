@@ -15,10 +15,7 @@ export default class Preview extends React.PureComponent {
       <article>
         <header>
           <H1>
-            <Link
-              href={`/post?id=${post.verboseId}`}
-              as={`post/${post.verboseId}`}
-            >
+            <Link href={`/post?id=${post.verboseId}`} as={`post/${post.verboseId}`}>
               <a>{post.title}</a>
             </Link>
           </H1>

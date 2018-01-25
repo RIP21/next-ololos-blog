@@ -30,11 +30,7 @@ class Administration extends React.PureComponent {
           </Table.Header>
           <Table.Body>
             {map(this.props.posts, post => (
-              <Row
-                key={post.verboseId}
-                post={post}
-                onDelete={this.props.onPostDelete}
-              />
+              <Row key={post.verboseId} post={post} onDelete={this.props.onPostDelete} />
             ))}
           </Table.Body>
         </Table>

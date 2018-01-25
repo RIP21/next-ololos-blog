@@ -27,9 +27,7 @@ class Index extends React.Component {
           <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
         </Masthead>
         <Thread>
-          {map(this.props.posts, post => (
-            <Preview key={post.verboseId} post={post} />
-          ))}
+          {map(this.props.posts, post => <Preview key={post.verboseId} post={post} />)}
         </Thread>
         <Center>
           <Button onClick={this.props.loadMoreEntries}>Load more...</Button>

@@ -2,11 +2,10 @@ import React, { PureComponent } from 'react'
 import { Menu, Container as SContainer, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import Router from 'next/router'
 
 export default class Navigation extends PureComponent {
   onLogout = () => {
-    this.props.onLogout().then(Router.push('/index'))
+    this.props.onLogout()
   }
 
   render() {

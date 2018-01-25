@@ -30,10 +30,7 @@ class Row extends PureComponent {
       <Table.Row>
         <Table.Cell>{post.verboseId}</Table.Cell>
         <Table.Cell>
-          <Link
-            href={`/post?id=${post.verboseId}`}
-            as={`/post/${post.verboseId}`}
-          >
+          <Link href={`/post?id=${post.verboseId}`} as={`/post/${post.verboseId}`}>
             <a>{post.title}</a>
           </Link>
         </Table.Cell>

@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
 
   handleSubmit = () => {
     const { username, password } = this.state
-    this.props.signin(username, password)
+    this.props.onLogin(username, password)
   }
 
   render() {
@@ -67,7 +67,7 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  signin: PT.func,
+  onLogin: PT.func,
 }
 
 export default compose(
@@ -93,8 +93,8 @@ export default compose(
         // `client` is provided by the `withApollo` HOC
         ownProps: { client },
       }) => ({
-        // `signin` is the name of the prop passed to the component
-        signin: (email, password) => {
+        // `onLogin` is the name of the prop passed to the component
+        onLogin: (email, password) => {
           signinWithEmail({
             variables: {
               email,

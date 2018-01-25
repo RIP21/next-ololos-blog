@@ -4,6 +4,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { withClientState } from 'apollo-link-state'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { setContext } from 'apollo-link-context'
+import initialLocalState from 'apollo/initialLocalState'
 import fetch from 'isomorphic-unfetch'
 
 let apolloClient = null
@@ -21,7 +22,6 @@ function create(initialState, { getToken }) {
 
   const cache = new InMemoryCache().restore(initialState || {})
 
-  const initialLocalState = {}
   const stateLink = withClientState({
     cache,
     defaults: initialLocalState,
