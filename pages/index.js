@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import map from 'lodash/map'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import Preview from '../features/Post/Preview'
+import Preview from './post/Preview'
 
 class Index extends React.Component {
   getMeta = () => ({
@@ -28,7 +28,7 @@ class Index extends React.Component {
         </Masthead>
         <Thread>
           {map(this.props.posts, post => (
-            <Preview key={post.postVerboseId} post={post} />
+            <Preview key={post.verboseId} post={post} />
           ))}
         </Thread>
         <Center>
@@ -126,7 +126,7 @@ const LandingPostsQuery = gql`
       title
       createdDate
       description
-      postVerboseId
+      verboseId
       previewPic
       tags {
         name
@@ -147,7 +147,7 @@ export default compose(
       posts: allPosts,
       loadMoreEntries() {
         return fetchMore({
-          // query: ... (you can specify a different query. FEED_QUERY is used by default)
+          // query: ... (you can specify a different query. LandingPostsQuery is used by default)
           variables: {
             // We are able to figure out which offset to use because it matches
             // the feed length, but we could also use state, or the previous
@@ -158,10 +158,11 @@ export default compose(
             if (!fetchMoreResult) {
               return previousResult
             }
-            return Object.assign({}, previousResult, {
+            return {
+              previousResult,
               // Append the new feed results to the old one
               allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts],
-            })
+            }
           },
         })
       },

@@ -1,9 +1,9 @@
-import withData from 'apollo/withData'
+import withData from 'apollo/hoc/withData'
 import React from 'react'
 import Layout from 'components/Layout'
 import { Embed } from 'semantic-ui-react'
 
-const Map = () => (
+const MapPage = () => (
   <Layout title="Карта" text={false}>
     <Embed
       defaultActive
@@ -12,4 +12,4 @@ const Map = () => (
   </Layout>
 )
 
-export default withData(Map)
+export default withData(MapPage)

@@ -1,5 +1,5 @@
-import redirect from 'apollo/redirect'
-import withAuth from 'apollo/withAuth'
+import redirect from 'helpers/redirect'
+import withAuth from 'apollo/hoc/withAuth'
 import cookie from 'cookie'
 import React from 'react'
 import PT from 'prop-types'
@@ -10,7 +10,7 @@ import get from 'lodash/get'
 import { withApollo, compose } from 'react-apollo'
 import Navigation from './Navigation'
 import Footer from './Footer'
-import { initGA, logPageView } from '../../services/analitycs'
+import { initGA, logPageView } from '../../integraions/analitycs'
 
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`

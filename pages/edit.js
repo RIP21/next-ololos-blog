@@ -1,11 +1,12 @@
-import checkLoggedIn from 'apollo/checkLoggedIn'
-import redirect from 'apollo/redirect'
+import GetPostByVerboseId from 'apollo/graphcool/queries/GetPostByVerboseId'
+import checkLoggedIn from 'apollo/helpers/checkLoggedIn'
+import dataToProp from 'apollo/helpers/nameToProp'
+import redirect from 'helpers/redirect'
 import React from 'react'
-import Edit from 'features/Edit'
+import Editor from 'pages/edit/Editor/Editor'
 import get from 'lodash/get'
-import withData from 'apollo/withData'
+import withData from 'apollo/hoc/withData'
 import { compose, graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 
 class EditPage extends React.Component {
   static async getInitialProps(context, apolloClient) {
@@ -15,45 +16,19 @@ class EditPage extends React.Component {
       redirect(context, '/')
     }
 
-    return { postVerboseId: get(context.query, 'id'), author: get(user, 'author') }
+    return { verboseId: get(context.query, 'id'), author: get(user, 'author') }
   }
 
   render() {
     const { post, ...props } = this.props
-    return <Edit post={post} {...props} />
+    return <Editor post={post} {...props} />
   }
 }
 
 export default compose(
   withData,
-  graphql(
-    gql`
-      query($postVerboseId: String!) {
-        Post(postVerboseId: $postVerboseId) {
-          id
-          title
-          createdDate
-          body
-          description
-          previewPic
-          postVerboseId
-          published
-          url
-          tags {
-            id
-            name
-          }
-          author {
-            id
-            name
-          }
-        }
-      }
-    `,
-    {
-      name: 'getPost',
-      skip: ownProps => !ownProps.postVerboseId,
-      props: ({ getPost: { Post: post } }) => ({ post }),
-    },
-  ),
+  graphql(GetPostByVerboseId, {
+    skip: ownProps => !ownProps.verboseId,
+    ...dataToProp('post', 'Post'),
+  }),
 )(EditPage)

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
 import Head from 'next/head'
 
-import initApollo from './initApollo'
+import initApollo from '../initApollo'
 
 function parseCookies(context = {}, options = {}) {
   return cookie.parse(

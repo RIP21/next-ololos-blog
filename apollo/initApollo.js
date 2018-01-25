@@ -1,5 +1,7 @@
 import { ApolloClient } from 'apollo-client'
+import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
+import { withClientState } from 'apollo-link-state'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { setContext } from 'apollo-link-context'
 import fetch from 'isomorphic-unfetch'
@@ -17,6 +19,14 @@ function create(initialState, { getToken }) {
     credentials: 'same-origin',
   })
 
+  const cache = new InMemoryCache().restore(initialState || {})
+
+  const initialLocalState = {}
+  const stateLink = withClientState({
+    cache,
+    defaults: initialLocalState,
+  })
+
   const authLink = setContext((_, { headers }) => {
     const token = getToken()
     return {
@@ -30,8 +40,8 @@ function create(initialState, { getToken }) {
   return new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache().restore(initialState || {}),
+    link: ApolloLink.from([stateLink, authLink.concat(httpLink)]),
+    cache,
   })
 }
 

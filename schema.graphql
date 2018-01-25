@@ -152,7 +152,7 @@ input AuthorpostsPost {
   body: String
   createdDate: DateTime!
   description: String
-  postVerboseId: String!
+  verboseId: String!
   previewPic: String
   published: Boolean
   title: String!
@@ -305,7 +305,7 @@ input CreatePost {
   body: String
   createdDate: DateTime!
   description: String
-  postVerboseId: String!
+  verboseId: String!
   previewPic: String
   published: Boolean
   title: String!
@@ -951,11 +951,11 @@ type FileSubscriptionPayload {
 type Mutation {
   createAuthor(name: String!, userId: ID, postsIds: [ID!], posts: [AuthorpostsPost!]): Author
   createFile(name: String!): File
-  createPost(body: String, createdDate: DateTime!, description: String, postVerboseId: String!, previewPic: String, published: Boolean, title: String!, updatedDate: DateTime!, url: String!, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
+  createPost(body: String, createdDate: DateTime!, description: String, verboseId: String!, previewPic: String, published: Boolean, title: String!, updatedDate: DateTime!, url: String!, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
   createTag(name: String!, postsIds: [ID!], posts: [TagpostsPost!]): Tag
   updateAuthor(id: ID!, name: String, userId: ID, postsIds: [ID!], posts: [AuthorpostsPost!]): Author
   updateFile(id: ID!, name: String): File
-  updatePost(body: String, createdDate: DateTime, description: String, id: ID!, postVerboseId: String, previewPic: String, published: Boolean, title: String, updatedDate: DateTime, url: String, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
+  updatePost(body: String, createdDate: DateTime, description: String, id: ID!, verboseId: String, previewPic: String, published: Boolean, title: String, updatedDate: DateTime, url: String, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
   updateTag(id: ID!, name: String, postsIds: [ID!], posts: [TagpostsPost!]): Tag
   updateUser(id: ID!, isVerified: Boolean, secret: String, authorId: ID, author: UserauthorAuthor): User
   updateOrCreateAuthor(update: UpdateAuthor!, create: CreateAuthor!): Author
@@ -994,7 +994,7 @@ type Post implements Node {
   createdDate: DateTime!
   description: String
   id: ID!
-  postVerboseId: String!
+  verboseId: String!
   previewPic: String
   published: Boolean
   tags(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1184,46 +1184,46 @@ input PostFilter {
 
   #All values not ending with the given string.#
   id_not_ends_with: ID
-  postVerboseId: String
+  verboseId: String
 
   #All values that are not equal to given value.#
-  postVerboseId_not: String
+  verboseId_not: String
 
   #All values that are contained in given list.#
-  postVerboseId_in: [String!]
+  verboseId_in: [String!]
 
   #All values that are not contained in given list.#
-  postVerboseId_not_in: [String!]
+  verboseId_not_in: [String!]
 
   #All values less than the given value.#
-  postVerboseId_lt: String
+  verboseId_lt: String
 
   #All values less than or equal the given value.#
-  postVerboseId_lte: String
+  verboseId_lte: String
 
   #All values greater than the given value.#
-  postVerboseId_gt: String
+  verboseId_gt: String
 
   #All values greater than or equal the given value.#
-  postVerboseId_gte: String
+  verboseId_gte: String
 
   #All values containing the given string.#
-  postVerboseId_contains: String
+  verboseId_contains: String
 
   #All values not containing the given string.#
-  postVerboseId_not_contains: String
+  verboseId_not_contains: String
 
   #All values starting with the given string.#
-  postVerboseId_starts_with: String
+  verboseId_starts_with: String
 
   #All values not starting with the given string.#
-  postVerboseId_not_starts_with: String
+  verboseId_not_starts_with: String
 
   #All values ending with the given string.#
-  postVerboseId_ends_with: String
+  verboseId_ends_with: String
 
   #All values not ending with the given string.#
-  postVerboseId_not_ends_with: String
+  verboseId_not_ends_with: String
   previewPic: String
 
   #All values that are not equal to given value.#
@@ -1409,8 +1409,8 @@ enum PostOrderBy {
   description_DESC
   id_ASC
   id_DESC
-  postVerboseId_ASC
-  postVerboseId_DESC
+  verboseId_ASC
+  verboseId_DESC
   previewPic_ASC
   previewPic_DESC
   published_ASC
@@ -1431,7 +1431,7 @@ type PostPreviousValues {
   createdDate: DateTime!
   description: String
   id: ID!
-  postVerboseId: String!
+  verboseId: String!
   previewPic: String
   published: Boolean
   title: String!
@@ -1630,46 +1630,46 @@ input PostSubscriptionFilterNode {
 
   #All values not ending with the given string.#
   id_not_ends_with: ID
-  postVerboseId: String
+  verboseId: String
 
   #All values that are not equal to given value.#
-  postVerboseId_not: String
+  verboseId_not: String
 
   #All values that are contained in given list.#
-  postVerboseId_in: [String!]
+  verboseId_in: [String!]
 
   #All values that are not contained in given list.#
-  postVerboseId_not_in: [String!]
+  verboseId_not_in: [String!]
 
   #All values less than the given value.#
-  postVerboseId_lt: String
+  verboseId_lt: String
 
   #All values less than or equal the given value.#
-  postVerboseId_lte: String
+  verboseId_lte: String
 
   #All values greater than the given value.#
-  postVerboseId_gt: String
+  verboseId_gt: String
 
   #All values greater than or equal the given value.#
-  postVerboseId_gte: String
+  verboseId_gte: String
 
   #All values containing the given string.#
-  postVerboseId_contains: String
+  verboseId_contains: String
 
   #All values not containing the given string.#
-  postVerboseId_not_contains: String
+  verboseId_not_contains: String
 
   #All values starting with the given string.#
-  postVerboseId_starts_with: String
+  verboseId_starts_with: String
 
   #All values not starting with the given string.#
-  postVerboseId_not_starts_with: String
+  verboseId_not_starts_with: String
 
   #All values ending with the given string.#
-  postVerboseId_ends_with: String
+  verboseId_ends_with: String
 
   #All values not ending with the given string.#
-  postVerboseId_not_ends_with: String
+  verboseId_not_ends_with: String
   previewPic: String
 
   #All values that are not equal to given value.#
@@ -1870,7 +1870,7 @@ type Query {
   _allUsersMeta(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   Author(id: ID): Author
   File(id: ID, secret: String, url: String): File
-  Post(id: ID, postVerboseId: String, url: String): Post
+  Post(id: ID, verboseId: String, url: String): Post
   Tag(id: ID, name: String): Tag
   User(email: String, id: ID, secret: String): User
   user: User
@@ -2023,7 +2023,7 @@ input TagpostsPost {
   body: String
   createdDate: DateTime!
   description: String
-  postVerboseId: String!
+  verboseId: String!
   previewPic: String
   published: Boolean
   title: String!
@@ -2181,7 +2181,7 @@ input UpdatePost {
   createdDate: DateTime
   description: String
   id: ID!
-  postVerboseId: String
+  verboseId: String
   previewPic: String
   published: Boolean
   title: String

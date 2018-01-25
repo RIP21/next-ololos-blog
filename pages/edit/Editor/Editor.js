@@ -1,14 +1,9 @@
-import { nameToProp } from 'apollo'
-import { AdminPostsQuery } from 'pages/admin'
 import React from 'react'
-import Layout from 'components/Layout'
+import Layout from 'components/Layout/index'
 import { Form, Header, Checkbox } from 'semantic-ui-react'
 import SimpleMDE from 'react-simplemde-editor'
 import Router from 'next/router'
 import cloneDeep from 'lodash/cloneDeep'
-import map from 'lodash/map'
-import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
 
 function transliterate(text) {
   return text
@@ -84,7 +79,7 @@ function transliterate(text) {
 
 export const EMPTY_AUTHOR = { id: '', name: '' }
 export const EMPTY_POST = {
-  postVerboseId: '',
+  verboseId: '',
   title: '',
   author: EMPTY_AUTHOR,
   body: '',
@@ -95,14 +90,14 @@ export const EMPTY_POST = {
   published: false,
 }
 
-class Edit extends React.Component {
+export default class Editor extends React.Component {
   constructor(props) {
     super(props)
     // Couldn't be an empty author since there is no possibility to access this page without login
     const author = props.post && props.post.author ? props.post.author : props.author
     const fields = props.post ? { ...props.post, author } : { ...EMPTY_POST, author }
     this.state = {
-      messages: props.postVerboseId
+      messages: props.verboseId
         ? {
             title: 'Редактировать',
             button: 'Сохранить',
@@ -161,14 +156,14 @@ class Edit extends React.Component {
           authorId,
         })
       }
-      const postVerboseId = transliterate(post.title)
+      const verboseId = transliterate(post.title)
       return onCreateOrUpdatePost({
         ...post,
         authorId,
-        postVerboseId,
+        verboseId,
         createdDate: today,
         updatedDate: today,
-        url: `/${postVerboseId}`,
+        url: `/${verboseId}`,
       })
     }
     // eslint-disable-next-line no-alert
@@ -262,80 +257,3 @@ class Edit extends React.Component {
     )
   }
 }
-
-const PostEditFieldsFragment = gql`
-  fragment PostEditFields on Post {
-    id
-    body
-    createdDate
-    postVerboseId
-    previewPic
-    title
-    updatedDate
-    published
-    description
-    url
-    tags {
-      id
-      name
-    }
-    author {
-      id
-      name
-    }
-  }
-`
-
-const AllTagsQuery = gql`
-  query AllTagsQuery {
-    allTags {
-      id
-      name
-    }
-  }
-`
-
-export default compose(
-  graphql(AllTagsQuery, nameToProp('tags', 'allTags')),
-  graphql(
-    gql`
-      mutation($create: CreatePost!, $update: UpdatePost!) {
-        updateOrCreatePost(create: $create, update: $update) {
-          ...PostEditFields
-        }
-      }
-      ${PostEditFieldsFragment}
-    `,
-    {
-      name: 'updateOrCreatePost',
-      props: ({ updateOrCreatePost }) => ({
-        onCreateOrUpdatePost: ({ id = '', __typename, ...post }) => {
-          /* eslint-disable no-param-reassign */
-          post.tagsIds = map(post.tags, tag => tag.id).filter(Boolean)
-          delete post.author && delete post.tags
-          const create = { ...post }
-          const update = { id, ...post }
-          /* eslint-enable no-param-reassign */
-          return updateOrCreatePost({
-            variables: { create, update },
-          })
-        },
-      }),
-      options: {
-        refetchQueries: ['GetPostToRead', 'LandingPosts'],
-        update: (proxy, { data: { updateOrCreatePost } }) => {
-          const { allPosts } = proxy.readQuery({ query: AdminPostsQuery })
-          const index = allPosts.findIndex(
-            adminPost => adminPost.postVerboseId === updateOrCreatePost.postVerboseId,
-          )
-          if (index >= 0) {
-            allPosts[index] = updateOrCreatePost
-          } else {
-            allPosts.unshift(updateOrCreatePost)
-          }
-          proxy.writeQuery({ query: AdminPostsQuery, data: { allPosts } })
-        },
-      },
-    },
-  ),
-)(Edit)

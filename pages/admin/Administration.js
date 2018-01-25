@@ -1,11 +1,11 @@
 import React from 'react'
-import Layout from 'components/Layout'
+import Layout from 'components/Layout/index'
 import { Table, Button } from 'semantic-ui-react'
 import Router from 'next/router'
 import map from 'lodash/map'
 import Row from './Row'
 
-class Admin extends React.PureComponent {
+class Administration extends React.PureComponent {
   onCreateClick = () => {
     Router.push('/edit', '/admin/create/post')
   }
@@ -31,7 +31,7 @@ class Admin extends React.PureComponent {
           <Table.Body>
             {map(this.props.posts, post => (
               <Row
-                key={post.postVerboseId}
+                key={post.verboseId}
                 post={post}
                 onDelete={this.props.onPostDelete}
               />
@@ -44,4 +44,4 @@ class Admin extends React.PureComponent {
   }
 }
 
-export default Admin
+export default Administration

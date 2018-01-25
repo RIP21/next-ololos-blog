@@ -1,4 +1,4 @@
-import { renderPost } from 'features/Post/renderPost'
+import { renderPost } from 'pages/post/renderPost'
 import React from 'react'
 import styled from 'styled-components'
 import parse from 'date-fns/parse'
@@ -16,8 +16,8 @@ export default class Preview extends React.PureComponent {
         <header>
           <H1>
             <Link
-              href={`/post?id=${post.postVerboseId}`}
-              as={`post/${post.postVerboseId}`}
+              href={`/post?id=${post.verboseId}`}
+              as={`post/${post.verboseId}`}
             >
               <a>{post.title}</a>
             </Link>
@@ -29,12 +29,12 @@ export default class Preview extends React.PureComponent {
             </Label.Detail>
           </Label>
         </header>
-        <Lazyload height={700} offset={100} once>
+        <Lazyload height={700} offset={500} once>
           <Img src={post.previewPic} />
         </Lazyload>
         <div>{renderPost(post.description)}</div>
         <Flex>
-          <Link href={`/post?id=${post.postVerboseId}`} as={`post/${post.postVerboseId}`}>
+          <Link href={`/post?id=${post.verboseId}`} as={`post/${post.verboseId}`}>
             <a>
               <Button basic size="medium" color="grey">
                 Читать далее

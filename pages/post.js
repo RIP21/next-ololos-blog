@@ -1,25 +1,25 @@
 import { nameToProp } from 'apollo'
+import GetPostByVerboseId from 'apollo/graphcool/queries/GetPostByVerboseId'
 import React from 'react'
 import get from 'lodash/get'
 import { ABSOLUTE_HOST_PATH } from 'constants/common'
 import { compose, graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import Post from '../features/Post/Post'
+import Post from './post/Post'
 import Layout from '../components/Layout'
-import withData from '../apollo/withData'
+import withData from '../apollo/hoc/withData'
 
 class PostPage extends React.Component {
   static async getInitialProps(context) {
-    return { postVerboseId: get(context.query, 'id') }
+    return { verboseId: get(context.query, 'id') }
   }
 
   getMeta = () => {
-    const { postVerboseId, title, description, previewPic, author } = this.props.post
+    const { verboseId, title, description, previewPic, author } = this.props.post
     return {
       title,
       description,
       image: `${ABSOLUTE_HOST_PATH}${previewPic}`,
-      url: `${ABSOLUTE_HOST_PATH}/post/${postVerboseId}`,
+      url: `${ABSOLUTE_HOST_PATH}/post/${verboseId}`,
       author: author.name,
     }
   }
@@ -34,24 +34,6 @@ class PostPage extends React.Component {
   }
 }
 
-const GetPostToReadQuery = gql`
-  query GetPostToRead($postVerboseId: String!) {
-    Post(postVerboseId: $postVerboseId) {
-      title
-      createdDate
-      body
-      description
-      postVerboseId
-      tags {
-        name
-      }
-      author {
-        name
-      }
-    }
-  }
-`
-
-export default compose(withData, graphql(GetPostToReadQuery, nameToProp('post', 'Post')))(
+export default compose(withData, graphql(GetPostByVerboseId, nameToProp('post', 'Post')))(
   PostPage,
 )

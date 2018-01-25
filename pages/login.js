@@ -6,11 +6,11 @@ import { graphql, withApollo, compose } from 'react-apollo'
 import cookie from 'cookie'
 import gql from 'graphql-tag'
 
-import checkLoggedIn from '../apollo/checkLoggedIn'
-import redirect from '../apollo/redirect'
-import withData from '../apollo/withData'
+import checkLoggedIn from '../apollo/helpers/checkLoggedIn'
+import redirect from '../helpers/redirect'
+import withData from '../apollo/hoc/withData'
 
-class Login extends React.Component {
+class LoginPage extends React.Component {
   static async getInitialProps(context, apolloClient) {
     const user = await checkLoggedIn(context, apolloClient)
 
@@ -66,7 +66,7 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+LoginPage.propTypes = {
   signin: PT.func,
 }
 
@@ -123,4 +123,4 @@ export default compose(
       }),
     },
   ),
-)(Login)
+)(LoginPage)

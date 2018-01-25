@@ -1,5 +1,5 @@
 import React from 'react'
-import withData from 'apollo/withData'
+import withData from 'apollo/hoc/withData'
 import { Image } from 'semantic-ui-react'
 import Layout from '../components/Layout/Layout'
 

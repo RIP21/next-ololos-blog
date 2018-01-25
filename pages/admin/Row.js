@@ -18,8 +18,8 @@ class Row extends PureComponent {
 
   onEdit = () => {
     Router.push(
-      `/edit?id=${this.props.post.postVerboseId}`,
-      `/admin/edit/post/${this.props.post.postVerboseId}`,
+      `/edit?id=${this.props.post.verboseId}`,
+      `/admin/edit/post/${this.props.post.verboseId}`,
     )
   }
 
@@ -28,11 +28,11 @@ class Row extends PureComponent {
     const { published } = post
     return (
       <Table.Row>
-        <Table.Cell>{post.postVerboseId}</Table.Cell>
+        <Table.Cell>{post.verboseId}</Table.Cell>
         <Table.Cell>
           <Link
-            href={`/post?id=${post.postVerboseId}`}
-            as={`/post/${post.postVerboseId}`}
+            href={`/post?id=${post.verboseId}`}
+            as={`/post/${post.verboseId}`}
           >
             <a>{post.title}</a>
           </Link>

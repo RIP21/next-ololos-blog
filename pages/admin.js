@@ -1,5 +1,6 @@
+import DeletePostMutation from 'apollo/graphcool/mutations/DeletePostById'
 import React from 'react'
-import Admin from 'features/Admin'
+import Administration from 'pages/admin/Administration'
 import { withData, redirect, checkLoggedIn, nameToProp } from 'apollo'
 import gql from 'graphql-tag'
 import { compose, graphql } from 'react-apollo'
@@ -17,7 +18,7 @@ class AdminPage extends React.Component {
 
   render() {
     const { posts, ...rest } = this.props
-    return <Admin posts={posts} {...rest} />
+    return <Administration posts={posts} {...rest} />
   }
 }
 
@@ -27,7 +28,7 @@ export const AdminPostsQuery = gql`
       id
       title
       createdDate
-      postVerboseId
+      verboseId
       published
       tags {
         name
@@ -35,14 +36,6 @@ export const AdminPostsQuery = gql`
       author {
         name
       }
-    }
-  }
-`
-
-const DeletePostMutation = gql`
-  mutation DeletePost($id: ID!) {
-    deletePost(id: $id) {
-      id
     }
   }
 `

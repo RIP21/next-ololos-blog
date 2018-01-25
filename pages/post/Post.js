@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 import { Label, Divider } from 'semantic-ui-react'
-import { renderPost } from 'features/Post/renderPost'
+import { renderPost } from 'pages/post/renderPost'
 
 const DisqusThread = dynamic(import('react-disqus-comments'), { ssr: false })
 
@@ -29,7 +29,7 @@ export default class Post extends React.PureComponent {
         <PostContainer>{renderPost(this.props.post.body)}</PostContainer>
         <DisqusThread
           shortname="ololos"
-          identifier={post.postVerboseId}
+          identifier={post.verboseId}
           title={post.title}
         />
       </article>
