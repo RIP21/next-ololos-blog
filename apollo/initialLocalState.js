@@ -1,9 +1,7 @@
+import { initialState as modal } from './local/modal'
+
 const initialLocalState = {
-  toast: {
-    __typename: 'Toast',
-    success: '',
-    error: '',
-  },
+  ...modal,
 }
 
 export default initialLocalState
