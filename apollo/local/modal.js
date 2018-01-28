@@ -8,7 +8,7 @@ export const initialState = {
 }
 
 export const ShowModal = gql`
-  mutation ShowToast($message: String) {
+  mutation ShowModal($message: String) {
     showModal(message: $message) @client
   }
 `
