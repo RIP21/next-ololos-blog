@@ -1,5 +1,6 @@
+import PT from 'prop-types'
 import React from 'react'
-import Layout from 'components/Layout/index'
+import Layout from 'components/Layout'
 import { Form, Header, Checkbox } from 'semantic-ui-react'
 import SimpleMDE from 'react-simplemde-editor'
 import Router from 'next/router'
@@ -139,9 +140,16 @@ export default class Editor extends React.Component {
     // eslint-disable-next-line no-unused-vars
     const { messages, ...post } = this.state
     const clonedPost = cloneDeep(post)
-    this.updateOrCreate(clonedPost).then(() => {
-      Router.push('/admin', '/admin/posts')
-    })
+    this.updateOrCreate(clonedPost)
+      .then(() => {
+        Router.push('/admin', '/admin/posts')
+      })
+      .catch(error => {
+        this.props.onMessageShow({
+          message: `Возникла проблема при выполнении операции: ${JSON.stringify(error)}`,
+          type: 'error',
+        })
+      })
   }
 
   updateOrCreate = post => {
@@ -154,6 +162,11 @@ export default class Editor extends React.Component {
           ...post,
           updatedDate: today,
           authorId,
+        }).then(({ data: { updateOrCreatePost } }) => {
+          this.props.onMessageShow({
+            message: `Пост с id: ${updateOrCreatePost.id} был успешно обновлен.`,
+            type: 'success',
+          })
         })
       }
       const verboseId = transliterate(post.title)
@@ -164,6 +177,11 @@ export default class Editor extends React.Component {
         createdDate: today,
         updatedDate: today,
         url: `/${verboseId}`,
+      }).then(({ data: { updateOrCreatePost } }) => {
+        this.props.onMessageShow({
+          message: `Пост с id: ${updateOrCreatePost.id} был успешно создан.`,
+          type: 'success',
+        })
       })
     }
     // eslint-disable-next-line no-alert
@@ -256,4 +274,11 @@ export default class Editor extends React.Component {
       </Layout>
     )
   }
+}
+
+Editor.propTypes = {
+  author: PT.object,
+  post: PT.object,
+  onMessageShow: PT.func.isRequired,
+  onCreateOrUpdatePost: PT.func.isRequired,
 }

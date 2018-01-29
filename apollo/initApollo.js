@@ -39,12 +39,17 @@ function create(initialState, { getToken }) {
     }
   })
 
-  return new ApolloClient({
+  const client = new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     link: ApolloLink.from([stateLink, authLink.concat(httpLink)]),
     cache,
   })
+
+  // Needed so on reset store we have local-state set to defaults
+  client.onResetStore(stateLink.writeDefaults)
+
+  return client
 }
 
 export default function initApollo(initialState, options) {

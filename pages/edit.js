@@ -1,4 +1,5 @@
 import GetPostByVerboseId from 'apollo/graphcool/queries/GetPostByVerboseId'
+import PT from 'prop-types'
 import checkLoggedIn from 'apollo/helpers/checkLoggedIn'
 import dataToProp from 'apollo/helpers/nameToProp'
 import redirect from 'helpers/redirect'
@@ -23,6 +24,10 @@ class EditPage extends React.Component {
     const { post, ...props } = this.props
     return <Editor post={post} {...props} />
   }
+}
+
+EditPage.propTypes = {
+  post: PT.object,
 }
 
 export default compose(

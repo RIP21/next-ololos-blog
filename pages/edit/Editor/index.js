@@ -1,4 +1,5 @@
 import GetAllTags from 'apollo/graphcool/queries/GetAllTags'
+import withModal from 'apollo/hoc/withModal'
 import { nameToProp } from 'apollo/index'
 import { AdminPostsQuery } from 'pages/admin'
 import map from 'lodash/map'
@@ -56,7 +57,9 @@ export default compose(
       },
     }),
     options: {
+      // Tells Apollo to refetch these queries in case of request of them by some subscribed component after this mutation
       refetchQueries: ['GetPostToRead', 'LandingPosts'],
+      // Update function to update Admin page posts query without refetch
       update: (proxy, { data: { updateOrCreatePost } }) => {
         const { allPosts } = proxy.readQuery({ query: AdminPostsQuery })
         const index = allPosts.findIndex(
@@ -71,4 +74,5 @@ export default compose(
       },
     },
   }),
+  withModal,
 )(Editor)

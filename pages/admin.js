@@ -1,4 +1,5 @@
 import DeletePostMutation from 'apollo/graphcool/mutations/DeletePostById'
+import withModal from 'apollo/hoc/withModal'
 import React from 'react'
 import Administration from 'pages/admin/Administration'
 import { withData, redirect, checkLoggedIn, nameToProp } from 'apollo'
@@ -31,9 +32,11 @@ export const AdminPostsQuery = gql`
       verboseId
       published
       tags {
+        id
         name
       }
       author {
+        id
         name
       }
     }
@@ -42,11 +45,15 @@ export const AdminPostsQuery = gql`
 
 export default compose(
   withData,
+  withModal,
   graphql(AdminPostsQuery, nameToProp('posts', 'allPosts')),
   graphql(DeletePostMutation, {
     name: 'onPostDelete',
-    props: ({ onPostDelete }) => ({
-      onPostDelete: id => onPostDelete({ variables: { id } }),
+    props: ({ onPostDelete, ownProps: { onMessageShow } }) => ({
+      onPostDelete: id =>
+        onPostDelete({ variables: { id } }).then(() => {
+          onMessageShow({ message: 'Пост был успешно удален.', type: 'success' })
+        }),
     }),
     options: {
       update: (proxy, { data: { deletePost } }) => {

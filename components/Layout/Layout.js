@@ -1,3 +1,4 @@
+import Modal from 'components/Layout/Modal'
 import redirect from 'helpers/redirect'
 import withAuth from 'apollo/hoc/withAuth'
 import cookie from 'cookie'
@@ -43,10 +44,6 @@ class Layout extends React.PureComponent {
       // Redirect to a more useful page when signed out
       redirect({}, '/')
     })
-  }
-
-  onModalClose = () => {
-    this.props.onModalClose()
   }
 
   getHead = () => {
@@ -114,17 +111,7 @@ class Layout extends React.PureComponent {
           {children}
         </ContentContainer>
         <Footer />
-        {/* <Modal basic open={this.props.isOpen} onClose={this.onModalClose}> */}
-        {/* <Header icon="remove" content="Error" /> */}
-        {/* <Modal.Content> */}
-        {/* <p>{this.props.error}</p> */}
-        {/* </Modal.Content> */}
-        {/* <Modal.Actions> */}
-        {/* <Button onClick={this.onModalClose} basic color="red" inverted> */}
-        {/* <Icon name="remove" /> Okay */}
-        {/* </Button> */}
-        {/* </Modal.Actions> */}
-        {/* </Modal> */}
+        <Modal />
       </div>
     )
   }

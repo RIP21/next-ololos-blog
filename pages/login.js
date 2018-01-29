@@ -1,3 +1,4 @@
+import withModal from 'apollo/hoc/withModal'
 import Layout from 'components/Layout'
 import React from 'react'
 import PT from 'prop-types'
@@ -75,6 +76,7 @@ export default compose(
   withData,
   // withApollo exposes `this.props.client` used when logging out
   withApollo,
+  withModal,
   graphql(
     // The `signinUser` mutation is provided by graph.cool by default
     gql`
@@ -91,10 +93,10 @@ export default compose(
       props: ({
         signinWithEmail,
         // `client` is provided by the `withApollo` HOC
-        ownProps: { client },
+        ownProps: { client, onMessageShow },
       }) => ({
         // `onLogin` is the name of the prop passed to the component
-        onLogin: (email, password) => {
+        onLogin: (email, password) =>
           signinWithEmail({
             variables: {
               email,
@@ -114,12 +116,14 @@ export default compose(
                 redirect({}, '/')
               })
             })
-            .catch(error => {
+            .catch(() => {
               // Something went wrong, such as incorrect password, or no network
               // available, etc.
-              console.error(error)
-            })
-        },
+              onMessageShow({
+                message: `Неправильный пароль, либо что-то не так с сервером.`,
+                type: 'error',
+              })
+            }),
       }),
     },
   ),

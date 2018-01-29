@@ -15,7 +15,12 @@ function parseCookies(context = {}, options = {}) {
     options,
   )
 }
-
+/**
+ * Should be applied only to the page components (the one which are in the root of the /pages dir)
+ * Waits for all GraphQL queries to be resolved as well as the getInitialProps function.
+ * Wraps tree with ApolloProvider giving ability to be subscribed to the Apollo store.
+ * @param ComposedComponent{React.Component} - one of the root /pages component.
+ * */
 export default ComposedComponent =>
   class WithData extends React.Component {
     static displayName = `WithData(${ComposedComponent.displayName})`

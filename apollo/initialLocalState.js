@@ -1,7 +1,7 @@
-import { initialState as modal } from './local/modal'
+import { modal } from './local/modal'
 
 const initialLocalState = {
-  ...modal,
+  modal,
 }
 
 export default initialLocalState
