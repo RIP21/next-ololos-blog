@@ -68,7 +68,7 @@
     "react-test-renderer": "16.2.0",
     "rimraf": "2.6.2",
     "stylelint": "8.4.0",
-    "stylelint-config-standard": "18.0.0",
+    "stylelint-config-standard": "18.1.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.2.2"
   },
