@@ -51,7 +51,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-react-app": "^2.0.1",
-    "eslint-config-revolut-react": "^0.0.2",
+    "eslint-config-revolut-react": "^0.0.3",
     "eslint-plugin-flowtype": "2.46.1",
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
