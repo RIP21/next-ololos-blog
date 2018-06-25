@@ -131,4 +131,7 @@ Layout.propTypes = {
   as: PT.string,
 }
 
-export default compose(withAuth, withApollo)(Layout)
+export default compose(
+  withAuth,
+  withApollo,
+)(Layout)

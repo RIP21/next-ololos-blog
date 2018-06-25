@@ -12,6 +12,11 @@ import redirect from '../helpers/redirect'
 import withData from '../apollo/hoc/withData'
 
 class LoginPage extends React.Component {
+  state = {
+    username: '',
+    password: '',
+  }
+
   static async getInitialProps(context, apolloClient) {
     const user = await checkLoggedIn(context, apolloClient)
 
@@ -22,11 +27,6 @@ class LoginPage extends React.Component {
     }
 
     return {}
-  }
-
-  state = {
-    username: '',
-    password: '',
   }
 
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value })

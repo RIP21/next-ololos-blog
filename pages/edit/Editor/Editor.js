@@ -1,7 +1,10 @@
-import PT from 'prop-types'
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import PT from 'prop-types'
 import Layout from 'components/Layout'
-import { Form, Header, Checkbox } from 'semantic-ui-react'
+import Preview from 'pages/post/Preview'
+import Post from 'pages/post/Post'
+import { Container, Form, Header, Checkbox } from 'semantic-ui-react'
 import SimpleMDE from 'react-simplemde-editor'
 import Router from 'next/router'
 import cloneDeep from 'lodash/cloneDeep'
@@ -92,6 +95,35 @@ export const EMPTY_POST = {
 }
 
 export default class Editor extends React.Component {
+  editorToolbar = [
+    'bold',
+    'italic',
+    'strikethrough',
+    '|',
+    'heading-1',
+    'heading-2',
+    'heading-3',
+    '|',
+    'heading-smaller',
+    'heading-bigger',
+    '|',
+    'code',
+    'quote',
+    'unordered-list',
+    'ordered-list',
+    'link',
+    'image',
+    '|',
+    'table',
+    'horizontal-rule',
+    '|',
+    'fullscreen',
+    'side-by-side',
+    'preview',
+    '|',
+    'guide',
+  ]
+
   constructor(props) {
     super(props)
     // Couldn't be an empty author since there is no possibility to access this page without login
@@ -150,6 +182,26 @@ export default class Editor extends React.Component {
           type: 'error',
         })
       })
+  }
+
+  generatePostPreview = text => {
+    const { body, ...rest } = this.state
+    const post = { body: text, ...rest }
+    return ReactDOMServer.renderToString(
+      <Container>
+        <Post post={post} preview />
+      </Container>,
+    )
+  }
+
+  generateCutPreview = text => {
+    const { description, ...rest } = this.state
+    const post = { description: text, ...rest }
+    return ReactDOMServer.renderToString(
+      <Container>
+        <Preview post={post} preview />
+      </Container>,
+    )
   }
 
   updateOrCreate = post => {
@@ -219,54 +271,28 @@ export default class Editor extends React.Component {
           />
           <Header as="h5">Короткое описание</Header>
           <SimpleMDE
-            className="description"
             id="description"
-            value={this.state.description}
             name="description"
             onChange={this.onDescriptionChange}
+            value={this.state.description}
             options={{
-              placeholder:
-                'Введите короткое описание {Markdown синтаксис поддерживается}',
+              placeholder: 'Введите короткое описание',
+              previewRender: this.generateCutPreview,
               spellChecker: false,
-              toolbar: ['bold'],
-              hideIcons: ['bold'],
-              status: false,
+              toolbar: this.editorToolbar,
             }}
           />
           <Header as="h4">Пост</Header>
           <SimpleMDE
             id="body"
+            name="body"
             onChange={this.onBodyChange}
             value={this.state.body}
-            name="body"
             options={{
+              previewRender: this.generatePostPreview,
               spellChecker: false,
-              toolbar: [
-                'bold',
-                'italic',
-                'strikethrough',
-                '|',
-                'heading-1',
-                'heading-2',
-                'heading-3',
-                '|',
-                'heading-smaller',
-                'heading-bigger',
-                '|',
-                'code',
-                'quote',
-                'unordered-list',
-                'ordered-list',
-                'link',
-                'image',
-                '|',
-                'table',
-                'horizontal-rule',
-                '|',
-                'preview',
-                '|',
-                'guide',
-              ],
+              tabSize: 2,
+              toolbar: this.editorToolbar,
             }}
           />
           <Form.Button onClick={this.onPostSave}>{messages.button}</Form.Button>

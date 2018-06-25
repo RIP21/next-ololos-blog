@@ -9,8 +9,10 @@ import Lazyload from 'react-lazyload'
 
 export default class Preview extends React.PureComponent {
   render() {
-    const { post } = this.props
-    const date = format(parse(post.createdDate), 'YYYY-MM-DD')
+    const { post, preview } = this.props
+    const date = preview
+      ? format(new Date(), 'YYYY-MM-DD')
+      : format(parse(post.createdDate), 'YYYY-MM-DD')
     return (
       <article>
         <header>
