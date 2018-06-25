@@ -19,11 +19,15 @@ const renderMarkdownAndReplaceLinks = markdown => {
   return result
 }
 
-export const renderPost = markdown =>
+export const renderPost = (markdown, preview) =>
   ReactHtmlParser(renderMarkdownAndReplaceLinks(markdown), {
     transform: node => {
       if (node.name === 'img') {
-        return (
+        return preview ? (
+          <div style={{ height: 700 }}>
+            <img {...node.attribs} />
+          </div>
+        ) : (
           <Lazyload height={700} offset={500} once>
             <img {...node.attribs} />
           </Lazyload>

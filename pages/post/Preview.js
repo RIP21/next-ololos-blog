@@ -1,4 +1,4 @@
-import { renderPost } from 'pages/post/renderPost'
+import Body from 'pages/post/Body'
 import React from 'react'
 import styled from 'styled-components'
 import parse from 'date-fns/parse'
@@ -28,10 +28,16 @@ export default class Preview extends React.PureComponent {
             </Label.Detail>
           </Label>
         </header>
-        <Lazyload height={700} offset={500} once>
-          <Img src={post.previewPic} />
-        </Lazyload>
-        <div>{renderPost(post.description)}</div>
+        {preview ? (
+          <div style={{ height: 700 }}>
+            <Img src={post.previewPic} />
+          </div>
+        ) : (
+          <Lazyload height={700} offset={500} once>
+            <Img src={post.previewPic} />
+          </Lazyload>
+        )}
+        <Body preview={preview}>{post.description}</Body>
         <Flex>
           <Link href={`/post?id=${post.verboseId}`} as={`post/${post.verboseId}`}>
             <a>

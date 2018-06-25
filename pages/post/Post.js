@@ -27,7 +27,7 @@ export default class Post extends React.PureComponent {
           <br />
         </header>
         <Divider />
-        <Body>{this.props.post.body}</Body>
+        <Body preview={preview}>{this.props.post.body}</Body>
         {!preview && (
           <DisqusThread
             shortname="ololos"

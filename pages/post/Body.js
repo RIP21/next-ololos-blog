@@ -14,7 +14,9 @@ const PostContainer = styled.div`
   }
 `
 
-const Body = ({ children }) => <PostContainer>{renderPost(children)}</PostContainer>
+const Body = ({ children, preview }) => (
+  <PostContainer>{renderPost(children, preview)}</PostContainer>
+)
 
 Body.propTypes = {
   children: PT.string.isRequired,
