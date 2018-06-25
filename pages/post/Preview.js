@@ -29,9 +29,7 @@ export default class Preview extends React.PureComponent {
           </Label>
         </header>
         {preview ? (
-          <div style={{ height: 700 }}>
-            <Img src={post.previewPic} />
-          </div>
+          <Img src={post.previewPic} />
         ) : (
           <Lazyload height={700} offset={500} once>
             <Img src={post.previewPic} />

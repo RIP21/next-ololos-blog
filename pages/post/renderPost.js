@@ -24,9 +24,7 @@ export const renderPost = (markdown, preview) =>
     transform: node => {
       if (node.name === 'img') {
         return preview ? (
-          <div style={{ height: 700 }}>
-            <img {...node.attribs} />
-          </div>
+          <img {...node.attribs} />
         ) : (
           <Lazyload height={700} offset={500} once>
             <img {...node.attribs} />

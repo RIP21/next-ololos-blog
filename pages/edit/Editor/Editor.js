@@ -188,7 +188,7 @@ export default class Editor extends React.Component {
     const { body, ...rest } = this.state
     const post = { body: text, ...rest }
     return ReactDOMServer.renderToString(
-      <Container>
+      <Container text>
         <Post post={post} preview />
       </Container>,
     )
@@ -198,7 +198,7 @@ export default class Editor extends React.Component {
     const { description, ...rest } = this.state
     const post = { description: text, ...rest }
     return ReactDOMServer.renderToString(
-      <Container>
+      <Container text>
         <Preview post={post} preview />
       </Container>,
     )
