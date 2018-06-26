@@ -47,7 +47,7 @@
     "babel-plugin-styled-components": "^1.5.1",
     "cross-env": "^5.2.0",
     "enzyme": "^3.3.0",
-    "eslint": "^4.19.0",
+    "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react-app": "^2.0.1",
