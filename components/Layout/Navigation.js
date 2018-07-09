@@ -103,7 +103,10 @@ class Navigation extends PureComponent {
   }
 }
 
-export default compose(withLanguage, withApollo)(Navigation)
+export default compose(
+  withLanguage,
+  withApollo,
+)(Navigation)
 
 const Heading = styled.div`
   display: flex;

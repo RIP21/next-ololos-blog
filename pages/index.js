@@ -26,6 +26,12 @@ const locale = {
 }
 
 class Index extends React.Component {
+  state = {
+    // eslint-disable-next-line react/no-unused-state
+    numberOfPosts: 0,
+    showFetchMore: true,
+  }
+
   static getDerivedStateFromProps(props, state) {
     const numBefore = state.numberOfPosts
     const numAfter = get(props.posts, 'length')
@@ -38,11 +44,6 @@ class Index extends React.Component {
     return null
   }
 
-  state = {
-    // eslint-disable-next-line react/no-unused-state
-    numberOfPosts: 0,
-    showFetchMore: true,
-  }
   getMeta = () => {
     const { language } = this.props
     return {

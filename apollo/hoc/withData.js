@@ -25,8 +25,24 @@ function parseCookies(context = {}, options = {}) {
 export default ComposedComponent =>
   class WithData extends React.Component {
     static displayName = `WithData(${ComposedComponent.displayName})`
+
     static propTypes = {
       serverState: PropTypes.object.isRequired,
+    }
+
+    constructor(props) {
+      super(props)
+      // Note: Apollo should never be used on the server side beyond the initial
+      // render within `getInitialProps()` above (since the entire prop tree
+      // will be initialized there), meaning the below will only ever be
+      // executed on the client.
+      this.apollo = initApollo(
+        this.props.serverState,
+        {},
+        {
+          getToken: () => parseCookies().token,
+        },
+      )
     }
 
     static async getInitialProps(context) {
@@ -92,21 +108,6 @@ export default ComposedComponent =>
         serverState,
         ...composedInitialProps,
       }
-    }
-
-    constructor(props) {
-      super(props)
-      // Note: Apollo should never be used on the server side beyond the initial
-      // render within `getInitialProps()` above (since the entire prop tree
-      // will be initialized there), meaning the below will only ever be
-      // executed on the client.
-      this.apollo = initApollo(
-        this.props.serverState,
-        {},
-        {
-          getToken: () => parseCookies().token,
-        },
-      )
     }
 
     render() {
