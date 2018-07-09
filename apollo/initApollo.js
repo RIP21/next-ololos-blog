@@ -15,7 +15,7 @@ if (!process.browser) {
   global.fetch = fetch
 }
 
-function create(initialState, { getToken }) {
+function create(initialState, initialLocalStateOverrides, { getToken }) {
   const httpLink = createHttpLink({
     uri: 'https://api.graph.cool/simple/v1/cjckqtb9k4a570187cy41x9at',
     credentials: 'same-origin',
@@ -25,7 +25,7 @@ function create(initialState, { getToken }) {
 
   const stateLink = withClientState({
     cache,
-    defaults: initialLocalState,
+    defaults: initialLocalState(initialLocalStateOverrides),
     resolvers,
   })
 
@@ -52,16 +52,16 @@ function create(initialState, { getToken }) {
   return client
 }
 
-export default function initApollo(initialState, options) {
+export default function initApollo(initialState, initialLocalStateOverrides, options) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {
-    return create(initialState, options)
+    return create(initialState, initialLocalStateOverrides, options)
   }
 
   // Reuse client on the client-side
   if (!apolloClient) {
-    apolloClient = create(initialState, options)
+    apolloClient = create(initialState, initialLocalStateOverrides, options)
   }
 
   return apolloClient

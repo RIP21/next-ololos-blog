@@ -83,6 +83,7 @@ export const EMPTY_POST = {
   verboseId: '',
   title: '',
   author: EMPTY_AUTHOR,
+  language: 'RU',
   body: '',
   description: '',
   previewPic: '',
@@ -122,6 +123,10 @@ export default class Editor extends React.Component {
 
   onChange = (e, { value }) => {
     this.setState({ [e.target.name]: value })
+  }
+
+  onSelectChange = (e, { value }) => {
+    this.setState({ language: value })
   }
 
   onEditorChange = field => value => {
@@ -217,6 +222,16 @@ export default class Editor extends React.Component {
             label="Опубликован"
             onChange={this.onCheckboxToggle}
           />
+          <Header as="h5">Язык</Header>
+          <Form.Select
+            value={this.state.language}
+            onChange={this.onSelectChange}
+            options={[
+              { key: 'EN', value: 'EN', text: 'English' },
+              { key: 'RU', value: 'RU', text: 'Русский' },
+            ]}
+          />
+
           <Header as="h5">Короткое описание</Header>
           <SimpleMDE
             className="description"

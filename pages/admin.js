@@ -31,6 +31,7 @@ export const AdminPostsQuery = gql`
       createdDate
       verboseId
       published
+      language
       tags {
         id
         name

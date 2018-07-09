@@ -11,6 +11,7 @@ const GetPostByVerboseId = gql`
       previewPic
       verboseId
       published
+      language
       url
       tags {
         id

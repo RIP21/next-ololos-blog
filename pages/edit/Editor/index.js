@@ -1,7 +1,6 @@
 import GetAllTags from 'apollo/graphcool/queries/GetAllTags'
 import withModal from 'apollo/hoc/withModal'
 import { nameToProp } from 'apollo/index'
-import { AdminPostsQuery } from 'pages/admin'
 import map from 'lodash/map'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -19,6 +18,7 @@ const PostEditFieldsFragment = gql`
     published
     description
     url
+    language
     tags {
       id
       name
@@ -58,20 +58,7 @@ export default compose(
     }),
     options: {
       // Tells Apollo to refetch these queries in case of request of them by some subscribed component after this mutation
-      refetchQueries: ['GetPostToRead', 'LandingPosts'],
-      // Update function to update Admin page posts query without refetch
-      update: (proxy, { data: { updateOrCreatePost } }) => {
-        const { allPosts } = proxy.readQuery({ query: AdminPostsQuery })
-        const index = allPosts.findIndex(
-          adminPost => adminPost.verboseId === updateOrCreatePost.verboseId,
-        )
-        if (index >= 0) {
-          allPosts[index] = updateOrCreatePost
-        } else {
-          allPosts.unshift(updateOrCreatePost)
-        }
-        proxy.writeQuery({ query: AdminPostsQuery, data: { allPosts } })
-      },
+      refetchQueries: ['GetPostToRead', 'LandingPosts', 'AdminPostsQuery'],
     },
   }),
   withModal,

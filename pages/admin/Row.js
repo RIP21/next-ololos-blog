@@ -36,12 +36,23 @@ class Row extends PureComponent {
         </Table.Cell>
         <Table.Cell>{post.author.name}</Table.Cell>
         <Table.Cell>
-          {format(parse(post.createdDate), 'DD MMMM YYYY HH:mm:ss', { locale: ru })}
+          {format(parse(post.createdDate), 'DD-MM-YYYY', { locale: ru })}
         </Table.Cell>
         <Table.Cell>
           {get(post, 'tags')
             .map(tag => tag.name)
             .join(', ')}
+        </Table.Cell>
+        <Table.Cell textAlign="center" style={{ fontSize: 26 }}>
+          {post.language === 'RU' ? (
+            <span role="img" aria-label="Russian">
+              🇷🇺
+            </span>
+          ) : (
+            <span role="img" aria-label="English">
+              🇬🇧
+            </span>
+          )}
         </Table.Cell>
         <Table.Cell
           style={{ fontSize: 25 }}

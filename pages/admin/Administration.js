@@ -21,6 +21,7 @@ class Administration extends React.PureComponent {
               <Table.HeaderCell>Автор</Table.HeaderCell>
               <Table.HeaderCell>Дата публикации</Table.HeaderCell>
               <Table.HeaderCell>Теги</Table.HeaderCell>
+              <Table.HeaderCell>Язык</Table.HeaderCell>
               <Table.HeaderCell width={1} textAlign="center">
                 Статус
               </Table.HeaderCell>

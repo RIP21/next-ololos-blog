@@ -1,20 +1,87 @@
 import { withAuth, withData } from 'apollo'
+import withLanguage from 'apollo/hoc/withLanguage'
 import React from 'react'
 import Layout from 'components/Layout'
-import { Button } from 'semantic-ui-react'
+import { Button, Message } from 'semantic-ui-react'
 import styled from 'styled-components'
 import map from 'lodash/map'
+import get from 'lodash/get'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import Preview from './post/Preview'
 
-class Index extends React.Component {
-  getMeta = () => ({
+const locale = {
+  EN: {
+    noPosts: 'Oops. Nothing there, yet',
+    noFetch: 'There is nothing left to load',
+    title: 'Ololos blog',
+    description: 'A joint blog about travels of Andrey Los aka @RIP212 and Lina Oleynik',
+  },
+  RU: {
+    noPosts: 'Ой. Здесь пока ничего нет',
+    noFetch: 'Больше загрузить нечего',
     title: 'Ололось блог',
     description: 'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
-  })
+  },
+}
+
+class Index extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    const numBefore = state.numberOfPosts
+    const numAfter = get(props.posts, 'length')
+    if (numBefore < numAfter) {
+      if ((numAfter - numBefore) % 5 !== 0) {
+        return { showFetchMore: false, numberOfPosts: numAfter }
+      }
+      return { showFetchMore: true, numberOfPosts: numAfter }
+    }
+    return null
+  }
+
+  state = {
+    // eslint-disable-next-line react/no-unused-state
+    numberOfPosts: 0,
+    showFetchMore: true,
+  }
+  getMeta = () => {
+    const { language } = this.props
+    return {
+      title: locale[language].title,
+      description: locale[language].description,
+    }
+  }
+
+  MainThread = () => {
+    const { language } = this.props
+    const numberOfPosts = get(this.props.posts, 'length')
+    if (numberOfPosts === 0 || !numberOfPosts) {
+      return <Message>{locale[language].noPosts} ¯\_(ツ)_/¯</Message>
+    }
+    return (
+      <React.Fragment>
+        <Thread>
+          {map(this.props.posts, post => <Preview key={post.verboseId} post={post} />)}
+        </Thread>
+        <Center>
+          {this.state.showFetchMore ? (
+            <Button onClick={this.props.loadMoreEntries}>Load more...</Button>
+          ) : (
+            <Message>
+              {locale[language].noFetch}{' '}
+              <span role="img" aria-label="thinking emoji">
+                🤔
+              </span>
+            </Message>
+          )}
+        </Center>
+      </React.Fragment>
+    )
+  }
 
   render() {
+    const { MainThread } = this
+    const { language } = this.props
+
     return (
       <Layout topPadding="0em" meta={this.getMeta()}>
         <Masthead>
@@ -23,15 +90,10 @@ class Index extends React.Component {
               <img alt="logo" src="/static/logo.png" />
             </p>
           </Logo>
-          <h1>Ололось блог</h1>
-          <h2>Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник</h2>
+          <h1>{locale[language].title}</h1>
+          <h2>{locale[language].description}</h2>
         </Masthead>
-        <Thread>
-          {map(this.props.posts, post => <Preview key={post.verboseId} post={post} />)}
-        </Thread>
-        <Center>
-          <Button onClick={this.props.loadMoreEntries}>Load more...</Button>
-        </Center>
+        <MainThread />
       </Layout>
     )
   }
@@ -114,11 +176,11 @@ export const Thread = styled.main`
 `
 
 const LandingPostsQuery = gql`
-  query LandingPosts($skip: Int = 0) {
+  query LandingPosts($skip: Int, $language: Language = RU) {
     allPosts(
       orderBy: createdDate_DESC
       first: 5
-      filter: { published: true }
+      filter: { published: true, language: $language }
       skip: $skip
     ) {
       title
@@ -139,8 +201,12 @@ const LandingPostsQuery = gql`
 export default compose(
   withData,
   withAuth,
+  withLanguage,
   graphql(LandingPostsQuery, {
-    props: ({ data: { loading, allPosts, fetchMore } }) => ({
+    props: ({
+      data: { loading, allPosts, fetchMore, ...stuff },
+      ownProps: { language },
+    }) => ({
       loading,
       posts: allPosts,
       loadMoreEntries() {
@@ -150,6 +216,7 @@ export default compose(
             // We are able to figure out which offset to use because it matches
             // the feed length, but we could also use state, or the previous
             // variables to calculate this (see the cursor example below)
+            language,
             skip: allPosts.length,
           },
           updateQuery: (previousResult, { fetchMoreResult, ...rest }) => {

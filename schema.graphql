@@ -1,5 +1,5 @@
 # source: https://api.graph.cool/simple/v1/cjckqtb9k4a570187cy41x9at
-# timestamp: Wed Jan 24 2018 20:53:49 GMT+0100 (CET)
+# timestamp: Sun Jul 08 2018 18:13:42 GMT+0200 (CEST)
 
 enum _ModelMutationType {
   CREATED
@@ -7,7 +7,7 @@ enum _ModelMutationType {
   DELETED
 }
 
-#Meta information about the query.#
+
 type _QueryMeta {
   count: Int!
 }
@@ -22,7 +22,7 @@ type AddToPostOnTagPayload {
   tagsTag: Tag
 }
 
-#It's an interface#
+
 interface AnonymousUser {
   secret: String
   isVerified: Boolean!
@@ -33,7 +33,7 @@ input AUTH_PROVIDER_EMAIL {
   password: String!
 }
 
-#authenticateAnonymousUserPayload#
+
 type authenticateAnonymousUserPayload {
   token: String!
   id: String!
@@ -45,95 +45,95 @@ type Author implements Node {
   posts(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   user(filter: UserFilter): User
 
-  #Meta information about the query.#
+
   _postsMeta(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
 }
 
 input AuthorFilter {
-  #Logical AND on all given filters.#
+
   AND: [AuthorFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [AuthorFilter!]
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   posts_every: PostFilter
   posts_some: PostFilter
@@ -152,12 +152,13 @@ input AuthorpostsPost {
   body: String
   createdDate: DateTime!
   description: String
-  verboseId: String!
+  language: Language
   previewPic: String
   published: Boolean
   title: String!
   updatedDate: DateTime!
   url: String!
+  verboseId: String!
   tagsIds: [ID!]
   tags: [PosttagsTag!]
 }
@@ -168,26 +169,22 @@ type AuthorPreviousValues {
 }
 
 input AuthorSubscriptionFilter {
-  #Logical AND on all given filters.#
+
   AND: [AuthorSubscriptionFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [AuthorSubscriptionFilter!]
 
-  #  The subscription event gets dispatched when it's listed in mutation_in
-  #
+
   mutation_in: [_ModelMutationType!]
 
-  #  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  #
+
   updatedFields_contains: String
 
-  #  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  #
+
   updatedFields_contains_every: [String!]
 
-  #  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  #
+
   updatedFields_contains_some: [String!]
   node: AuthorSubscriptionFilterNode
 }
@@ -195,83 +192,83 @@ input AuthorSubscriptionFilter {
 input AuthorSubscriptionFilterNode {
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   posts_every: PostFilter
   posts_some: PostFilter
@@ -290,11 +287,199 @@ input AuthProviderSignupData {
   email: AUTH_PROVIDER_EMAIL
 }
 
+type Comment implements Node {
+  createDate: DateTime!
+  id: ID!
+  user(filter: UserFilter): User
+}
+
+input CommentFilter {
+
+  AND: [CommentFilter!]
+
+
+  OR: [CommentFilter!]
+  createDate: DateTime
+
+
+  createDate_not: DateTime
+
+
+  createDate_in: [DateTime!]
+
+
+  createDate_not_in: [DateTime!]
+
+
+  createDate_lt: DateTime
+
+
+  createDate_lte: DateTime
+
+
+  createDate_gt: DateTime
+
+
+  createDate_gte: DateTime
+  id: ID
+
+
+  id_not: ID
+
+
+  id_in: [ID!]
+
+
+  id_not_in: [ID!]
+
+
+  id_lt: ID
+
+
+  id_lte: ID
+
+
+  id_gt: ID
+
+
+  id_gte: ID
+
+
+  id_contains: ID
+
+
+  id_not_contains: ID
+
+
+  id_starts_with: ID
+
+
+  id_not_starts_with: ID
+
+
+  id_ends_with: ID
+
+
+  id_not_ends_with: ID
+  user: UserFilter
+}
+
+enum CommentOrderBy {
+  createDate_ASC
+  createDate_DESC
+  id_ASC
+  id_DESC
+}
+
+type CommentPreviousValues {
+  createDate: DateTime!
+  id: ID!
+}
+
+input CommentSubscriptionFilter {
+
+  AND: [CommentSubscriptionFilter!]
+
+
+  OR: [CommentSubscriptionFilter!]
+
+
+  mutation_in: [_ModelMutationType!]
+
+
+  updatedFields_contains: String
+
+
+  updatedFields_contains_every: [String!]
+
+
+  updatedFields_contains_some: [String!]
+  node: CommentSubscriptionFilterNode
+}
+
+input CommentSubscriptionFilterNode {
+  createDate: DateTime
+
+
+  createDate_not: DateTime
+
+
+  createDate_in: [DateTime!]
+
+
+  createDate_not_in: [DateTime!]
+
+
+  createDate_lt: DateTime
+
+
+  createDate_lte: DateTime
+
+
+  createDate_gt: DateTime
+
+
+  createDate_gte: DateTime
+  id: ID
+
+
+  id_not: ID
+
+
+  id_in: [ID!]
+
+
+  id_not_in: [ID!]
+
+
+  id_lt: ID
+
+
+  id_lte: ID
+
+
+  id_gt: ID
+
+
+  id_gte: ID
+
+
+  id_contains: ID
+
+
+  id_not_contains: ID
+
+
+  id_starts_with: ID
+
+
+  id_not_starts_with: ID
+
+
+  id_ends_with: ID
+
+
+  id_not_ends_with: ID
+  user: UserFilter
+}
+
+type CommentSubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
 input CreateAuthor {
   name: String!
   userId: ID
   postsIds: [ID!]
   posts: [AuthorpostsPost!]
+}
+
+input CreateComment {
+  createDate: DateTime
+  userId: ID
 }
 
 input CreateFile {
@@ -305,12 +490,13 @@ input CreatePost {
   body: String
   createdDate: DateTime!
   description: String
-  verboseId: String!
+  language: Language
   previewPic: String
   published: Boolean
   title: String!
   updatedDate: DateTime!
   url: String!
+  verboseId: String!
   authorId: ID
   author: PostauthorAuthor
   tagsIds: [ID!]
@@ -328,6 +514,8 @@ input CreateUser {
   secret: String
   authorId: ID
   author: UserauthorAuthor
+  commentId: ID
+  comment: UsercommentComment
 }
 
 scalar DateTime
@@ -344,276 +532,276 @@ type File implements Node {
 }
 
 input FileFilter {
-  #Logical AND on all given filters.#
+
   AND: [FileFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [FileFilter!]
   contentType: String
 
-  #All values that are not equal to given value.#
+
   contentType_not: String
 
-  #All values that are contained in given list.#
+
   contentType_in: [String!]
 
-  #All values that are not contained in given list.#
+
   contentType_not_in: [String!]
 
-  #All values less than the given value.#
+
   contentType_lt: String
 
-  #All values less than or equal the given value.#
+
   contentType_lte: String
 
-  #All values greater than the given value.#
+
   contentType_gt: String
 
-  #All values greater than or equal the given value.#
+
   contentType_gte: String
 
-  #All values containing the given string.#
+
   contentType_contains: String
 
-  #All values not containing the given string.#
+
   contentType_not_contains: String
 
-  #All values starting with the given string.#
+
   contentType_starts_with: String
 
-  #All values not starting with the given string.#
+
   contentType_not_starts_with: String
 
-  #All values ending with the given string.#
+
   contentType_ends_with: String
 
-  #All values not ending with the given string.#
+
   contentType_not_ends_with: String
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   secret: String
 
-  #All values that are not equal to given value.#
+
   secret_not: String
 
-  #All values that are contained in given list.#
+
   secret_in: [String!]
 
-  #All values that are not contained in given list.#
+
   secret_not_in: [String!]
 
-  #All values less than the given value.#
+
   secret_lt: String
 
-  #All values less than or equal the given value.#
+
   secret_lte: String
 
-  #All values greater than the given value.#
+
   secret_gt: String
 
-  #All values greater than or equal the given value.#
+
   secret_gte: String
 
-  #All values containing the given string.#
+
   secret_contains: String
 
-  #All values not containing the given string.#
+
   secret_not_contains: String
 
-  #All values starting with the given string.#
+
   secret_starts_with: String
 
-  #All values not starting with the given string.#
+
   secret_not_starts_with: String
 
-  #All values ending with the given string.#
+
   secret_ends_with: String
 
-  #All values not ending with the given string.#
+
   secret_not_ends_with: String
   size: Int
 
-  #All values that are not equal to given value.#
+
   size_not: Int
 
-  #All values that are contained in given list.#
+
   size_in: [Int!]
 
-  #All values that are not contained in given list.#
+
   size_not_in: [Int!]
 
-  #All values less than the given value.#
+
   size_lt: Int
 
-  #All values less than or equal the given value.#
+
   size_lte: Int
 
-  #All values greater than the given value.#
+
   size_gt: Int
 
-  #All values greater than or equal the given value.#
+
   size_gte: Int
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   url: String
 
-  #All values that are not equal to given value.#
+
   url_not: String
 
-  #All values that are contained in given list.#
+
   url_in: [String!]
 
-  #All values that are not contained in given list.#
+
   url_not_in: [String!]
 
-  #All values less than the given value.#
+
   url_lt: String
 
-  #All values less than or equal the given value.#
+
   url_lte: String
 
-  #All values greater than the given value.#
+
   url_gt: String
 
-  #All values greater than or equal the given value.#
+
   url_gte: String
 
-  #All values containing the given string.#
+
   url_contains: String
 
-  #All values not containing the given string.#
+
   url_not_contains: String
 
-  #All values starting with the given string.#
+
   url_starts_with: String
 
-  #All values not starting with the given string.#
+
   url_not_starts_with: String
 
-  #All values ending with the given string.#
+
   url_ends_with: String
 
-  #All values not ending with the given string.#
+
   url_not_ends_with: String
 }
 
@@ -648,26 +836,22 @@ type FilePreviousValues {
 }
 
 input FileSubscriptionFilter {
-  #Logical AND on all given filters.#
+
   AND: [FileSubscriptionFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [FileSubscriptionFilter!]
 
-  #  The subscription event gets dispatched when it's listed in mutation_in
-  #
+
   mutation_in: [_ModelMutationType!]
 
-  #  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  #
+
   updatedFields_contains: String
 
-  #  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  #
+
   updatedFields_contains_every: [String!]
 
-  #  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  #
+
   updatedFields_contains_some: [String!]
   node: FileSubscriptionFilterNode
 }
@@ -675,269 +859,269 @@ input FileSubscriptionFilter {
 input FileSubscriptionFilterNode {
   contentType: String
 
-  #All values that are not equal to given value.#
+
   contentType_not: String
 
-  #All values that are contained in given list.#
+
   contentType_in: [String!]
 
-  #All values that are not contained in given list.#
+
   contentType_not_in: [String!]
 
-  #All values less than the given value.#
+
   contentType_lt: String
 
-  #All values less than or equal the given value.#
+
   contentType_lte: String
 
-  #All values greater than the given value.#
+
   contentType_gt: String
 
-  #All values greater than or equal the given value.#
+
   contentType_gte: String
 
-  #All values containing the given string.#
+
   contentType_contains: String
 
-  #All values not containing the given string.#
+
   contentType_not_contains: String
 
-  #All values starting with the given string.#
+
   contentType_starts_with: String
 
-  #All values not starting with the given string.#
+
   contentType_not_starts_with: String
 
-  #All values ending with the given string.#
+
   contentType_ends_with: String
 
-  #All values not ending with the given string.#
+
   contentType_not_ends_with: String
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   secret: String
 
-  #All values that are not equal to given value.#
+
   secret_not: String
 
-  #All values that are contained in given list.#
+
   secret_in: [String!]
 
-  #All values that are not contained in given list.#
+
   secret_not_in: [String!]
 
-  #All values less than the given value.#
+
   secret_lt: String
 
-  #All values less than or equal the given value.#
+
   secret_lte: String
 
-  #All values greater than the given value.#
+
   secret_gt: String
 
-  #All values greater than or equal the given value.#
+
   secret_gte: String
 
-  #All values containing the given string.#
+
   secret_contains: String
 
-  #All values not containing the given string.#
+
   secret_not_contains: String
 
-  #All values starting with the given string.#
+
   secret_starts_with: String
 
-  #All values not starting with the given string.#
+
   secret_not_starts_with: String
 
-  #All values ending with the given string.#
+
   secret_ends_with: String
 
-  #All values not ending with the given string.#
+
   secret_not_ends_with: String
   size: Int
 
-  #All values that are not equal to given value.#
+
   size_not: Int
 
-  #All values that are contained in given list.#
+
   size_in: [Int!]
 
-  #All values that are not contained in given list.#
+
   size_not_in: [Int!]
 
-  #All values less than the given value.#
+
   size_lt: Int
 
-  #All values less than or equal the given value.#
+
   size_lte: Int
 
-  #All values greater than the given value.#
+
   size_gt: Int
 
-  #All values greater than or equal the given value.#
+
   size_gte: Int
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   url: String
 
-  #All values that are not equal to given value.#
+
   url_not: String
 
-  #All values that are contained in given list.#
+
   url_in: [String!]
 
-  #All values that are not contained in given list.#
+
   url_not_in: [String!]
 
-  #All values less than the given value.#
+
   url_lt: String
 
-  #All values less than or equal the given value.#
+
   url_lte: String
 
-  #All values greater than the given value.#
+
   url_gt: String
 
-  #All values greater than or equal the given value.#
+
   url_gte: String
 
-  #All values containing the given string.#
+
   url_contains: String
 
-  #All values not containing the given string.#
+
   url_not_contains: String
 
-  #All values starting with the given string.#
+
   url_starts_with: String
 
-  #All values not starting with the given string.#
+
   url_not_starts_with: String
 
-  #All values ending with the given string.#
+
   url_ends_with: String
 
-  #All values not ending with the given string.#
+
   url_not_ends_with: String
 }
 
@@ -948,42 +1132,53 @@ type FileSubscriptionPayload {
   previousValues: FilePreviousValues
 }
 
+enum Language {
+  RU
+  EN
+}
+
 type Mutation {
   createAuthor(name: String!, userId: ID, postsIds: [ID!], posts: [AuthorpostsPost!]): Author
+  createComment(createDate: DateTime, userId: ID): Comment
   createFile(name: String!): File
-  createPost(body: String, createdDate: DateTime!, description: String, verboseId: String!, previewPic: String, published: Boolean, title: String!, updatedDate: DateTime!, url: String!, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
+  createPost(body: String, createdDate: DateTime!, description: String, language: Language, previewPic: String, published: Boolean, title: String!, updatedDate: DateTime!, url: String!, verboseId: String!, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
   createTag(name: String!, postsIds: [ID!], posts: [TagpostsPost!]): Tag
   updateAuthor(id: ID!, name: String, userId: ID, postsIds: [ID!], posts: [AuthorpostsPost!]): Author
+  updateComment(createDate: DateTime, id: ID!, userId: ID): Comment
   updateFile(id: ID!, name: String): File
-  updatePost(body: String, createdDate: DateTime, description: String, id: ID!, verboseId: String, previewPic: String, published: Boolean, title: String, updatedDate: DateTime, url: String, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
+  updatePost(body: String, createdDate: DateTime, description: String, id: ID!, language: Language, previewPic: String, published: Boolean, title: String, updatedDate: DateTime, url: String, verboseId: String, authorId: ID, author: PostauthorAuthor, tagsIds: [ID!], tags: [PosttagsTag!]): Post
   updateTag(id: ID!, name: String, postsIds: [ID!], posts: [TagpostsPost!]): Tag
-  updateUser(id: ID!, isVerified: Boolean, secret: String, authorId: ID, author: UserauthorAuthor): User
+  updateUser(id: ID!, isVerified: Boolean, secret: String, authorId: ID, author: UserauthorAuthor, commentId: ID, comment: UsercommentComment): User
   updateOrCreateAuthor(update: UpdateAuthor!, create: CreateAuthor!): Author
+  updateOrCreateComment(update: UpdateComment!, create: CreateComment!): Comment
   updateOrCreateFile(update: UpdateFile!, create: CreateFile!): File
   updateOrCreatePost(update: UpdatePost!, create: CreatePost!): Post
   updateOrCreateTag(update: UpdateTag!, create: CreateTag!): Tag
   updateOrCreateUser(update: UpdateUser!, create: CreateUser!): User
   deleteAuthor(id: ID!): Author
+  deleteComment(id: ID!): Comment
   deleteFile(id: ID!): File
   deletePost(id: ID!): Post
   deleteTag(id: ID!): Tag
   deleteUser(id: ID!): User
+  setCommentOnUser(userUserId: ID!, commentCommentId: ID!): SetCommentOnUserPayload
   setUserOnAuthor(authorAuthorId: ID!, userUserId: ID!): SetUserOnAuthorPayload
+  unsetCommentOnUser(userUserId: ID!, commentCommentId: ID!): UnsetCommentOnUserPayload
   unsetUserOnAuthor(authorAuthorId: ID!, userUserId: ID!): UnsetUserOnAuthorPayload
   addToAuthorOnPost(postsPostId: ID!, authorAuthorId: ID!): AddToAuthorOnPostPayload
   addToPostOnTag(tagsTagId: ID!, postsPostId: ID!): AddToPostOnTagPayload
   removeFromAuthorOnPost(postsPostId: ID!, authorAuthorId: ID!): RemoveFromAuthorOnPostPayload
   removeFromPostOnTag(tagsTagId: ID!, postsPostId: ID!): RemoveFromPostOnTagPayload
   signinUser(email: AUTH_PROVIDER_EMAIL): SigninPayload!
-  createUser(isVerified: Boolean, secret: String, authorId: ID, author: UserauthorAuthor, authProvider: AuthProviderSignupData): User
+  createUser(isVerified: Boolean, secret: String, authorId: ID, author: UserauthorAuthor, commentId: ID, comment: UsercommentComment, authProvider: AuthProviderSignupData): User
 
-  #authenticateAnonymousUser#
+
   authenticateAnonymousUser(secret: String!): authenticateAnonymousUserPayload
 }
 
-#An object with an ID#
+
 interface Node {
-  #The id of the object.#
+
   id: ID!
 }
 
@@ -994,7 +1189,7 @@ type Post implements Node {
   createdDate: DateTime!
   description: String
   id: ID!
-  verboseId: String!
+  language: Language
   previewPic: String
   published: Boolean
   tags(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1002,8 +1197,9 @@ type Post implements Node {
   updatedAt: DateTime!
   updatedDate: DateTime!
   url: String!
+  verboseId: String!
 
-  #Meta information about the query.#
+
   _tagsMeta(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
 }
 
@@ -1015,383 +1211,393 @@ input PostauthorAuthor {
 }
 
 input PostFilter {
-  #Logical AND on all given filters.#
+
   AND: [PostFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [PostFilter!]
   body: String
 
-  #All values that are not equal to given value.#
+
   body_not: String
 
-  #All values that are contained in given list.#
+
   body_in: [String!]
 
-  #All values that are not contained in given list.#
+
   body_not_in: [String!]
 
-  #All values less than the given value.#
+
   body_lt: String
 
-  #All values less than or equal the given value.#
+
   body_lte: String
 
-  #All values greater than the given value.#
+
   body_gt: String
 
-  #All values greater than or equal the given value.#
+
   body_gte: String
 
-  #All values containing the given string.#
+
   body_contains: String
 
-  #All values not containing the given string.#
+
   body_not_contains: String
 
-  #All values starting with the given string.#
+
   body_starts_with: String
 
-  #All values not starting with the given string.#
+
   body_not_starts_with: String
 
-  #All values ending with the given string.#
+
   body_ends_with: String
 
-  #All values not ending with the given string.#
+
   body_not_ends_with: String
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   createdDate: DateTime
 
-  #All values that are not equal to given value.#
+
   createdDate_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdDate_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdDate_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdDate_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdDate_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdDate_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdDate_gte: DateTime
   description: String
 
-  #All values that are not equal to given value.#
+
   description_not: String
 
-  #All values that are contained in given list.#
+
   description_in: [String!]
 
-  #All values that are not contained in given list.#
+
   description_not_in: [String!]
 
-  #All values less than the given value.#
+
   description_lt: String
 
-  #All values less than or equal the given value.#
+
   description_lte: String
 
-  #All values greater than the given value.#
+
   description_gt: String
 
-  #All values greater than or equal the given value.#
+
   description_gte: String
 
-  #All values containing the given string.#
+
   description_contains: String
 
-  #All values not containing the given string.#
+
   description_not_contains: String
 
-  #All values starting with the given string.#
+
   description_starts_with: String
 
-  #All values not starting with the given string.#
+
   description_not_starts_with: String
 
-  #All values ending with the given string.#
+
   description_ends_with: String
 
-  #All values not ending with the given string.#
+
   description_not_ends_with: String
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
-  verboseId: String
+  language: Language
 
-  #All values that are not equal to given value.#
-  verboseId_not: String
 
-  #All values that are contained in given list.#
-  verboseId_in: [String!]
+  language_not: Language
 
-  #All values that are not contained in given list.#
-  verboseId_not_in: [String!]
 
-  #All values less than the given value.#
-  verboseId_lt: String
+  language_in: [Language!]
 
-  #All values less than or equal the given value.#
-  verboseId_lte: String
 
-  #All values greater than the given value.#
-  verboseId_gt: String
-
-  #All values greater than or equal the given value.#
-  verboseId_gte: String
-
-  #All values containing the given string.#
-  verboseId_contains: String
-
-  #All values not containing the given string.#
-  verboseId_not_contains: String
-
-  #All values starting with the given string.#
-  verboseId_starts_with: String
-
-  #All values not starting with the given string.#
-  verboseId_not_starts_with: String
-
-  #All values ending with the given string.#
-  verboseId_ends_with: String
-
-  #All values not ending with the given string.#
-  verboseId_not_ends_with: String
+  language_not_in: [Language!]
   previewPic: String
 
-  #All values that are not equal to given value.#
+
   previewPic_not: String
 
-  #All values that are contained in given list.#
+
   previewPic_in: [String!]
 
-  #All values that are not contained in given list.#
+
   previewPic_not_in: [String!]
 
-  #All values less than the given value.#
+
   previewPic_lt: String
 
-  #All values less than or equal the given value.#
+
   previewPic_lte: String
 
-  #All values greater than the given value.#
+
   previewPic_gt: String
 
-  #All values greater than or equal the given value.#
+
   previewPic_gte: String
 
-  #All values containing the given string.#
+
   previewPic_contains: String
 
-  #All values not containing the given string.#
+
   previewPic_not_contains: String
 
-  #All values starting with the given string.#
+
   previewPic_starts_with: String
 
-  #All values not starting with the given string.#
+
   previewPic_not_starts_with: String
 
-  #All values ending with the given string.#
+
   previewPic_ends_with: String
 
-  #All values not ending with the given string.#
+
   previewPic_not_ends_with: String
   published: Boolean
 
-  #All values that are not equal to given value.#
+
   published_not: Boolean
   title: String
 
-  #All values that are not equal to given value.#
+
   title_not: String
 
-  #All values that are contained in given list.#
+
   title_in: [String!]
 
-  #All values that are not contained in given list.#
+
   title_not_in: [String!]
 
-  #All values less than the given value.#
+
   title_lt: String
 
-  #All values less than or equal the given value.#
+
   title_lte: String
 
-  #All values greater than the given value.#
+
   title_gt: String
 
-  #All values greater than or equal the given value.#
+
   title_gte: String
 
-  #All values containing the given string.#
+
   title_contains: String
 
-  #All values not containing the given string.#
+
   title_not_contains: String
 
-  #All values starting with the given string.#
+
   title_starts_with: String
 
-  #All values not starting with the given string.#
+
   title_not_starts_with: String
 
-  #All values ending with the given string.#
+
   title_ends_with: String
 
-  #All values not ending with the given string.#
+
   title_not_ends_with: String
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   updatedDate: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedDate_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedDate_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedDate_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedDate_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedDate_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedDate_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedDate_gte: DateTime
   url: String
 
-  #All values that are not equal to given value.#
+
   url_not: String
 
-  #All values that are contained in given list.#
+
   url_in: [String!]
 
-  #All values that are not contained in given list.#
+
   url_not_in: [String!]
 
-  #All values less than the given value.#
+
   url_lt: String
 
-  #All values less than or equal the given value.#
+
   url_lte: String
 
-  #All values greater than the given value.#
+
   url_gt: String
 
-  #All values greater than or equal the given value.#
+
   url_gte: String
 
-  #All values containing the given string.#
+
   url_contains: String
 
-  #All values not containing the given string.#
+
   url_not_contains: String
 
-  #All values starting with the given string.#
+
   url_starts_with: String
 
-  #All values not starting with the given string.#
+
   url_not_starts_with: String
 
-  #All values ending with the given string.#
+
   url_ends_with: String
 
-  #All values not ending with the given string.#
+
   url_not_ends_with: String
+  verboseId: String
+
+
+  verboseId_not: String
+
+
+  verboseId_in: [String!]
+
+
+  verboseId_not_in: [String!]
+
+
+  verboseId_lt: String
+
+
+  verboseId_lte: String
+
+
+  verboseId_gt: String
+
+
+  verboseId_gte: String
+
+
+  verboseId_contains: String
+
+
+  verboseId_not_contains: String
+
+
+  verboseId_starts_with: String
+
+
+  verboseId_not_starts_with: String
+
+
+  verboseId_ends_with: String
+
+
+  verboseId_not_ends_with: String
   author: AuthorFilter
   tags_every: TagFilter
   tags_some: TagFilter
@@ -1409,8 +1615,8 @@ enum PostOrderBy {
   description_DESC
   id_ASC
   id_DESC
-  verboseId_ASC
-  verboseId_DESC
+  language_ASC
+  language_DESC
   previewPic_ASC
   previewPic_DESC
   published_ASC
@@ -1423,6 +1629,8 @@ enum PostOrderBy {
   updatedDate_DESC
   url_ASC
   url_DESC
+  verboseId_ASC
+  verboseId_DESC
 }
 
 type PostPreviousValues {
@@ -1431,36 +1639,33 @@ type PostPreviousValues {
   createdDate: DateTime!
   description: String
   id: ID!
-  verboseId: String!
+  language: Language
   previewPic: String
   published: Boolean
   title: String!
   updatedAt: DateTime!
   updatedDate: DateTime!
   url: String!
+  verboseId: String!
 }
 
 input PostSubscriptionFilter {
-  #Logical AND on all given filters.#
+
   AND: [PostSubscriptionFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [PostSubscriptionFilter!]
 
-  #  The subscription event gets dispatched when it's listed in mutation_in
-  #
+
   mutation_in: [_ModelMutationType!]
 
-  #  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  #
+
   updatedFields_contains: String
 
-  #  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  #
+
   updatedFields_contains_every: [String!]
 
-  #  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  #
+
   updatedFields_contains_some: [String!]
   node: PostSubscriptionFilterNode
 }
@@ -1468,376 +1673,386 @@ input PostSubscriptionFilter {
 input PostSubscriptionFilterNode {
   body: String
 
-  #All values that are not equal to given value.#
+
   body_not: String
 
-  #All values that are contained in given list.#
+
   body_in: [String!]
 
-  #All values that are not contained in given list.#
+
   body_not_in: [String!]
 
-  #All values less than the given value.#
+
   body_lt: String
 
-  #All values less than or equal the given value.#
+
   body_lte: String
 
-  #All values greater than the given value.#
+
   body_gt: String
 
-  #All values greater than or equal the given value.#
+
   body_gte: String
 
-  #All values containing the given string.#
+
   body_contains: String
 
-  #All values not containing the given string.#
+
   body_not_contains: String
 
-  #All values starting with the given string.#
+
   body_starts_with: String
 
-  #All values not starting with the given string.#
+
   body_not_starts_with: String
 
-  #All values ending with the given string.#
+
   body_ends_with: String
 
-  #All values not ending with the given string.#
+
   body_not_ends_with: String
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   createdDate: DateTime
 
-  #All values that are not equal to given value.#
+
   createdDate_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdDate_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdDate_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdDate_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdDate_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdDate_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdDate_gte: DateTime
   description: String
 
-  #All values that are not equal to given value.#
+
   description_not: String
 
-  #All values that are contained in given list.#
+
   description_in: [String!]
 
-  #All values that are not contained in given list.#
+
   description_not_in: [String!]
 
-  #All values less than the given value.#
+
   description_lt: String
 
-  #All values less than or equal the given value.#
+
   description_lte: String
 
-  #All values greater than the given value.#
+
   description_gt: String
 
-  #All values greater than or equal the given value.#
+
   description_gte: String
 
-  #All values containing the given string.#
+
   description_contains: String
 
-  #All values not containing the given string.#
+
   description_not_contains: String
 
-  #All values starting with the given string.#
+
   description_starts_with: String
 
-  #All values not starting with the given string.#
+
   description_not_starts_with: String
 
-  #All values ending with the given string.#
+
   description_ends_with: String
 
-  #All values not ending with the given string.#
+
   description_not_ends_with: String
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
-  verboseId: String
+  language: Language
 
-  #All values that are not equal to given value.#
-  verboseId_not: String
 
-  #All values that are contained in given list.#
-  verboseId_in: [String!]
+  language_not: Language
 
-  #All values that are not contained in given list.#
-  verboseId_not_in: [String!]
 
-  #All values less than the given value.#
-  verboseId_lt: String
+  language_in: [Language!]
 
-  #All values less than or equal the given value.#
-  verboseId_lte: String
 
-  #All values greater than the given value.#
-  verboseId_gt: String
-
-  #All values greater than or equal the given value.#
-  verboseId_gte: String
-
-  #All values containing the given string.#
-  verboseId_contains: String
-
-  #All values not containing the given string.#
-  verboseId_not_contains: String
-
-  #All values starting with the given string.#
-  verboseId_starts_with: String
-
-  #All values not starting with the given string.#
-  verboseId_not_starts_with: String
-
-  #All values ending with the given string.#
-  verboseId_ends_with: String
-
-  #All values not ending with the given string.#
-  verboseId_not_ends_with: String
+  language_not_in: [Language!]
   previewPic: String
 
-  #All values that are not equal to given value.#
+
   previewPic_not: String
 
-  #All values that are contained in given list.#
+
   previewPic_in: [String!]
 
-  #All values that are not contained in given list.#
+
   previewPic_not_in: [String!]
 
-  #All values less than the given value.#
+
   previewPic_lt: String
 
-  #All values less than or equal the given value.#
+
   previewPic_lte: String
 
-  #All values greater than the given value.#
+
   previewPic_gt: String
 
-  #All values greater than or equal the given value.#
+
   previewPic_gte: String
 
-  #All values containing the given string.#
+
   previewPic_contains: String
 
-  #All values not containing the given string.#
+
   previewPic_not_contains: String
 
-  #All values starting with the given string.#
+
   previewPic_starts_with: String
 
-  #All values not starting with the given string.#
+
   previewPic_not_starts_with: String
 
-  #All values ending with the given string.#
+
   previewPic_ends_with: String
 
-  #All values not ending with the given string.#
+
   previewPic_not_ends_with: String
   published: Boolean
 
-  #All values that are not equal to given value.#
+
   published_not: Boolean
   title: String
 
-  #All values that are not equal to given value.#
+
   title_not: String
 
-  #All values that are contained in given list.#
+
   title_in: [String!]
 
-  #All values that are not contained in given list.#
+
   title_not_in: [String!]
 
-  #All values less than the given value.#
+
   title_lt: String
 
-  #All values less than or equal the given value.#
+
   title_lte: String
 
-  #All values greater than the given value.#
+
   title_gt: String
 
-  #All values greater than or equal the given value.#
+
   title_gte: String
 
-  #All values containing the given string.#
+
   title_contains: String
 
-  #All values not containing the given string.#
+
   title_not_contains: String
 
-  #All values starting with the given string.#
+
   title_starts_with: String
 
-  #All values not starting with the given string.#
+
   title_not_starts_with: String
 
-  #All values ending with the given string.#
+
   title_ends_with: String
 
-  #All values not ending with the given string.#
+
   title_not_ends_with: String
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   updatedDate: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedDate_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedDate_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedDate_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedDate_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedDate_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedDate_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedDate_gte: DateTime
   url: String
 
-  #All values that are not equal to given value.#
+
   url_not: String
 
-  #All values that are contained in given list.#
+
   url_in: [String!]
 
-  #All values that are not contained in given list.#
+
   url_not_in: [String!]
 
-  #All values less than the given value.#
+
   url_lt: String
 
-  #All values less than or equal the given value.#
+
   url_lte: String
 
-  #All values greater than the given value.#
+
   url_gt: String
 
-  #All values greater than or equal the given value.#
+
   url_gte: String
 
-  #All values containing the given string.#
+
   url_contains: String
 
-  #All values not containing the given string.#
+
   url_not_contains: String
 
-  #All values starting with the given string.#
+
   url_starts_with: String
 
-  #All values not starting with the given string.#
+
   url_not_starts_with: String
 
-  #All values ending with the given string.#
+
   url_ends_with: String
 
-  #All values not ending with the given string.#
+
   url_not_ends_with: String
+  verboseId: String
+
+
+  verboseId_not: String
+
+
+  verboseId_in: [String!]
+
+
+  verboseId_not_in: [String!]
+
+
+  verboseId_lt: String
+
+
+  verboseId_lte: String
+
+
+  verboseId_gt: String
+
+
+  verboseId_gte: String
+
+
+  verboseId_contains: String
+
+
+  verboseId_not_contains: String
+
+
+  verboseId_starts_with: String
+
+
+  verboseId_not_starts_with: String
+
+
+  verboseId_ends_with: String
+
+
+  verboseId_not_ends_with: String
   author: AuthorFilter
   tags_every: TagFilter
   tags_some: TagFilter
@@ -1859,25 +2074,28 @@ input PosttagsTag {
 
 type Query {
   allAuthors(filter: AuthorFilter, orderBy: AuthorOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Author!]!
+  allComments(filter: CommentFilter, orderBy: CommentOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]!
   allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [File!]!
   allPosts(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]!
   allTags(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]!
   allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [User!]!
   _allAuthorsMeta(filter: AuthorFilter, orderBy: AuthorOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allCommentsMeta(filter: CommentFilter, orderBy: CommentOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allFilesMeta(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allPostsMeta(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allTagsMeta(filter: TagFilter, orderBy: TagOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   _allUsersMeta(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
   Author(id: ID): Author
+  Comment(id: ID): Comment
   File(id: ID, secret: String, url: String): File
-  Post(id: ID, verboseId: String, url: String): Post
+  Post(id: ID, url: String, verboseId: String): Post
   Tag(id: ID, name: String): Tag
   User(email: String, id: ID, secret: String): User
   user: User
 
-  #Fetches an object given its ID#
+
   node(
-    #The ID of an object#
+
     id: ID!
   ): Node
 }
@@ -1892,13 +2110,17 @@ type RemoveFromPostOnTagPayload {
   tagsTag: Tag
 }
 
+type SetCommentOnUserPayload {
+  commentComment: Comment
+  userUser: User
+}
+
 type SetUserOnAuthorPayload {
   userUser: User
   authorAuthor: Author
 }
 
-#If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
-#
+
 type SigninPayload {
   token: String
   user: User
@@ -1906,6 +2128,7 @@ type SigninPayload {
 
 type Subscription {
   Author(filter: AuthorSubscriptionFilter): AuthorSubscriptionPayload
+  Comment(filter: CommentSubscriptionFilter): CommentSubscriptionPayload
   File(filter: FileSubscriptionFilter): FileSubscriptionPayload
   Post(filter: PostSubscriptionFilter): PostSubscriptionPayload
   Tag(filter: TagSubscriptionFilter): TagSubscriptionPayload
@@ -1917,95 +2140,95 @@ type Tag implements Node {
   name: String!
   posts(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
 
-  #Meta information about the query.#
+
   _postsMeta(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
 }
 
 input TagFilter {
-  #Logical AND on all given filters.#
+
   AND: [TagFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [TagFilter!]
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   posts_every: PostFilter
   posts_some: PostFilter
@@ -2023,12 +2246,13 @@ input TagpostsPost {
   body: String
   createdDate: DateTime!
   description: String
-  verboseId: String!
+  language: Language
   previewPic: String
   published: Boolean
   title: String!
   updatedDate: DateTime!
   url: String!
+  verboseId: String!
   authorId: ID
   author: PostauthorAuthor
   tagsIds: [ID!]
@@ -2041,26 +2265,22 @@ type TagPreviousValues {
 }
 
 input TagSubscriptionFilter {
-  #Logical AND on all given filters.#
+
   AND: [TagSubscriptionFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [TagSubscriptionFilter!]
 
-  #  The subscription event gets dispatched when it's listed in mutation_in
-  #
+
   mutation_in: [_ModelMutationType!]
 
-  #  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  #
+
   updatedFields_contains: String
 
-  #  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  #
+
   updatedFields_contains_every: [String!]
 
-  #  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  #
+
   updatedFields_contains_some: [String!]
   node: TagSubscriptionFilterNode
 }
@@ -2068,83 +2288,83 @@ input TagSubscriptionFilter {
 input TagSubscriptionFilterNode {
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   name: String
 
-  #All values that are not equal to given value.#
+
   name_not: String
 
-  #All values that are contained in given list.#
+
   name_in: [String!]
 
-  #All values that are not contained in given list.#
+
   name_not_in: [String!]
 
-  #All values less than the given value.#
+
   name_lt: String
 
-  #All values less than or equal the given value.#
+
   name_lte: String
 
-  #All values greater than the given value.#
+
   name_gt: String
 
-  #All values greater than or equal the given value.#
+
   name_gte: String
 
-  #All values containing the given string.#
+
   name_contains: String
 
-  #All values not containing the given string.#
+
   name_not_contains: String
 
-  #All values starting with the given string.#
+
   name_starts_with: String
 
-  #All values not starting with the given string.#
+
   name_not_starts_with: String
 
-  #All values ending with the given string.#
+
   name_ends_with: String
 
-  #All values not ending with the given string.#
+
   name_not_ends_with: String
   posts_every: PostFilter
   posts_some: PostFilter
@@ -2156,6 +2376,11 @@ type TagSubscriptionPayload {
   node: Tag
   updatedFields: [String!]
   previousValues: TagPreviousValues
+}
+
+type UnsetCommentOnUserPayload {
+  commentComment: Comment
+  userUser: User
 }
 
 type UnsetUserOnAuthorPayload {
@@ -2171,6 +2396,12 @@ input UpdateAuthor {
   posts: [AuthorpostsPost!]
 }
 
+input UpdateComment {
+  createDate: DateTime
+  id: ID!
+  userId: ID
+}
+
 input UpdateFile {
   id: ID!
   name: String
@@ -2181,12 +2412,13 @@ input UpdatePost {
   createdDate: DateTime
   description: String
   id: ID!
-  verboseId: String
+  language: Language
   previewPic: String
   published: Boolean
   title: String
   updatedDate: DateTime
   url: String
+  verboseId: String
   authorId: ID
   author: PostauthorAuthor
   tagsIds: [ID!]
@@ -2206,10 +2438,13 @@ input UpdateUser {
   secret: String
   authorId: ID
   author: UserauthorAuthor
+  commentId: ID
+  comment: UsercommentComment
 }
 
 type User implements Node, AnonymousUser {
   author(filter: AuthorFilter): Author
+  comment(filter: CommentFilter): Comment
   createdAt: DateTime!
   email: String
   id: ID!
@@ -2225,221 +2460,226 @@ input UserauthorAuthor {
   posts: [AuthorpostsPost!]
 }
 
+input UsercommentComment {
+  createDate: DateTime
+}
+
 input UserFilter {
-  #Logical AND on all given filters.#
+
   AND: [UserFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [UserFilter!]
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   email: String
 
-  #All values that are not equal to given value.#
+
   email_not: String
 
-  #All values that are contained in given list.#
+
   email_in: [String!]
 
-  #All values that are not contained in given list.#
+
   email_not_in: [String!]
 
-  #All values less than the given value.#
+
   email_lt: String
 
-  #All values less than or equal the given value.#
+
   email_lte: String
 
-  #All values greater than the given value.#
+
   email_gt: String
 
-  #All values greater than or equal the given value.#
+
   email_gte: String
 
-  #All values containing the given string.#
+
   email_contains: String
 
-  #All values not containing the given string.#
+
   email_not_contains: String
 
-  #All values starting with the given string.#
+
   email_starts_with: String
 
-  #All values not starting with the given string.#
+
   email_not_starts_with: String
 
-  #All values ending with the given string.#
+
   email_ends_with: String
 
-  #All values not ending with the given string.#
+
   email_not_ends_with: String
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   isVerified: Boolean
 
-  #All values that are not equal to given value.#
+
   isVerified_not: Boolean
   password: String
 
-  #All values that are not equal to given value.#
+
   password_not: String
 
-  #All values that are contained in given list.#
+
   password_in: [String!]
 
-  #All values that are not contained in given list.#
+
   password_not_in: [String!]
 
-  #All values less than the given value.#
+
   password_lt: String
 
-  #All values less than or equal the given value.#
+
   password_lte: String
 
-  #All values greater than the given value.#
+
   password_gt: String
 
-  #All values greater than or equal the given value.#
+
   password_gte: String
 
-  #All values containing the given string.#
+
   password_contains: String
 
-  #All values not containing the given string.#
+
   password_not_contains: String
 
-  #All values starting with the given string.#
+
   password_starts_with: String
 
-  #All values not starting with the given string.#
+
   password_not_starts_with: String
 
-  #All values ending with the given string.#
+
   password_ends_with: String
 
-  #All values not ending with the given string.#
+
   password_not_ends_with: String
   secret: String
 
-  #All values that are not equal to given value.#
+
   secret_not: String
 
-  #All values that are contained in given list.#
+
   secret_in: [String!]
 
-  #All values that are not contained in given list.#
+
   secret_not_in: [String!]
 
-  #All values less than the given value.#
+
   secret_lt: String
 
-  #All values less than or equal the given value.#
+
   secret_lte: String
 
-  #All values greater than the given value.#
+
   secret_gt: String
 
-  #All values greater than or equal the given value.#
+
   secret_gte: String
 
-  #All values containing the given string.#
+
   secret_contains: String
 
-  #All values not containing the given string.#
+
   secret_not_contains: String
 
-  #All values starting with the given string.#
+
   secret_starts_with: String
 
-  #All values not starting with the given string.#
+
   secret_not_starts_with: String
 
-  #All values ending with the given string.#
+
   secret_ends_with: String
 
-  #All values not ending with the given string.#
+
   secret_not_ends_with: String
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   author: AuthorFilter
+  comment: CommentFilter
 }
 
 enum UserOrderBy {
@@ -2470,26 +2710,22 @@ type UserPreviousValues {
 }
 
 input UserSubscriptionFilter {
-  #Logical AND on all given filters.#
+
   AND: [UserSubscriptionFilter!]
 
-  #Logical OR on all given filters.#
+
   OR: [UserSubscriptionFilter!]
 
-  #  The subscription event gets dispatched when it's listed in mutation_in
-  #
+
   mutation_in: [_ModelMutationType!]
 
-  #  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  #
+
   updatedFields_contains: String
 
-  #  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  #
+
   updatedFields_contains_every: [String!]
 
-  #  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  #
+
   updatedFields_contains_some: [String!]
   node: UserSubscriptionFilterNode
 }
@@ -2497,213 +2733,214 @@ input UserSubscriptionFilter {
 input UserSubscriptionFilterNode {
   createdAt: DateTime
 
-  #All values that are not equal to given value.#
+
   createdAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   createdAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   createdAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   createdAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   createdAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   createdAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   createdAt_gte: DateTime
   email: String
 
-  #All values that are not equal to given value.#
+
   email_not: String
 
-  #All values that are contained in given list.#
+
   email_in: [String!]
 
-  #All values that are not contained in given list.#
+
   email_not_in: [String!]
 
-  #All values less than the given value.#
+
   email_lt: String
 
-  #All values less than or equal the given value.#
+
   email_lte: String
 
-  #All values greater than the given value.#
+
   email_gt: String
 
-  #All values greater than or equal the given value.#
+
   email_gte: String
 
-  #All values containing the given string.#
+
   email_contains: String
 
-  #All values not containing the given string.#
+
   email_not_contains: String
 
-  #All values starting with the given string.#
+
   email_starts_with: String
 
-  #All values not starting with the given string.#
+
   email_not_starts_with: String
 
-  #All values ending with the given string.#
+
   email_ends_with: String
 
-  #All values not ending with the given string.#
+
   email_not_ends_with: String
   id: ID
 
-  #All values that are not equal to given value.#
+
   id_not: ID
 
-  #All values that are contained in given list.#
+
   id_in: [ID!]
 
-  #All values that are not contained in given list.#
+
   id_not_in: [ID!]
 
-  #All values less than the given value.#
+
   id_lt: ID
 
-  #All values less than or equal the given value.#
+
   id_lte: ID
 
-  #All values greater than the given value.#
+
   id_gt: ID
 
-  #All values greater than or equal the given value.#
+
   id_gte: ID
 
-  #All values containing the given string.#
+
   id_contains: ID
 
-  #All values not containing the given string.#
+
   id_not_contains: ID
 
-  #All values starting with the given string.#
+
   id_starts_with: ID
 
-  #All values not starting with the given string.#
+
   id_not_starts_with: ID
 
-  #All values ending with the given string.#
+
   id_ends_with: ID
 
-  #All values not ending with the given string.#
+
   id_not_ends_with: ID
   isVerified: Boolean
 
-  #All values that are not equal to given value.#
+
   isVerified_not: Boolean
   password: String
 
-  #All values that are not equal to given value.#
+
   password_not: String
 
-  #All values that are contained in given list.#
+
   password_in: [String!]
 
-  #All values that are not contained in given list.#
+
   password_not_in: [String!]
 
-  #All values less than the given value.#
+
   password_lt: String
 
-  #All values less than or equal the given value.#
+
   password_lte: String
 
-  #All values greater than the given value.#
+
   password_gt: String
 
-  #All values greater than or equal the given value.#
+
   password_gte: String
 
-  #All values containing the given string.#
+
   password_contains: String
 
-  #All values not containing the given string.#
+
   password_not_contains: String
 
-  #All values starting with the given string.#
+
   password_starts_with: String
 
-  #All values not starting with the given string.#
+
   password_not_starts_with: String
 
-  #All values ending with the given string.#
+
   password_ends_with: String
 
-  #All values not ending with the given string.#
+
   password_not_ends_with: String
   secret: String
 
-  #All values that are not equal to given value.#
+
   secret_not: String
 
-  #All values that are contained in given list.#
+
   secret_in: [String!]
 
-  #All values that are not contained in given list.#
+
   secret_not_in: [String!]
 
-  #All values less than the given value.#
+
   secret_lt: String
 
-  #All values less than or equal the given value.#
+
   secret_lte: String
 
-  #All values greater than the given value.#
+
   secret_gt: String
 
-  #All values greater than or equal the given value.#
+
   secret_gte: String
 
-  #All values containing the given string.#
+
   secret_contains: String
 
-  #All values not containing the given string.#
+
   secret_not_contains: String
 
-  #All values starting with the given string.#
+
   secret_starts_with: String
 
-  #All values not starting with the given string.#
+
   secret_not_starts_with: String
 
-  #All values ending with the given string.#
+
   secret_ends_with: String
 
-  #All values not ending with the given string.#
+
   secret_not_ends_with: String
   updatedAt: DateTime
 
-  #All values that are not equal to given value.#
+
   updatedAt_not: DateTime
 
-  #All values that are contained in given list.#
+
   updatedAt_in: [DateTime!]
 
-  #All values that are not contained in given list.#
+
   updatedAt_not_in: [DateTime!]
 
-  #All values less than the given value.#
+
   updatedAt_lt: DateTime
 
-  #All values less than or equal the given value.#
+
   updatedAt_lte: DateTime
 
-  #All values greater than the given value.#
+
   updatedAt_gt: DateTime
 
-  #All values greater than or equal the given value.#
+
   updatedAt_gte: DateTime
   author: AuthorFilter
+  comment: CommentFilter
 }
 
 type UserSubscriptionPayload {

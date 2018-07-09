@@ -23,6 +23,11 @@ app
     server.use(express.static(content))
     server.use(compression())
 
+    server.get('/en', (req, res) => {
+      const actualPage = '/index'
+      app.render(req, res, actualPage)
+    })
+
     server.get('/post/:id', (req, res) => {
       const actualPage = '/post'
       const queryParams = { id: req.params.id }
