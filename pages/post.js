@@ -34,6 +34,7 @@ class PostPage extends React.Component {
   }
 }
 
-export default compose(withData, graphql(GetPostByVerboseId, nameToProp('post', 'Post')))(
-  PostPage,
-)
+export default compose(
+  withData,
+  graphql(GetPostByVerboseId, nameToProp('post', 'Post')),
+)(PostPage)

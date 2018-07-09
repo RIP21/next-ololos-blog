@@ -1,4 +1,4 @@
-import { renderPost } from 'pages/post/renderPost'
+import Body from 'pages/post/Body'
 import React from 'react'
 import styled from 'styled-components'
 import parse from 'date-fns/parse'
@@ -9,8 +9,10 @@ import Lazyload from 'react-lazyload'
 
 export default class Preview extends React.PureComponent {
   render() {
-    const { post } = this.props
-    const date = format(parse(post.createdDate), 'YYYY-MM-DD')
+    const { post, preview } = this.props
+    const date = preview
+      ? format(new Date(), 'YYYY-MM-DD')
+      : format(parse(post.createdDate), 'YYYY-MM-DD')
     return (
       <article>
         <header>
@@ -26,10 +28,14 @@ export default class Preview extends React.PureComponent {
             </Label.Detail>
           </Label>
         </header>
-        <Lazyload height={700} offset={500} once>
+        {preview ? (
           <Img src={post.previewPic} />
-        </Lazyload>
-        <div>{renderPost(post.description)}</div>
+        ) : (
+          <Lazyload height={700} offset={500} once>
+            <Img src={post.previewPic} />
+          </Lazyload>
+        )}
+        <Body preview={preview}>{post.description}</Body>
         <Flex>
           <Link href={`/post?id=${post.verboseId}`} as={`post/${post.verboseId}`}>
             <a>

@@ -1,23 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet, injectGlobal } from 'styled-components'
-
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
-  .description .CodeMirror {
-    min-height: 100px;
-    border-radius: 4px;
-  }
-  
-  .description .CodeMirror-scroll {
-    min-height: 100px;
-    border-radius: 4px;
-  }
-  
-  .description .editor-toolbar {
-    display: none;
-  }
-`
+import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
