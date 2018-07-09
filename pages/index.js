@@ -2,7 +2,7 @@ import { withAuth, withData } from 'apollo'
 import withLanguage from 'apollo/hoc/withLanguage'
 import React from 'react'
 import Layout from 'components/Layout'
-import { Button, Message } from 'semantic-ui-react'
+import { Button, Message, Dimmer, Loader } from 'semantic-ui-react'
 import styled from 'styled-components'
 import map from 'lodash/map'
 import get from 'lodash/get'
@@ -53,13 +53,23 @@ class Index extends React.Component {
   }
 
   MainThread = () => {
-    const { language } = this.props
+    const { language, loading } = this.props
     const numberOfPosts = get(this.props.posts, 'length')
     if (numberOfPosts === 0 || !numberOfPosts) {
-      return <Message>{locale[language].noPosts} ¯\_(ツ)_/¯</Message>
+      return (
+        <Dimmer.Dimmable>
+          <Dimmer active={loading} inverted>
+            <Loader>Loading</Loader>
+          </Dimmer>
+          <Message>{locale[language].noPosts} ¯\_(ツ)_/¯</Message>
+        </Dimmer.Dimmable>
+      )
     }
     return (
-      <React.Fragment>
+      <Dimmer.Dimmable>
+        <Dimmer active={loading} inverted>
+          <Loader>Loading</Loader>
+        </Dimmer>
         <Thread>
           {map(this.props.posts, post => <Preview key={post.verboseId} post={post} />)}
         </Thread>
@@ -75,7 +85,7 @@ class Index extends React.Component {
             </Message>
           )}
         </Center>
-      </React.Fragment>
+      </Dimmer.Dimmable>
     )
   }
 

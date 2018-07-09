@@ -40,7 +40,6 @@ class LoginPage extends React.Component {
     const { username, password } = this.state
     return (
       <Layout title="login">
-        ¬
         <Form size="big" onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Input
