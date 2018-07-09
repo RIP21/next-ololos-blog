@@ -23,7 +23,13 @@ app
     server.use(express.static(content))
     server.use(compression())
 
-    server.get('/en', (req, res) => {
+    server.get('/:locale', (req, res) => {
+      const actualPage = '/index'
+      const queryParams = { locale: req.params.locale }
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get('/', (req, res) => {
       const actualPage = '/index'
       app.render(req, res, actualPage)
     })

@@ -12,7 +12,7 @@ function parseCookies(context = {}, options = {}) {
   return cookie.parse(
     get(context, 'req.headers.cookie')
       ? get(context, 'req.headers.cookie')
-      : document.cookie,
+      : get(document, 'cookie'),
     options,
   )
 }
@@ -36,25 +36,17 @@ export default ComposedComponent =>
       // render within `getInitialProps()` above (since the entire prop tree
       // will be initialized there), meaning the below will only ever be
       // executed on the client.
-      this.apollo = initApollo(
-        this.props.serverState,
-        {},
-        {
-          getToken: () => parseCookies().token,
-        },
-      )
+      this.apollo = initApollo(this.props.serverState, {
+        getToken: () => parseCookies().token,
+      })
     }
 
     static async getInitialProps(context) {
       let serverState = {}
-      const isEnUrl = get(context, 'req.path') === '/en'
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
       const apollo = initApollo(
         {},
-        {
-          language: (isEnUrl && 'EN') || parseCookies(context).ololoslanguage || 'RU',
-        },
         {
           getToken: () => parseCookies(context).token,
         },

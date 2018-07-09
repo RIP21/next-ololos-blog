@@ -86,15 +86,11 @@ class Navigation extends PureComponent {
             </Menu.Item>
           )}
           <Menu.Item as="li">
-            <Link href="/">
-              <a role="link" onClick={this.setRussian}>
-                RU
-              </a>
+            <Link href="/ru">
+              <a>RU</a>
             </Link>|
             <Link href="/en">
-              <a role="link" onClick={this.setEnglish}>
-                EN
-              </a>
+              <a>EN</a>
             </Link>
           </Menu.Item>
         </Container>
