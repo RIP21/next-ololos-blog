@@ -22,8 +22,7 @@ app
     const content = path.resolve('content')
     server.use(express.static(content))
     server.use(compression())
-
-    server.get('/en', (req, res) => {
+    server.get('/', (req, res) => {
       const actualPage = '/index'
       app.render(req, res, actualPage)
     })

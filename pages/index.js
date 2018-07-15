@@ -16,12 +16,14 @@ const locale = {
     noFetch: 'There is nothing left to load',
     title: 'Ololos blog',
     description: 'A joint blog about travels of Andrey Los aka @RIP212 and Lina Oleynik',
+    loadMore: 'Load more...',
   },
   RU: {
     noPosts: 'Ой. Здесь пока ничего нет',
     noFetch: 'Больше загрузить нечего',
     title: 'Ололось блог',
     description: 'Совместный блог о путешествиях Андрея Лося aka @RIP212 и Лины Олейник',
+    loadMore: 'Загрузить еще...',
   },
 }
 
@@ -75,7 +77,9 @@ class Index extends React.Component {
         </Thread>
         <Center>
           {this.state.showFetchMore ? (
-            <Button onClick={this.props.loadMoreEntries}>Load more...</Button>
+            <Button onClick={this.props.loadMoreEntries}>
+              {locale[language].loadMore}
+            </Button>
           ) : (
             <Message>
               {locale[language].noFetch}{' '}

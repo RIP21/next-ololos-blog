@@ -4,17 +4,11 @@ import cookie from 'cookie'
 import PropTypes from 'prop-types'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
 import Head from 'next/head'
-import get from 'lodash/get'
 
 import initApollo from '../initApollo'
 
-function parseCookies(context = {}, options = {}) {
-  return cookie.parse(
-    get(context, 'req.headers.cookie')
-      ? get(context, 'req.headers.cookie')
-      : document.cookie,
-    options,
-  )
+function parseCookies(req, options = {}) {
+  return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options)
 }
 /**
  * Should be applied only to the page components (the one which are in the root of the /pages dir)
@@ -36,27 +30,19 @@ export default ComposedComponent =>
       // render within `getInitialProps()` above (since the entire prop tree
       // will be initialized there), meaning the below will only ever be
       // executed on the client.
-      this.apollo = initApollo(
-        this.props.serverState,
-        {},
-        {
-          getToken: () => parseCookies().token,
-        },
-      )
+      this.apollo = initApollo(props.serverState, {
+        getToken: () => parseCookies().token,
+      })
     }
 
     static async getInitialProps(context) {
       let serverState = {}
-      const isEnUrl = get(context, 'req.path') === '/en'
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
       const apollo = initApollo(
         {},
         {
-          language: (isEnUrl && 'EN') || parseCookies(context).ololoslanguage || 'RU',
-        },
-        {
-          getToken: () => parseCookies(context).token,
+          getToken: () => parseCookies(context.req).token,
         },
       )
 
@@ -95,6 +81,7 @@ export default ComposedComponent =>
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:˚
           // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
+          console.error('Error while running `getDataFromTree`', error)
         }
         // getDataFromTree does not call componentWillUnmount
         // head side effect therefore need to be cleared manually

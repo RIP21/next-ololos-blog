@@ -1,9 +1,8 @@
 import { modal } from './local/modal'
 
-const initialLocalState = overrides => ({
+const initialLocalState = {
   modal,
   language: 'RU',
-  ...overrides,
-})
+}
 
 export default initialLocalState
