@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
 import withLanguage from 'apollo/hoc/withLanguage'
+import redirect from 'helpers/redirect'
 import React, { PureComponent } from 'react'
 import { withApollo, compose } from 'react-apollo'
 import { Menu, Container as SContainer, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const locale = {
   EN: {
@@ -86,11 +88,15 @@ class Navigation extends PureComponent {
             </Menu.Item>
           )}
           <Menu.Item as="li">
-            <Link href="/ru">
-              <a>RU</a>
+            <Link href="/">
+              <a role="link" onClick={this.setRussian}>
+                RU
+              </a>
             </Link>|
-            <Link href="/en">
-              <a>EN</a>
+            <Link href="/">
+              <a role="link" onClick={this.setEnglish}>
+                EN
+              </a>
             </Link>
           </Menu.Item>
         </Container>

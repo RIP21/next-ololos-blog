@@ -6,7 +6,7 @@ import { Button, Message, Dimmer, Loader } from 'semantic-ui-react'
 import styled from 'styled-components'
 import map from 'lodash/map'
 import get from 'lodash/get'
-import { graphql, compose, Query } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import Preview from './post/Preview'
 
@@ -36,7 +36,7 @@ class Index extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     const numBefore = state.numberOfPosts
-    const numAfter = get(props.allPosts, 'length')
+    const numAfter = get(props.posts, 'length')
     if (numBefore < numAfter) {
       if ((numAfter - numBefore) % 5 !== 0) {
         return { showFetchMore: false, numberOfPosts: numAfter }
@@ -55,9 +55,8 @@ class Index extends React.Component {
   }
 
   MainThread = () => {
-    const { url, loading } = this.props
-    const language = get(url, 'query.locale', 'RU').toUpperCase()
-    const numberOfPosts = get(this.props.allPosts, 'length')
+    const { language, loading } = this.props
+    const numberOfPosts = get(this.props.posts, 'length')
     if (numberOfPosts === 0 || !numberOfPosts) {
       return (
         <Dimmer.Dimmable>
@@ -74,7 +73,7 @@ class Index extends React.Component {
           <Loader>Loading</Loader>
         </Dimmer>
         <Thread>
-          {map(this.props.allPosts, post => <Preview key={post.verboseId} post={post} />)}
+          {map(this.props.posts, post => <Preview key={post.verboseId} post={post} />)}
         </Thread>
         <Center>
           {this.state.showFetchMore ? (
@@ -96,8 +95,7 @@ class Index extends React.Component {
 
   render() {
     const { MainThread } = this
-    const { url } = this.props
-    const language = get(url, 'query.locale', 'RU').toUpperCase()
+    const { language } = this.props
 
     return (
       <Layout topPadding="0em" meta={this.getMeta()}>
@@ -215,24 +213,28 @@ const LandingPostsQuery = gql`
   }
 `
 
-const withLandingPosts = WrappedComponent => ({ url, ...rest }) => (
-  <Query
-    query={LandingPostsQuery}
-    variables={{
-      language: get(url, 'query.locale', 'RU').toUpperCase(),
-      skip: 0,
-    }}
-    fetchPolicy="cache-and-network"
-    ssr
-  >
-    {({ loading, fetchMore, data: { allPosts } }) => {
-      function loadMoreEntries() {
+export default compose(
+  withData,
+  withAuth,
+  withLanguage,
+  graphql(LandingPostsQuery, {
+    props: ({
+      data: { loading, allPosts, fetchMore, ...stuff },
+      ownProps: { language },
+    }) => ({
+      loading,
+      posts: allPosts,
+      loadMoreEntries() {
         return fetchMore({
+          // query: ... (you can specify a different query. LandingPostsQuery is used by default)
           variables: {
-            language: get(url, 'query.locale', 'RU').toUpperCase(),
+            // We are able to figure out which offset to use because it matches
+            // the feed length, but we could also use state, or the previous
+            // variables to calculate this (see the cursor example below)
+            language,
             skip: allPosts.length,
           },
-          updateQuery: (previousResult, { fetchMoreResult }) => {
+          updateQuery: (previousResult, { fetchMoreResult, ...rest }) => {
             if (!fetchMoreResult) {
               return previousResult
             }
@@ -243,23 +245,7 @@ const withLandingPosts = WrappedComponent => ({ url, ...rest }) => (
             }
           },
         })
-      }
-      return (
-        <WrappedComponent
-          loading={loading}
-          loadMoreEntries={loadMoreEntries}
-          url={url}
-          allPosts={allPosts}
-          {...rest}
-        />
-      )
-    }}
-  </Query>
-)
-
-export default compose(
-  withData,
-  withAuth,
-  withLanguage,
-  withLandingPosts,
+      },
+    }),
+  }),
 )(Index)
