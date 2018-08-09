@@ -31,7 +31,7 @@
     "lodash": "4.17.10",
     "next": "6.1.1",
     "react": "16.4.1",
-    "react-apollo": "2.1.9",
+    "react-apollo": "2.1.11",
     "react-disqus-comments": "1.2.0",
     "react-dom": "16.4.1",
     "react-ga": "2.5.3",
