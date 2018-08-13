@@ -50,7 +50,7 @@
     "enzyme": "^3.3.0",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^17.0.0",
-    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-prettier": "^3.0.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-config-revolut-react": "^0.0.6",
     "eslint-plugin-jest": "^21.17.0",
