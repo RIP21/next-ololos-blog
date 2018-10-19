@@ -6193,9 +6193,9 @@ react-apollo@2.1.9:
     lodash "^4.17.10"
     prop-types "^15.6.0"
 
-react-disqus-comments@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-disqus-comments/-/react-disqus-comments-1.2.0.tgz#e5aae2ea6cdce998cfc1340aab11df1be68f71f5"
+react-disqus-comments@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-disqus-comments/-/react-disqus-comments-1.3.0.tgz#7db21f4c6df6f1abb2f18ee646adc7e9ceb1ba2c"
 
 react-dom@16.4.1:
   version "16.4.1"
