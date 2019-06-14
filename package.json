@@ -17,7 +17,7 @@
     "apollo-client": "^2.3.5",
     "apollo-link": "^1.2.2",
     "apollo-link-context": "1.0.18",
-    "apollo-link-http": "^1.5.4",
+    "apollo-link-http": "^1.5.15",
     "apollo-link-state": "^0.4.1",
     "compression": "1.7.2",
     "cookie": "^0.3.1",
