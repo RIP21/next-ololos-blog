@@ -20,7 +20,7 @@ From next.js part, it uses:
 
 Old unused, for now, backend part: https://github.com/RIP21/ololos-blog-react-redux-universal/tree/master/backend
 
-
+ 
 Dev tooling installed:
 - Prettier
 - ESlint
