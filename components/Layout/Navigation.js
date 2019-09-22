@@ -11,7 +11,7 @@ import Router from 'next/router'
 const locale = {
   EN: {
     siteTitle: 'Ololos blog',
-    aboutUs: 'About us',
+    aboutUs: 'About me',
     map: 'Map',
     admin: 'Post administration',
     exit: 'Log out',
@@ -19,7 +19,7 @@ const locale = {
   },
   RU: {
     siteTitle: 'Ололось блог',
-    aboutUs: 'О нас',
+    aboutUs: 'О мне',
     map: 'Карта',
     admin: 'Администрация Постов',
     exit: 'Выход',
