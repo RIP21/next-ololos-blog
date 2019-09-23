@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
 import withLanguage from 'apollo/hoc/withLanguage'
-import redirect from 'helpers/redirect'
 import React, { PureComponent } from 'react'
 import { withApollo, compose } from 'react-apollo'
 import { Menu, Container as SContainer, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import Router from 'next/router'
 
 const locale = {
   EN: {
     siteTitle: 'Ololos blog',
-    aboutUs: 'About me',
+    aboutUs: 'About',
     map: 'Map',
     admin: 'Post administration',
     exit: 'Log out',
@@ -19,7 +17,7 @@ const locale = {
   },
   RU: {
     siteTitle: 'Ололось блог',
-    aboutUs: 'О мне',
+    aboutUs: 'О блоге',
     map: 'Карта',
     admin: 'Администрация Постов',
     exit: 'Выход',

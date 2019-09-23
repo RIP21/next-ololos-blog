@@ -15,14 +15,14 @@ const locale = {
     noPosts: 'Oops. Nothing there, yet',
     noFetch: 'There is nothing left to load',
     title: 'Ololos blog',
-    description: 'A blog about travels of Lina Oleynik',
+    description: 'Travel archive. Third planet from the Sun.',
     loadMore: 'Load more...',
   },
   RU: {
     noPosts: 'Ой. Здесь пока ничего нет',
     noFetch: 'Больше загрузить нечего',
     title: 'Ололось блог',
-    description: 'Блог о путешествиях Лины Олейник',
+    description: 'Архив путешествий. Третья от Солнца планета.',
     loadMore: 'Загрузить еще...',
   },
 }
@@ -124,7 +124,7 @@ export const Masthead = styled.section`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 40px 20px;
-  background-image: url('/static/cover1.jpg');
+  background-image: url('/static/cover8.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
